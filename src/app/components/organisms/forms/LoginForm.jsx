@@ -1,8 +1,24 @@
-// import { Input } from "@/components/atoms/ui/forms/Input";
-import { Hyperlink } from "@/components/atoms/ui/Hyperlink";
-import { Input, Checkbox, Button, Typography } from "../../../MTailwind";
+'use client'
+// import { Hyperlink } from "@/components/atoms/ui/Hyperlink";
+import useFormLogin from "@/hooks/useFormLogin";
+import {
+  Input,
+  // Checkbox, 
+  Button,
+  // Typography 
+} from "@/app/MTailwind";
 
 export const LoginForm = () => {
+  const {
+    formData,
+    handleChange,
+    handleSubmit,
+    handleReset,
+    isLoading,
+    error
+  } = useFormLogin()
+
+
   return (
     <div className="relative flex flex-col bg-white shadow-sm border border-slate-200 w-96 rounded-lg my-6">
       <div className="relative m-2.5 items-center flex justify-center text-white h-24 rounded-md bg-slate-800">
@@ -16,6 +32,8 @@ export const LoginForm = () => {
             name="email"
             type="email"
             variant="static"
+            onChange={handleChange}
+            value={formData.email}
             label="Correo electrónico"
             placeholder="ejemplo@gmail.com"
           />
@@ -26,12 +44,14 @@ export const LoginForm = () => {
             name="password"
             type="password"
             variant="static"
+            onChange={handleChange}
+            value={formData.password}
             label="Contraseña"
             placeholder="********"
           />
         </div>
 
-        <div className="inline-flex items-center mt-2">
+        {/* <div className="inline-flex items-center mt-2">
           <Checkbox
             label={
               <div>
@@ -47,21 +67,24 @@ export const LoginForm = () => {
               className: "-mt-5",
             }}
           />
-        </div>
+        </div> */}
 
       </div>
 
       <div className="p-6 pt-0">
-        <Button>{`Iniciar sesión`}</Button>
+        <Button type="submit" loading={isLoading}
+          onClick={handleSubmit}
+        >{`Iniciar sesión`}</Button>
+
 
         <p className="flex justify-center mt-6 text-sm text-slate-600">
           {`¿No tienes una cuenta?`}
-          <Hyperlink
+          {/* <Hyperlink
             href="/register"
             className="ml-1 text-sm font-semibold text-slate-700 underline"
           >
             {`Crear cuenta`}
-          </Hyperlink>
+          </Hyperlink> */}
         </p>
 
       </div>
