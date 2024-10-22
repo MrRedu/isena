@@ -2,12 +2,27 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "#/*": ["./*"],
-      "@/*": ["./src/*"],
-      "@/components/*": ["./src/app/components/*"],
-      "@/hooks/*": ["./src/app/hooks/*"],
-      "@/services/*": ["./src/app/services/*"],
-      "@/libs/*": ["./src/app/libs/*"]
+      "#/*": [
+        "./*"
+      ],
+      "@/*": [
+        "./src/*"
+      ],
+      "@/components/*": [
+        "./src/app/components/*"
+      ],
+      "@/hooks/*": [
+        "./src/app/hooks/*"
+      ],
+      "@/services/*": [
+        "./src/app/services/*"
+      ],
+      "@/libs/*": [
+        "./src/app/libs/*"
+      ],
+      "@/utils/*": [
+        "./src/app/utils/*"
+      ]
     }
   }
 }
