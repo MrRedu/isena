@@ -8,10 +8,13 @@ export const metadata = {
 
 export default function NotFound() {
   return (
-    <Link href="/login">
-      <Button variant="outlined">
-        Volver a la página principal
-      </Button>
-    </Link>
+    <>
+      <h1>#404</h1>
+      <Link href="/login">
+        <Button variant="outlined">
+          Volver a la página principal
+        </Button>
+      </Link>
+    </>
   )
 }
