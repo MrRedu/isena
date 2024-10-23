@@ -6,7 +6,7 @@ CREATE TABLE `tbl_roles` (
   `id_rol` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID del rol de los usuarios',
   `nombre_rol` varchar(32) NOT NULL COMMENT 'Nombre del rol para los usuarios'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla de roles';
-INSERT INTO `tbl_roles` (id_rol, nombre_rol) VALUES (1, 'Administrador'), (2, 'Desarrollador'), (3, 'Médico');
+INSERT INTO `tbl_roles` (id_rol, nombre_rol) VALUES (1, 'Administrador'), (2, 'Desarrollador'), (3, 'Médico'), (4, 'Visualizador');
 
 DROP TABLE IF EXISTS `tbl_status_usuarios`;
 CREATE TABLE `tbl_status_usuarios` (
@@ -31,7 +31,10 @@ CREATE TABLE `tbl_usuarios` (
   FOREIGN KEY (`id_rol_usuario`) REFERENCES `tbl_roles`(`id_rol`),
   FOREIGN KEY (`id_status_usuario`) REFERENCES `tbl_status_usuarios`(`id_status`)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla de usuarios';
-INSERT INTO `tbl_usuarios` (`id_usuario`, `nombres_usuario`, `apellidos_usuario`, `correo_usuario`, `contrasena_usuario`, `id_rol_usuario`, `id_status_usuario`) VALUES (1, 'Admin', 'Admin', 'admin@admin.com', '$2a$10$0FfP3KWKDIw508ZMm06SVewQX1qA6GqRHJ8VPr5MnNjbWPjPbvBwa', 1, 1);
+INSERT INTO `tbl_usuarios` (`id_usuario`, `nombres_usuario`, `apellidos_usuario`, `correo_usuario`, `contrasena_usuario`, `id_rol_usuario`, `id_status_usuario`) VALUES (1, 'Administrador', 'Admin', 'admin@admin.com', '$2a$10$0FfP3KWKDIw508ZMm06SVewQX1qA6GqRHJ8VPr5MnNjbWPjPbvBwa', 1, 1),
+(2, 'Desarrollador', 'Dev', 'dev@dev.com', '$2a$10$0FfP3KWKDIw508ZMm06SVewQX1qA6GqRHJ8VPr5MnNjbWPjPbvBwa', 2, 1),
+(3, 'Médico', 'Doc', 'medico@medico.com', '$2a$10$0FfP3KWKDIw508ZMm06SVewQX1qA6GqRHJ8VPr5MnNjbWPjPbvBwa', 3, 1),
+(4, 'Visualizador', 'Visual', 'visualizador@visualizador.com', '$2a$10$0FfP3KWKDIw508ZMm06SVewQX1qA6GqRHJ8VPr5MnNjbWPjPbvBwa', 4, 1);
 -- Password: 12345678
 
 DROP TABLE IF EXISTS `tbl_bitacora`;
@@ -47,6 +50,7 @@ CREATE TABLE `tbl_pacientes` (
   `nombres_paciente` varchar(64) NOT NULL COMMENT 'Nombres del paciente',
   `apellidos_paciente` varchar(64) NOT NULL COMMENT 'Apellidos del paciente',
   `cedula_paciente` varchar(8) NOT NULL COMMENT 'Cédula de identidad del paciente',
+  `telefono_paciente` varchar(12) NOT NULL COMMENT 'Teléfono del paciente',
   `fecha_nacimiento_paciente` DATE NOT NULL COMMENT 'Fecha de nacimiento del paciente'
   -- pesos ['75kg', '01-01-2024'] // ['80kg', '05-05-2024'] // ['90kg', '07-07-2025']
   -- alturas
@@ -55,6 +59,7 @@ CREATE TABLE `tbl_pacientes` (
   -- presión arterial
   -- medicamentos
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla de pacientes';
+INSERT INTO `tbl_pacientes` (`id_paciente`, `nombres_paciente`, `apellidos_paciente`, `cedula_paciente`, `telefono_paciente`, `fecha_nacimiento_paciente`) VALUES (1, 'Luis Andrés', 'Chen Romero', '12345678', '04141234567', '2000-01-01');
 
 DROP TABLE IF EXISTS `tbl_pesos`;
 CREATE TABLE `tbl_pesos` (
