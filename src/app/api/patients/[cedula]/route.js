@@ -4,12 +4,12 @@ import { connection } from '@/libs/mysql'
 export async function GET(req, { params }) {
   try {
     const [result] = await connection.query(
-      'SELECT * FROM tbl_usuarios WHERE correo_usuario = ?',
-      [params.email]
+      'SELECT * FROM tbl_pacientes WHERE cedula_paciente = ?',
+      [params.cedula]
     )
 
     if (result.length === 0) {
-      return NextResponse.json({ message: 'User not found' }, { status: 404 })
+      return NextResponse.json({ message: 'Patient not found' }, { status: 404 })
     }
 
     return NextResponse.json({ data: result[0], message: 'OK' }, { status: 200 })
@@ -18,7 +18,7 @@ export async function GET(req, { params }) {
     return NextResponse.json(
       {
         message: error.message,
-        manualMessage: 'Error loading user',
+        manualMessage: 'Error loading patient',
       },
       { status: 500 }
     )

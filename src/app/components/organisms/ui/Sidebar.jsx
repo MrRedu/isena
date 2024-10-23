@@ -27,6 +27,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import { signOut } from "next-auth/react";
 
 export function SidebarWithBurgerMenu() {
   const [open, setOpen] = useState(0);
@@ -41,14 +42,14 @@ export function SidebarWithBurgerMenu() {
 
   return (
     <>
-      <IconButton variant="text" size="lg" onClick={openDrawer}>
+      <IconButton variant="text" size="lg" onClick={openDrawer} >
         {isDrawerOpen ? (
           <XMarkIcon className="h-8 w-8 stroke-2" />
         ) : (
           <Bars3Icon className="h-8 w-8 stroke-2" />
         )}
       </IconButton>
-      <Drawer open={isDrawerOpen} onClose={closeDrawer}  >
+      <Drawer open={isDrawerOpen} onClose={closeDrawer} overlay={false}  >
         <Card
           color="transparent"
           shadow={false}
@@ -143,13 +144,14 @@ export function SidebarWithBurgerMenu() {
                 {`Ayuda`}
               </ListItem>
             </Link>
-            
-            <ListItem>
+
+            <ListItem onClick={() => signOut()}>
               <ListItemPrefix>
                 <ArrowLeftStartOnRectangleIcon className="h-5 w-5" />
               </ListItemPrefix>
               {`Cerrar sesión`}
             </ListItem>
+
           </List>
         </Card>
       </Drawer>
