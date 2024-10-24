@@ -1,114 +1,138 @@
 import propTypes from 'prop-types'
 import { getPatient } from '@/services/patients'
 import { Section } from '@/components/atoms/Section'
-import { Card, List, ListItem, ListItemPrefix } from '@/app/MTailwind'
+import { Card } from '@/components/molecules/cards/Card'
+import { Button, List, ListItem, ListItemPrefix, Typography } from '@/app/MTailwind'
 import { HeartIcon } from '@heroicons/react/24/outline'
+import { formatDate, formatNumber } from '@/utils/utils'
+import { ActiveMedications } from '../molecules/cards/ActiveMedicationsCard'
 
-const signosVitales = [{
-  signo: 'Altura',
-  value: '178'
-}, {
-  signo: 'Peso',
-  value: '72.5'
-},
-{
-  signo: 'Temperatura',
-  value: '36.5'
-}, {
-  signo: 'Frec. Respiratoria',
-  value: '17'
-}, {
-  signo: 'Presión Arterial',
-  value: '120/80'
-}, {
-  signo: 'Frec. Cardiaca',
-  value: '62'
-}
-]
+const signosVitales = [
+  { label: 'Altura', unitMeasurement: 'm', key: 'alturas' },
+  { label: 'Peso', unitMeasurement: 'kg', key: 'pesos' },
+  { label: 'Temperatura', unitMeasurement: '°C', key: 'temperaturas' },
+  { label: 'Frec. Respiratoria', unitMeasurement: 'rpm', key: 'frecuencias_respiratorias' },
+  { label: 'Presión Arterial', unitMeasurement: 'mmHg', key: 'presiones_arteriales' },
+  { label: 'Frec. Cardiaca', unitMeasurement: 'bpm', key: 'frecuencias_cardiacas' },
+];
 
+const getLatestValue = (dataArray) => {
+  if (!dataArray || dataArray.length === 0) return null;
+  return dataArray[dataArray.length - 1].valor || `${dataArray[dataArray.length - 1].sistolica}/${dataArray[dataArray.length - 1].diastolica}`;
+};
 
 export default async function Patient({ cedula }) {
-  const { data: paciente } = await getPatient({ cedula })
-  const classCard = `rounded-none border shadow-none`
+  const { data: paciente = {} } = await getPatient({ cedula })
+
   return (
-    <Section className="grid grid-cols-3 gap-6">
+    <Section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
       {/* Left */}
       <div className='flex flex-col gap-4'>
-        <Card className={`${classCard} p-4`}>
-          <h3>{paciente?.nombres_paciente}</h3>
-          <h3>{paciente?.apellidos_paciente}</h3>
-          <h3>FECHA | GÉNERO</h3>
+        <Card className='p-4'>
+          <h2 className='font-bold uppercase text-lg flex flex-col'>
+            <span>{paciente?.nombres_paciente}</span>
+            <span>{paciente?.apellidos_paciente}</span>
+          </h2>
+          <p className=''>{formatNumber(paciente?.cedula_paciente)} | {formatDate(paciente?.fecha_nacimiento_paciente)}</p>
         </Card>
 
-
-        <Card className={`${classCard}`}>
-          <div className='bg-gray-200 px-4 py-2 '>
-            <h3>ÚLTIMOS SIGNOS VITALES</h3>
-          </div>
-          <ul className='p-4'>
-            {signosVitales.map((signo) => (
-              <li key={signo.id}>
-                <h3>{signo.signo}</h3>
-                <h3>{signo.value}</h3>
-              </li>
-            ))}
-          </ul>
-          <List>
-            <ListItem className="py-2 pr-1 pl-4">
-              <ListItemPrefix>
-                {/* <TrashIcon className="h-6 w-6 stroke-2" /> */}
-                x
-              </ListItemPrefix>
-              Item One
-            </ListItem>
-            <ListItem className="py-2 pr-1 pl-4">
-              <ListItemPrefix>
-                {/* <TrashIcon className="h-6 w-6 stroke-2" /> */}
-                x
-              </ListItemPrefix>
-              Item One
-            </ListItem>
-            <ListItem className="py-2 pr-1 pl-4">
-              <ListItemPrefix>
-                <HeartIcon className="h-6 w-6 stroke-2" color="red" />
-              </ListItemPrefix>
-              {`Frec. Cardiaca`}
-            </ListItem>
+        <Card>
+          <Card.CardHeader icon={
+            // <IconButton variant="text" onClick={() => console.log("click")} >
+            //   <PlusCircleIcon className="h-6 w-6 stroke-2" />
+            // </IconButton>
+            'x'
+          }>
+            {'Signos vitales'}
+          </Card.CardHeader>
+          <List className=''>
+            {signosVitales.map(({ label, unitMeasurement, key }, index) => {
+              const isLast = index === signosVitales.length - 1;
+              const classes = isLast
+                ? "w-full  p-4 rounded-none"
+                : "w-full  p-4 rounded-none border-b";
+              return (
+                <ListItem key={label} className={`${classes}`}>
+                  <ListItemPrefix>
+                    <HeartIcon className="h-6 w-6 stroke-2" color="red" />
+                  </ListItemPrefix>
+                  <div className="flex justify-between w-full">
+                    <span>
+                      {label}
+                    </span>
+                    <span>
+                      <span className="font-bold">{getLatestValue(paciente ? paciente[key] : [])}{` `}</span>
+                      <span className="text-sm">{unitMeasurement}</span>
+                    </span>
+                  </div>
+                </ListItem>
+              )
+            })}
           </List>
-        </Card>
-        <Card className={`${classCard}`}>
-          <pre>{JSON.stringify(paciente, null, 2)}</pre>
         </Card>
       </div>
 
 
       {/* Center */}
+      {/* Antecedentes */}
       <div className='flex flex-col gap-4'>
-        <Card className={`${classCard}`}>
-          <h3>ANTECEDENTES</h3>
+
+        <ActiveMedications medicamentos={paciente?.medicamentos} />
+
+
+
+        <Card >
+          <Card.CardHeader icon={
+            // <IconButton variant="text" onClick={() => console.log("click")} >
+            //   <PlusCircleIcon className="h-6 w-6 stroke-2" />
+            // </IconButton>
+            'x'
+          }>
+            {`Antecedentes`}
+          </Card.CardHeader>
+          <div className='flex flex-col gap-4 p-2'>
+            <div>
+              <Typography variant="h4" className='font-bold uppercase text-sm px-2 py-4 text-cerise-700'>{'Antecedentes patólogicos'}</Typography>
+              <ul className='flex flex-col'>
+                <li className='p-2 border-b'>Traumatismo: Equis cosa</li>
+              </ul>
+            </div>
+            <div>
+              <Typography variant="h4" className='font-bold uppercase text-sm px-2 py-4 text-cerise-700'>{'Antecedentes heredofamiliares'}</Typography>
+              <ul className='flex flex-col'>
+                <li className='p-2 border-b'>Traumatismo: Equis cosa</li>
+                <li className='p-2 border-b'>Traumatismo: Equis cosa</li>
+              </ul>
+            </div>
+            <div>
+              <Typography variant="h4" className='font-bold uppercase text-sm px-2 py-4 text-cerise-700'>{'Antecedentes no patológicos'}</Typography>
+              <ul className='flex flex-col'>
+                <li className='p-2 border-b'>Traumatismo: Equis cosa</li>
+                <li className='p-2 border-b'>Traumatismo: Equis cosa</li>
+                <li className='p-2'>Traumatismo: Equis cosa</li>
+              </ul>
+            </div>
+            <div>
+              <Typography variant="h4" className='font-bold uppercase text-sm px-2 py-4 text-cerise-700'>{'Alergías'}</Typography>
+              <ul className='flex flex-col'>
+                <li className='p-2 border-b'>Traumatismo: Equis cosa</li>
+                <li className='p-2 border-b'>Traumatismo: Equis cosa</li>
+                <li className='p-2'>Traumatismo: Equis cosa</li>
+              </ul>
+            </div>
+          </div>
         </Card>
-        <Card className={`${classCard}`}>
-          <h2>{`</Page> ${cedula}`}</h2>
-        </Card>
-        <Card className={`${classCard}`}>
-          <pre>{JSON.stringify(paciente, null, 2)}</pre>
-        </Card>
+
       </div>
 
 
       {/* Right */}
       <div className='flex flex-col gap-4'>
-        <Card className={`${classCard}`}>
-          <h3>Epa</h3>
-        </Card>
-        <Card className={`${classCard}`}>
-          <h2>{`</Page> ${cedula}`}</h2>
-        </Card>
-        <Card className={`${classCard}`}>
-          <pre>{JSON.stringify(paciente, null, 2)}</pre>
-        </Card>
+        <Button size='lg'>{`Agendar nueva consulta`}</Button>
+        <Typography variant="h3" className='font-bold uppercase text-sm'>{`Citas agendadas`}</Typography>
       </div>
-    </Section>
+    </Section >
   )
 };
 
