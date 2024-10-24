@@ -1,22 +1,20 @@
 'use client'
 import propTypes from 'prop-types'
-import { DocumentIcon } from "@heroicons/react/24/solid";
-import { Card, IconButton, Typography } from "@material-tailwind/react";
-
-import { EyeIcon } from "@heroicons/react/24/solid";
+import { DocumentIcon, EyeIcon } from "@heroicons/react/24/solid";
 import {
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
 import {
+  Card, IconButton, Typography,
   CardHeader,
   Button,
   CardBody,
-  Chip,
   CardFooter,
   Tooltip,
   Input,
-} from "@material-tailwind/react";
-import { whatIsMyAge } from "../../utils/utils";
+} from "@/app/MTailwind";
+import { formatNumber, whatIsMyAge } from "@/utils/utils";
+import Link from 'next/link';
 
 export const Table = ({ title, subtitle, tableHeader, tableRows }) => {
   return (
@@ -72,7 +70,6 @@ export const Table = ({ title, subtitle, tableHeader, tableRows }) => {
                   nombres,
                   apellidos,
                   telefono,
-                  genero,
                   fechaNacimiento,
                   ultimaConsulta,
                 },
@@ -91,7 +88,7 @@ export const Table = ({ title, subtitle, tableHeader, tableRows }) => {
                           variant="small"
                           color="blue-gray"
                         >
-                          {cedula}
+                          {formatNumber(cedula)}
                         </Typography>
                       </div>
                     </td>
@@ -132,20 +129,6 @@ export const Table = ({ title, subtitle, tableHeader, tableRows }) => {
                       </Typography>
                     </td>
                     <td className={classes}>
-                      <div className="w-max">
-                        <Chip
-                          size="sm"
-                          variant="ghost"
-                          value={genero}
-                          color={
-                            genero === "femenino"
-                              ? "pink"
-                              : "blue"
-                          }
-                        />
-                      </div>
-                    </td>
-                    <td className={classes}>
                       <div className="flex items-center gap-3">
                         <div className="flex flex-col">
                           <Typography
@@ -160,9 +143,11 @@ export const Table = ({ title, subtitle, tableHeader, tableRows }) => {
                     </td>
                     <td className={classes}>
                       <Tooltip content="Ver detalles">
-                        <IconButton variant="text">
-                          <EyeIcon className="h-4 w-4" />
-                        </IconButton>
+                        <Link href={`/patients/${cedula}`}>
+                          <IconButton variant="text">
+                            <EyeIcon className="h-4 w-4" />
+                          </IconButton>
+                        </Link>
                       </Tooltip>
 
                       <Tooltip content="Imprimir historia">
@@ -170,9 +155,6 @@ export const Table = ({ title, subtitle, tableHeader, tableRows }) => {
                           <DocumentIcon className="h-4 w-4 text-gray-900" />
                         </IconButton>
                       </Tooltip>
-
-
-
                     </td>
                   </tr>
                 );
