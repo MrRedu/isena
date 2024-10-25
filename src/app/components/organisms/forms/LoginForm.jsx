@@ -7,6 +7,7 @@ import {
   Button,
   // Typography 
 } from "@/app/MTailwind";
+import Link from "next/link";
 
 export const LoginForm = () => {
   const {
@@ -18,11 +19,12 @@ export const LoginForm = () => {
     error
   } = useFormLogin()
 
-
   return (
-    <div className="relative flex flex-col bg-white shadow-sm border border-slate-200 w-96 rounded-lg my-6">
-      <div className="relative m-2.5 items-center flex justify-center text-white h-24 rounded-md bg-slate-800">
-        <h3 className="text-2xl">{`Iniciar sesión`}</h3>
+    <div className="relative flex flex-col bg-blush-50 shadow-sm border border-blush-300 w-96 rounded-lg my-16">
+
+      <div className="relative p-8 items-center flex flex-col gap-4">
+        <h1 className="text-2xl">{`Bienvenido`}</h1>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUjeU0BhjFi9sO963fukn35MfLLnJT3h-WUA&s" alt="Logo" className="w-20 h-20" />
       </div>
 
       <div className="flex flex-col gap-4 p-6">
@@ -72,19 +74,24 @@ export const LoginForm = () => {
       </div>
 
       <div className="p-6 pt-0">
-        <Button type="submit" loading={isLoading}
+        <Button
+          type="submit"
+          loading={isLoading}
           onClick={handleSubmit}
-        >{`Iniciar sesión`}</Button>
+          fullWidth
+          className="bg-blush-500"
+        >
+          {`Iniciar sesión`}</Button>
 
 
         <p className="flex justify-center mt-6 text-sm text-slate-600">
           {`¿No tienes una cuenta?`}
-          {/* <Hyperlink
+          <Link
             href="/register"
             className="ml-1 text-sm font-semibold text-slate-700 underline"
           >
             {`Crear cuenta`}
-          </Hyperlink> */}
+          </Link>
         </p>
 
       </div>
