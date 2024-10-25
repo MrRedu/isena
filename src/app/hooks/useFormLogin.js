@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import {  useState } from 'react'
 import { signIn } from 'next-auth/react'
 import { initialValueFormLogin } from '@/utils/consts'
 import { validateEmail } from '@/utils/utils'

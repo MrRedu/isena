@@ -2,7 +2,7 @@ import propTypes from 'prop-types'
 import { Card as MTCard, Typography } from "@/app/MTailwind";
 const CardHeader = ({ children, icon }) => {
   return (
-    <div className='flex justify-between items-center bg-cerise-50 px-4 py-2 '>
+    <div className='flex justify-between items-center bg-blush-50 px-4 py-2 '>
       <Typography variant="h3" className='font-bold uppercase text-sm'>{children}</Typography>
       {icon &&
         icon
