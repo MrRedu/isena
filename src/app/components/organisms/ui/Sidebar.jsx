@@ -20,7 +20,8 @@ import {
   UsersIcon,
   IdentificationIcon,
   ChevronDownIcon,
-  ArrowLeftStartOnRectangleIcon
+  ArrowLeftStartOnRectangleIcon,
+  ChartBarIcon
 } from "@heroicons/react/24/solid";
 import {
   Bars3Icon,
@@ -66,6 +67,14 @@ export function SidebarWithBurgerMenu() {
             </Typography>
           </div>
           <List>
+            <Link href="/">
+              <ListItem>
+                <ListItemPrefix>
+                  <ChartBarIcon className="h-5 w-5" />
+                </ListItemPrefix>
+                {`Panel de control`}
+              </ListItem>
+            </Link>
             <Link href="/users">
               <ListItem>
                 <ListItemPrefix>
