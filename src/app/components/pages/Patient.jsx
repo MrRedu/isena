@@ -78,9 +78,7 @@ export default async function Patient({ cedula }) {
       {/* Antecedentes */}
       <div className='flex flex-col gap-4'>
 
-        <ActiveMedications medicamentos={paciente?.medicamentos} />
-
-
+        <ActiveMedications idPaciente={paciente?.id_paciente} medicamentos={paciente?.medicamentos} />
 
         <Card >
           <Card.CardHeader icon={

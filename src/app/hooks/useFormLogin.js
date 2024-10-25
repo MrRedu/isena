@@ -18,10 +18,6 @@ export default function useFormLogin() {
     }))
   }
 
-  useEffect(() => {
-    console.log({formData})
-  }, [formData])
-
   const handleSubmit = async e => {
     e.preventDefault()
 
