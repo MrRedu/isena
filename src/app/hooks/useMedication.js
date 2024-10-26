@@ -32,8 +32,12 @@ export function useMedication({idPaciente, medicamentos}) {
       !medicationState.dosisMedicamento || 
       !medicationState.intervaloMedicamento || 
       !medicationState.viaAdministracionMedicamento || 
-      !medicationState.fechaInicioMedicamento 
+      !medicationState.fechaInicioMedicamento
     ) return toast.error('Todos los campos son obligatorios')
+
+    if (!medicationState.fechaFinMedicamento) {
+      medicationState.fechaFinMedicamento = null
+    }
 
     try {
       setIsLoading(true)
