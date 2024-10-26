@@ -1,19 +1,20 @@
 'use client'
 import propTypes from 'prop-types'
-import { Input } from "@material-tailwind/react";
-import { useState } from 'react';
+import { Input, Textarea } from "@/app/MTailwind";
+// import { useState } from 'react';
 
 const today = new Date();
 const sixteenYearsBefore = new Date(today.getFullYear() - 16, today.getMonth(), today.getDate()).toISOString().split("T")[0];
 
-export const AddPacientForm = ({ handleChange }) => {
-  const [expirationDate, setExpirationDate] = useState("")
-
+export const AddPatientForm = ({ patient, handleChange }) => {
+  // const [expirationDate, setExpirationDate] = useState("")
 
   return (
     <form className="flex flex-col gap-8 p-4">
       <div className="grid md:grid-cols-2 gap-8 w-full">
         <Input
+          name="nombresPaciente"
+          value={patient?.nombresPaciente}
           onChange={handleChange}
           type="text"
           variant="static"
@@ -22,6 +23,8 @@ export const AddPacientForm = ({ handleChange }) => {
           maxLength={64}
         />
         <Input
+          name="apellidosPaciente"
+          value={patient?.apellidosPaciente}
           onChange={handleChange}
           type="text"
           variant="static"
@@ -32,6 +35,8 @@ export const AddPacientForm = ({ handleChange }) => {
       </div>
       <div className="grid md:grid-cols-2 gap-8 w-full">
         <Input
+          name="cedulaPaciente"
+          value={patient?.cedulaPaciente}
           onChange={handleChange}
           type="text"
           variant="static"
@@ -42,6 +47,8 @@ export const AddPacientForm = ({ handleChange }) => {
         />
         <Input
           type="date"
+          name="fechaNacimientoPaciente"
+          value={patient?.fechaNacimientoPaciente}
           onChange={handleChange}
           label="Fecha de nacimiento"
           variant="static"
@@ -50,6 +57,28 @@ export const AddPacientForm = ({ handleChange }) => {
         />
       </div>
       <div className="grid md:grid-cols-2 gap-8 w-full">
+        <Input
+          name="correoPaciente"
+          value={patient?.correoPaciente}
+          onChange={handleChange}
+          type="text"
+          variant="static"
+          label="Correo electrónico"
+          placeholder='ej: correo@ejemplo.com'
+        />
+        <Input
+          name="telefonoPaciente"
+          value={patient?.telefonoPaciente}
+          onChange={handleChange}
+          type="text"
+          variant="static"
+          label="Teléfono"
+          placeholder='ej: 414-123-45-67'
+          maxLength={255}
+        />
+      </div>
+      <Textarea name="direccionPaciente" value={patient?.direccionPaciente} onChange={handleChange} variant="static" label="Dirección física" placeholder="ej: Entre la calle Mariño y la Av. Santos Michelena de la ciudad de Maracay, estado Aragua" />
+      {/* <div className="grid md:grid-cols-2 gap-8 w-full">
         <Input
           onChange={handleChange}
           type="text"
@@ -110,11 +139,12 @@ export const AddPacientForm = ({ handleChange }) => {
           placeholder='ej: 80 bpm'
           maxLength={3}
         />
-      </div>
+      </div> */}
     </form>
   )
 };
 
-AddPacientForm.propTypes = {
-  handleChange: propTypes.func,
+AddPatientForm.propTypes = {
+  patient: propTypes.object,
+  handleChange: propTypes.func
 };
