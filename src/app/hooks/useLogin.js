@@ -4,7 +4,7 @@ import { initialValueFormLogin } from '@/utils/consts'
 import { validateEmail } from '@/utils/utils'
 import { toast } from 'sonner'
 
-export default function useFormLogin() {
+export default function useLogin() {
   const [formData, setFormData] = useState(
     initialValueFormLogin
   )

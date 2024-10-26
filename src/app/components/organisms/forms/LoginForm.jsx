@@ -1,11 +1,9 @@
 'use client'
-// import { Hyperlink } from "@/components/atoms/ui/Hyperlink";
-import useFormLogin from "@/hooks/useFormLogin";
+import useLogin from "@/hooks/useLogin";
 import {
   Input,
-  // Checkbox, 
   Button,
-  // Typography 
+  Typography,
 } from "@/app/MTailwind";
 import Link from "next/link";
 import Image from "next/image";
@@ -18,13 +16,13 @@ export const LoginForm = () => {
     // handleReset,
     isLoading,
     // error
-  } = useFormLogin()
+  } = useLogin()
 
   return (
     <div className="relative flex flex-col bg-blush-50 shadow-sm border border-blush-300 w-96 rounded-lg my-16">
 
       <div className="relative p-8 items-center flex flex-col gap-4">
-        <h1 className="text-2xl">{`Bienvenido`}</h1>
+        <Typography variant="h1" className="text-2xl">{`Bienvenido`}</Typography>
         <Image src="/avatar-dev.webp" alt="Logo" width={200} height={200} className="w-20 h-20" />
       </div>
 
