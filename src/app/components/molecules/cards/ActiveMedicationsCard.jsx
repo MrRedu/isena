@@ -10,8 +10,8 @@ import { formatDate } from '@/utils/utils';
 
 export const ActiveMedications = ({ idPaciente, medicamentos }) => {
   const {
-    medicationsState,
-    medicationState,
+    medications,
+    medication,
     handleChange,
     handleSubmit,
     handleDelete
@@ -30,9 +30,9 @@ export const ActiveMedications = ({ idPaciente, medicamentos }) => {
         }>
           {`Médicamentos activos`}
         </Card.CardHeader>
-        {medicationsState ?
+        {medications ?
           <List className='w-full p-2 rounded-none'>
-            {medicationsState?.map(({ id_medicamento, nombre_medicamento, dosis_medicamento, via_administracion_medicamento, intervalo_medicamento, fecha_inicio_medicamento, fecha_fin_medicamento }, index) => {
+            {medications?.map(({ id_medicamento, nombre_medicamento, dosis_medicamento, via_administracion_medicamento, intervalo_medicamento, fecha_inicio_medicamento, fecha_fin_medicamento }, index) => {
 
               const isFechaFinExpired = new Date(fecha_fin_medicamento).getTime() < new Date().getTime();
 
@@ -70,7 +70,7 @@ export const ActiveMedications = ({ idPaciente, medicamentos }) => {
       <Dialog open={open} handler={handleOpen} >
         <DialogHeader>{`Agregar medicamento`}</DialogHeader>
         <DialogBody>
-          <AddMedicationForm medicationState={medicationState} handleChange={handleChange} />
+          <AddMedicationForm medicationState={medication} handleChange={handleChange} />
         </DialogBody>
         <DialogFooter>
           <Button
