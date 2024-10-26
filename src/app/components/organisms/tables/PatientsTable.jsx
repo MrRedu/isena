@@ -16,7 +16,7 @@ import {
 import { formatNumber, whatIsMyAge } from "@/utils/utils";
 import Link from 'next/link';
 
-export const Table = ({ title, subtitle, tableHeader, tableRows }) => {
+export const PatientsTable = ({ title, subtitle, tableHeader, tableRows = [] }) => {
   return (
     <Card className="h-full w-full">
       <CardHeader floated={false} shadow={false} className="rounded-none">
@@ -199,7 +199,7 @@ export const Table = ({ title, subtitle, tableHeader, tableRows }) => {
   )
 };
 
-Table.propTypes = {
+PatientsTable.propTypes = {
   title: propTypes.string,
   subtitle: propTypes.string,
   tableHeader: propTypes.array,
