@@ -12,13 +12,13 @@ const medicationInitialState = {
 }
 
 export function useMedication({idPaciente, medicamentos}) {
-  const [medicationsState, setMedicationsState] = useState(medicamentos || [])
-  const [medicationState, setMedicationState] = useState(medicationInitialState)
+  const [medications, setMedications] = useState(medicamentos || [])
+  const [medication, setMedication] = useState(medicationInitialState)
   const [isLoading, setIsLoading] = useState(false)
 
   const handleChange = (e) => {
     const { name, value } = e.target
-    setMedicationState(prev => ({
+    setMedication(prev => ({
       ...prev,
       [name]: value
     }))
@@ -28,15 +28,15 @@ export function useMedication({idPaciente, medicamentos}) {
     e.preventDefault()
 
     if (
-      !medicationState.nombreMedicamento || 
-      !medicationState.dosisMedicamento || 
-      !medicationState.intervaloMedicamento || 
-      !medicationState.viaAdministracionMedicamento || 
-      !medicationState.fechaInicioMedicamento
+      !medication.nombreMedicamento || 
+      !medication.dosisMedicamento || 
+      !medication.intervaloMedicamento || 
+      !medication.viaAdministracionMedicamento || 
+      !medication.fechaInicioMedicamento
     ) return toast.error('Todos los campos son obligatorios')
 
-    if (!medicationState.fechaFinMedicamento) {
-      medicationState.fechaFinMedicamento = null
+    if (!medication.fechaFinMedicamento) {
+      medication.fechaFinMedicamento = null
     }
 
     try {
@@ -47,7 +47,7 @@ export function useMedication({idPaciente, medicamentos}) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          ...medicationState,
+          ...medication,
           idPaciente,
         }),
       })
@@ -64,27 +64,26 @@ export function useMedication({idPaciente, medicamentos}) {
       console.error('Error:', error)
     } finally {
       setIsLoading(false)
-      setMedicationsState(prev => [...prev, {
-        nombre_medicamento: medicationState.nombreMedicamento,
-        dosis_medicamento: medicationState.dosisMedicamento,
-        intervalo_medicamento: medicationState.intervaloMedicamento,
-        via_administracion_medicamento: medicationState.viaAdministracionMedicamento,
-        fecha_inicio_medicamento: medicationState.fechaInicioMedicamento,
-        fecha_fin_medicamento: medicationState.fechaFinMedicamento,
+      setMedications(prev => [...prev, {
+        nombre_medicamento: medication.nombreMedicamento,
+        dosis_medicamento: medication.dosisMedicamento,
+        intervalo_medicamento: medication.intervaloMedicamento,
+        via_administracion_medicamento: medication.viaAdministracionMedicamento,
+        fecha_inicio_medicamento: medication.fechaInicioMedicamento,
+        fecha_fin_medicamento: medication.fechaFinMedicamento,
       }]);
-      setMedicationState(medicationInitialState);
+      setMedication(medicationInitialState);
     }
   }
 
   const handleDelete = async (id) => {
      deleteMedication(id)
-     setMedicationsState(medicationsState.filter(medication => medication.id_medicamento !== id))
+     setMedications(medications.filter(medication => medication.id_medicamento !== id))
   }
   
-
   return {
-    medicationsState,
-    medicationState,
+    medications,
+    medication,
     handleChange,
     handleSubmit,
     isLoading,
