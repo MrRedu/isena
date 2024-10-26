@@ -8,15 +8,16 @@ import {
   // Typography 
 } from "@/app/MTailwind";
 import Link from "next/link";
+import Image from "next/image";
 
 export const LoginForm = () => {
   const {
     formData,
     handleChange,
     handleSubmit,
-    handleReset,
+    // handleReset,
     isLoading,
-    error
+    // error
   } = useFormLogin()
 
   return (
@@ -24,7 +25,7 @@ export const LoginForm = () => {
 
       <div className="relative p-8 items-center flex flex-col gap-4">
         <h1 className="text-2xl">{`Bienvenido`}</h1>
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUjeU0BhjFi9sO963fukn35MfLLnJT3h-WUA&s" alt="Logo" className="w-20 h-20" />
+        <Image src="/avatar-dev.webp" alt="Logo" width={200} height={200} className="w-20 h-20" />
       </div>
 
       <div className="flex flex-col gap-4 p-6">
