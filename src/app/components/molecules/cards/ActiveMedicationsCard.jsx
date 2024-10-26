@@ -8,13 +8,17 @@ import { AddMedicationForm } from '@/components/molecules/forms/AddMedicationFor
 import { useMedication } from '@/hooks/useMedication';
 import { formatDate } from '@/utils/utils';
 
-export const ActiveMedications = ({ medicamentos }) => {
+export const ActiveMedications = ({ idPaciente, medicamentos }) => {
+  const {
+    medications,
+    medication,
+    handleChange,
+    handleSubmit,
+    handleDelete
+  } = useMedication({ idPaciente, medicamentos })
+
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
-
-  const { medicamentoState, handleChange,
-    handleSubmit
-  } = useMedication()
 
   return (
     <>
@@ -26,31 +30,38 @@ export const ActiveMedications = ({ medicamentos }) => {
         }>
           {`Médicamentos activos`}
         </Card.CardHeader>
-        {medicamentos ?
+        {medications ?
           <List className='w-full p-2 rounded-none'>
-            {medicamentos?.map(({ nombre_medicamento, dosis_medicamento, via_administracion_medicamento, intervalo_medicamento, fecha_inicio_medicamento, fecha_fin_medicamento }) => (
-              <Tooltip key={nombre_medicamento} className="border border-blue-gray-50 bg-white px-4 py-3 shadow-xl shadow-black/10 text-black"
-                placement="bottom" content={
-                  <div className="w-80 flex flex-col">
-                    <span>Dosis: {dosis_medicamento}</span>
-                    <span>Vía: {via_administracion_medicamento}</span>
-                    <span>Inicio: {formatDate(fecha_inicio_medicamento)}</span>
-                    {fecha_fin_medicamento && <span>Fin: {formatDate(fecha_fin_medicamento)}</span>}
-                    <span>Intervalo: {intervalo_medicamento}</span>
-                  </div>
-                }>
-                <ListItem ripple={false} className="w-full py-2 px-4 rounded-none">
-                  <div className="flex justify-between w-full">
-                    <span>{nombre_medicamento}</span>
-                  </div>
-                  <IconButton size="sm" variant="text">
-                    <ListItemSuffix>
-                      <TrashIcon className="h-5 w-5 stroke-1" color="red" />
-                    </ListItemSuffix>
-                  </IconButton>
-                </ListItem>
-              </Tooltip>
-            ))}
+            {medications?.map(({ id_medicamento, nombre_medicamento, dosis_medicamento, via_administracion_medicamento, intervalo_medicamento, fecha_inicio_medicamento, fecha_fin_medicamento }, index) => {
+
+              const isFechaFinExpired = new Date(fecha_fin_medicamento).getTime() < new Date().getTime();
+
+              return (
+                <Tooltip key={index} className="border border-blue-gray-50 bg-white px-4 py-3 shadow-xl shadow-black/10 text-black"
+                  placement="bottom" content={
+                    <div className="w-80 flex flex-col">
+                      <span>Nombre: {nombre_medicamento}</span>
+                      <span>Dosis: {dosis_medicamento}</span>
+                      <span>Vía: {via_administracion_medicamento}</span>
+                      <span>Inicio: {formatDate(fecha_inicio_medicamento)}</span>
+                      {fecha_fin_medicamento && <span className={`${isFechaFinExpired && 'text-red-500'}`}>Fin: {formatDate(fecha_fin_medicamento)}</span>}
+                      <span>Intervalo: {intervalo_medicamento}</span>
+                    </div>
+                  }>
+                  <ListItem ripple={false} className="w-full py-2 px-4 rounded-none">
+                    <div className="flex justify-between w-full">
+                      <span>{nombre_medicamento}</span>
+                    </div>
+                    <IconButton onClick={() => handleDelete(id_medicamento)} size="sm" variant="text">
+                      <ListItemSuffix>
+                        <TrashIcon className="h-5 w-5 stroke-1" color="red" />
+                      </ListItemSuffix>
+                    </IconButton>
+                  </ListItem>
+                </Tooltip>
+
+              )
+            })}
           </List>
           :
           <Typography variant="h3" className="text-base p-4">{`#TODO: `}No tiene medicamentos activos</Typography >
@@ -59,7 +70,7 @@ export const ActiveMedications = ({ medicamentos }) => {
       <Dialog open={open} handler={handleOpen} >
         <DialogHeader>{`Agregar medicamento`}</DialogHeader>
         <DialogBody>
-          <AddMedicationForm medicamentoState={medicamentoState} handleChange={handleChange} />
+          <AddMedicationForm medicationState={medication} handleChange={handleChange} />
         </DialogBody>
         <DialogFooter>
           <Button
@@ -80,5 +91,6 @@ export const ActiveMedications = ({ medicamentos }) => {
 };
 
 ActiveMedications.propTypes = {
+  idPaciente: propTypes.string,
   medicamentos: propTypes.array
 }

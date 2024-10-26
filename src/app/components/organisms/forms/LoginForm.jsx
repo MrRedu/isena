@@ -1,28 +1,29 @@
 'use client'
-// import { Hyperlink } from "@/components/atoms/ui/Hyperlink";
-import useFormLogin from "@/hooks/useFormLogin";
+import useLogin from "@/hooks/useLogin";
 import {
   Input,
-  // Checkbox, 
   Button,
-  // Typography 
+  Typography,
 } from "@/app/MTailwind";
+import Link from "next/link";
+import Image from "next/image";
 
 export const LoginForm = () => {
   const {
     formData,
     handleChange,
     handleSubmit,
-    handleReset,
+    // handleReset,
     isLoading,
-    error
-  } = useFormLogin()
-
+    // error
+  } = useLogin()
 
   return (
-    <div className="relative flex flex-col bg-white shadow-sm border border-slate-200 w-96 rounded-lg my-6">
-      <div className="relative m-2.5 items-center flex justify-center text-white h-24 rounded-md bg-slate-800">
-        <h3 className="text-2xl">{`Iniciar sesión`}</h3>
+    <div className="relative flex flex-col bg-blush-50 shadow-sm border border-blush-300 w-96 rounded-lg my-16">
+
+      <div className="relative p-8 items-center flex flex-col gap-4">
+        <Typography variant="h1" className="text-2xl">{`Bienvenido`}</Typography>
+        <Image src="/avatar-dev.webp" alt="Logo" width={200} height={200} className="w-20 h-20" />
       </div>
 
       <div className="flex flex-col gap-4 p-6">
@@ -72,19 +73,24 @@ export const LoginForm = () => {
       </div>
 
       <div className="p-6 pt-0">
-        <Button type="submit" loading={isLoading}
+        <Button
+          type="submit"
+          loading={isLoading}
           onClick={handleSubmit}
-        >{`Iniciar sesión`}</Button>
+          fullWidth
+          className="bg-blush-500"
+        >
+          {`Iniciar sesión`}</Button>
 
 
         <p className="flex justify-center mt-6 text-sm text-slate-600">
           {`¿No tienes una cuenta?`}
-          {/* <Hyperlink
+          <Link
             href="/register"
             className="ml-1 text-sm font-semibold text-slate-700 underline"
           >
             {`Crear cuenta`}
-          </Hyperlink> */}
+          </Link>
         </p>
 
       </div>

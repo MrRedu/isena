@@ -2,12 +2,12 @@
 
 import { Section } from "@/components/atoms/Section";
 // Mover de aqui
-import { Table } from "./Table";
+import { PatientsTable } from "@/components/organisms/tables/PatientsTable";
 import { getAllPatients } from "@/services/patients";
 
 const TABLE_HEADER_PATIENTS = ["Cédula", "Apellidos", "Nombres", "Edad", "Teléfono", "Última consulta", "Acciones"];
 const TITLE_PATIENTS = "Pacientes";
-const SUBTITLE_PATIENTS = "These are details about the last transactions";
+const SUBTITLE_PATIENTS = "Tabla con todos los pacientes registrados";
 
 export default async function PatientsPage() {
   const { data: patients } = await getAllPatients();
@@ -22,7 +22,7 @@ export default async function PatientsPage() {
 
   return (
     <Section>
-      <Table title={TITLE_PATIENTS} subtitle={SUBTITLE_PATIENTS} tableHeader={TABLE_HEADER_PATIENTS} tableRows={mappedPatients} />
+      <PatientsTable title={TITLE_PATIENTS} subtitle={SUBTITLE_PATIENTS} tableHeader={TABLE_HEADER_PATIENTS} tableRows={mappedPatients} />
     </Section>
   )
 };

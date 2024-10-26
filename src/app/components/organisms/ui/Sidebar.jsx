@@ -20,7 +20,8 @@ import {
   UsersIcon,
   IdentificationIcon,
   ChevronDownIcon,
-  ArrowLeftStartOnRectangleIcon
+  ArrowLeftStartOnRectangleIcon,
+  ChartBarIcon
 } from "@heroicons/react/24/solid";
 import {
   Bars3Icon,
@@ -28,6 +29,7 @@ import {
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
+import Image from "next/image";
 
 export function SidebarWithBurgerMenu() {
   const [open, setOpen] = useState(0);
@@ -56,9 +58,11 @@ export function SidebarWithBurgerMenu() {
           className="h-[calc(100vh-2rem)] w-full p-4"
         >
           <div className="mb-2 flex items-center gap-4 p-4">
-            <img
-              src="https://docs.material-tailwind.com/img/logo-ct-dark.png"
+            <Image
+              src="/avatar-dev.webp"
               alt="brand"
+              width={40}
+              height={40}
               className="h-8 w-8"
             />
             <Typography variant="h5" color="blue-gray">
@@ -66,6 +70,14 @@ export function SidebarWithBurgerMenu() {
             </Typography>
           </div>
           <List>
+            <Link href="/">
+              <ListItem>
+                <ListItemPrefix>
+                  <ChartBarIcon className="h-5 w-5" />
+                </ListItemPrefix>
+                {`Panel de control`}
+              </ListItem>
+            </Link>
             <Link href="/users">
               <ListItem>
                 <ListItemPrefix>

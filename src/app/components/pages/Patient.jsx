@@ -78,9 +78,7 @@ export default async function Patient({ cedula }) {
       {/* Antecedentes */}
       <div className='flex flex-col gap-4'>
 
-        <ActiveMedications medicamentos={paciente?.medicamentos} />
-
-
+        <ActiveMedications idPaciente={paciente?.id_paciente} medicamentos={paciente?.medicamentos} />
 
         <Card >
           <Card.CardHeader icon={
@@ -93,20 +91,20 @@ export default async function Patient({ cedula }) {
           </Card.CardHeader>
           <div className='flex flex-col gap-4 p-2'>
             <div>
-              <Typography variant="h4" className='font-bold uppercase text-sm px-2 py-4 text-cerise-700'>{'Antecedentes patólogicos'}</Typography>
+              <Typography variant="h4" className='font-bold uppercase text-sm px-2 py-4 text-blush-700'>{'Antecedentes patólogicos'}</Typography>
               <ul className='flex flex-col'>
                 <li className='p-2 border-b'>Traumatismo: Equis cosa</li>
               </ul>
             </div>
             <div>
-              <Typography variant="h4" className='font-bold uppercase text-sm px-2 py-4 text-cerise-700'>{'Antecedentes heredofamiliares'}</Typography>
+              <Typography variant="h4" className='font-bold uppercase text-sm px-2 py-4 text-blush-700'>{'Antecedentes heredofamiliares'}</Typography>
               <ul className='flex flex-col'>
                 <li className='p-2 border-b'>Traumatismo: Equis cosa</li>
                 <li className='p-2 border-b'>Traumatismo: Equis cosa</li>
               </ul>
             </div>
             <div>
-              <Typography variant="h4" className='font-bold uppercase text-sm px-2 py-4 text-cerise-700'>{'Antecedentes no patológicos'}</Typography>
+              <Typography variant="h4" className='font-bold uppercase text-sm px-2 py-4 text-blush-700'>{'Antecedentes no patológicos'}</Typography>
               <ul className='flex flex-col'>
                 <li className='p-2 border-b'>Traumatismo: Equis cosa</li>
                 <li className='p-2 border-b'>Traumatismo: Equis cosa</li>
@@ -114,7 +112,7 @@ export default async function Patient({ cedula }) {
               </ul>
             </div>
             <div>
-              <Typography variant="h4" className='font-bold uppercase text-sm px-2 py-4 text-cerise-700'>{'Alergías'}</Typography>
+              <Typography variant="h4" className='font-bold uppercase text-sm px-2 py-4 text-blush-700'>{'Alergías'}</Typography>
               <ul className='flex flex-col'>
                 <li className='p-2 border-b'>Traumatismo: Equis cosa</li>
                 <li className='p-2 border-b'>Traumatismo: Equis cosa</li>

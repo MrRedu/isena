@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react'
+import {  useState } from 'react'
 import { signIn } from 'next-auth/react'
 import { initialValueFormLogin } from '@/utils/consts'
 import { validateEmail } from '@/utils/utils'
 import { toast } from 'sonner'
 
-export default function useFormLogin() {
+export default function useLogin() {
   const [formData, setFormData] = useState(
     initialValueFormLogin
   )
@@ -17,10 +17,6 @@ export default function useFormLogin() {
       [e.target.name]: e.target.value,
     }))
   }
-
-  useEffect(() => {
-    console.log({formData})
-  }, [formData])
 
   const handleSubmit = async e => {
     e.preventDefault()

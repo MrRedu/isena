@@ -51,7 +51,10 @@ CREATE TABLE `tbl_pacientes` (
   `apellidos_paciente` varchar(64) NOT NULL COMMENT 'Apellidos del paciente',
   `cedula_paciente` varchar(8) NOT NULL COMMENT 'Cédula de identidad del paciente',
   `telefono_paciente` varchar(12) NOT NULL COMMENT 'Teléfono del paciente',
-  `fecha_nacimiento_paciente` DATE NOT NULL COMMENT 'Fecha de nacimiento del paciente'
+  `fecha_nacimiento_paciente` DATE NOT NULL COMMENT 'Fecha de nacimiento del paciente',
+  `correo_paciente` varchar(82) COMMENT 'Correo del paciente',
+  `direccion_paciente` varchar(255) NOT NULL COMMENT 'Dirección del paciente'
+
   -- alturas
   -- pesos --> "pesos": [{ "valor": 75, "fecha_peso": "2022-01-01"},{  "valor": 80,"fecha_peso": "2022-06-06"}, ...],
   -- temperaturas
@@ -60,7 +63,7 @@ CREATE TABLE `tbl_pacientes` (
   -- frecuencias cardíacas
   -- medicamentos
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla de pacientes';
-INSERT INTO `tbl_pacientes` (`id_paciente`, `nombres_paciente`, `apellidos_paciente`, `cedula_paciente`, `telefono_paciente`, `fecha_nacimiento_paciente`) VALUES (1, 'Luis Andrés', 'Chen Romero', '12345678', '04141234567', '2000-01-01'), (2, 'José Ramón', 'Fernandez Gutierrez', '87654321', '04147654321', '1980-06-06');
+INSERT INTO `tbl_pacientes` (`id_paciente`, `nombres_paciente`, `apellidos_paciente`, `cedula_paciente`, `telefono_paciente`, `fecha_nacimiento_paciente`, `correo_paciente`, `direccion_paciente`) VALUES (1, 'Luis Andrés', 'Chen Romero', '12345678', '04141234567', '2000-01-01', '7Dj5V@example.com', 'Calle 1 # 2-3'), (2, 'José Ramón', 'Fernandez Gutierrez', '87654321', '04147654321', '1980-06-06', '7Dj5V@example.com', 'Calle 2 # 3-4');
 
 DROP TABLE IF EXISTS `tbl_alturas`;
 CREATE TABLE `tbl_alturas` (
@@ -135,21 +138,7 @@ CREATE TABLE `tbl_medicamentos` (
   `fecha_fin_medicamento` DATE COMMENT 'Fecha de fin para el medicamento',
   FOREIGN KEY (`id_paciente`) REFERENCES `tbl_pacientes`(`id_paciente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla de medicamentos';
-INSERT INTO `tbl_medicamentos` (`id_paciente`, `nombre_medicamento`, `dosis_medicamento`, `via_administracion_medicamento`, `intervalo_medicamento`, `fecha_inicio_medicamento`, `fecha_fin_medicamento`) VALUES (1, 'Paracetamol', '500 mg', 'Oral', 'Cada 8 horas', '2024-10-01', '2024-10-06'),
-(1, 'Ibuprofeno', '400 mg', 'Oral', 'Cada 6 horas', '2024-10-05', NULL),
-(1, 'Amoxicilina', '250 mg', 'Oral', 'Cada 12 horas', '2024-10-10', '2024-10-20'),
-(1, 'Loratadina', '10 mg', 'Oral', 'Una vez al día', '2024-10-15', NULL),
-(1, 'Metformina', '500 mg', 'Oral', 'Cada 12 horas', '2024-09-01', NULL),
-(1, 'Salbutamol', '100 mcg', 'Inhalación', 'Según necesidad', '2024-10-01', NULL),
-(1, 'Losartán', '50 mg', 'Oral', 'Una vez al día', '2024-08-15', NULL),
-(1, 'Omeprazol', '20 mg', 'Oral', 'Una vez al día antes de comer', '2024-09-10', NULL),
-(2, 'Paracetamol', '500 mg', 'Oral', 'Cada 8 horas', '2024-10-01', '2024-10-06'),
-(2, 'Ibuprofeno', '400 mg', 'Oral', 'Cada 6 horas', '2024-10-05', NULL),
-(2, 'Amoxicilina', '250 mg', 'Oral', 'Cada 12 horas', '2024-10-10', '2024-10-20'),
-(2, 'Loratadina', '10 mg', 'Oral', 'Una vez al día', '2024-10-15', NULL),
-(2, 'Metformina', '500 mg', 'Oral', 'Cada 12 horas', '2024-09-01', NULL),
-(2, 'Salbutamol', '100 mcg', 'Inhalación', 'Según necesidad', '2024-10-01', NULL),
-(2, 'Losartán', '50 mg', 'Oral', 'Una vez al día', '2024-08-15', NULL);
+INSERT INTO `tbl_medicamentos` (`id_paciente`, `nombre_medicamento`, `dosis_medicamento`, `via_administracion_medicamento`, `intervalo_medicamento`, `fecha_inicio_medicamento`, `fecha_fin_medicamento`) VALUES (1, 'Paracetamol', '500 mg', 'Oral', 'Cada 8 horas', '2024-10-01', '2024-10-06'), (1, 'Ibuprofeno', '400 mg', 'Oral', 'Cada 6 horas', '2024-10-05', NULL), (1, 'Amoxicilina', '250 mg', 'Oral', 'Cada 12 horas', '2024-10-10', '2024-10-20'), (1, 'Loratadina', '10 mg', 'Oral', 'Una vez al día', '2024-10-15', NULL), (1, 'Metformina', '500 mg', 'Oral', 'Cada 12 horas', '2024-09-01', NULL), (1, 'Salbutamol', '100 mcg', 'Inhalación', 'Según necesidad', '2024-10-01', NULL), (1, 'Losartán', '50 mg', 'Oral', 'Una vez al día', '2024-08-15', NULL), (1, 'Omeprazol', '20 mg', 'Oral', 'Una vez al día antes de comer', '2024-09-10', NULL), (2, 'Paracetamol', '500 mg', 'Oral', 'Cada 8 horas', '2024-10-01', '2024-10-06'), (2, 'Ibuprofeno', '400 mg', 'Oral', 'Cada 6 horas', '2024-10-05', NULL), (2, 'Amoxicilina', '250 mg', 'Oral', 'Cada 12 horas', '2024-10-10', '2024-10-20'), (2, 'Loratadina', '10 mg', 'Oral', 'Una vez al día', '2024-10-15', NULL), (2, 'Metformina', '500 mg', 'Oral', 'Cada 12 horas', '2024-09-01', NULL), (2, 'Salbutamol', '100 mcg', 'Inhalación', 'Según necesidad', '2024-10-01', NULL), (2, 'Losartán', '50 mg', 'Oral', 'Una vez al día', '2024-08-15', NULL);
 
 CREATE TABLE `tbl_consultas` (
   `id_consulta` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID de la consulta',

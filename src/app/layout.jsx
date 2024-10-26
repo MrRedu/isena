@@ -9,7 +9,10 @@ export const metadata = {
 
 export default async function RootLayout({
   children,
-  params: { session, ...params },
+  params: {
+    session,
+    // ...params 
+  },
 }) {
 
   return (

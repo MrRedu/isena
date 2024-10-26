@@ -1,9 +1,9 @@
 import { LoginForm } from '@/components/organisms/forms/LoginForm'
+import { Section } from '@/components/atoms/Section'
 export default function LoginPage() {
   return (
-    <>
-      <h2>{`</LoginPage>`}</h2>
+    <Section className="flex justify-center items-center">
       <LoginForm />
-    </>
+    </Section>
   )
 };
