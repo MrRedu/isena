@@ -202,8 +202,8 @@ import { usePatient } from '#/src/app/hooks/usePatient';
 // ];
 
 export const PatientsTable = ({ title, subtitle, tableHeader, tableRows = [] }) => {
-  const [patients, setPatients] = useState([...tableRows])
-  const { patient, handleChange, handleSubmit } = usePatient()
+  const { patients, patient, handleChange, handleSubmit, isLoading } = usePatient({ initialStatePatients: tableRows })
+
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
 
@@ -261,9 +261,9 @@ export const PatientsTable = ({ title, subtitle, tableHeader, tableRows = [] }) 
                   <span>Cancelar</span>
                 </Button>
                 <Button variant="gradient" color="green"
-                  onClick={handleSubmit}
+                  onClick={handleSubmit} loading={isLoading}
                 >
-                  <span>Agregar</span>
+                  <span>{isLoading ? 'Registrando...' : 'Registrar'}</span>
                 </Button>
               </DialogFooter>
             </Dialog>
@@ -318,7 +318,7 @@ export const PatientsTable = ({ title, subtitle, tableHeader, tableRows = [] }) 
                   : "p-4 border-b border-blue-gray-50";
 
                 return (
-                  <tr key={cedula}>
+                  <tr key={`${cedula}${index}`}>
                     <td className={classes}>
                       <div className="flex items-center gap-3">
                         <Typography

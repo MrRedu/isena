@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { toast } from "sonner";
+import { validateEmail } from "../utils/utils";
 
 const patientInitialState = {
   nombresPaciente: "",
@@ -11,7 +12,9 @@ const patientInitialState = {
   direccionPaciente: "",
 }
 
-export function usePatient() {
+export function usePatient({ initialStatePatients}) {
+  const [patients, setPatients] = useState(initialStatePatients || [])
+  const [isLoading, setIsLoading] = useState(false)
   const [patient, setPatient] = useState(patientInitialState)
 
   const handleChange = (e) => {
@@ -26,9 +29,26 @@ export function usePatient() {
     e.preventDefault()
 
     // #TODO: Validations
+    if(
+      !patient.nombresPaciente || 
+      !patient.apellidosPaciente || 
+      !patient.cedulaPaciente || 
+      !patient.fechaNacimientoPaciente || 
+      !patient.telefonoPaciente 
+    ) return toast.error('Los campos marcados con (*) son obligatorios')
 
-    try {
-      // setIsLoading(true)
+
+  const isMyEmailValid = validateEmail(patient.correoPaciente)
+  if(!isMyEmailValid && patient.correoPaciente) return toast.error('El correo electrónico no es valido')
+
+  patient.cedulaPaciente = patient.cedulaPaciente.trim().replace(/\./g, '');
+  patient.telefonoPaciente = patient.telefonoPaciente.trim().replace(/[\s()]/g, '');;
+
+  if (!patient.correoPaciente) patient.correoPaciente = null  
+  if (!patient.direccionPaciente) patient.direccionPaciente = null
+
+     try {
+      setIsLoading(true)
       const response = await fetch(`http://localhost:3000/api/patients/`, {
         method: 'POST',
         headers: {
@@ -42,29 +62,31 @@ export function usePatient() {
       }
 
     toast.success('Paciente registrado exitosamente');
+    setPatients(prev => [...prev, {
+      nombres: patient.nombresPaciente,
+      apellidos: patient.apellidosPaciente,
+      cedula: patient.cedulaPaciente,
+      telefono: patient.telefonoPaciente,
+      fechaNacimiento: patient.fechaNacimientoPaciente,
+      correo: patient.correoPaciente,
+      direccion: patient.direccionPaciente
+    }]);
       
-
       // setError(null)
     } catch (error) {
       console.error('Error:', error)
     } finally {
-      // setIsLoading(false)
-      // setMedications(prev => [...prev, {
-      //   nombre_medicamento: medication.nombreMedicamento,
-      //   dosis_medicamento: medication.dosisMedicamento,
-      //   intervalo_medicamento: medication.intervaloMedicamento,
-      //   via_administracion_medicamento: medication.viaAdministracionMedicamento,
-      //   fecha_inicio_medicamento: medication.fechaInicioMedicamento,
-      //   fecha_fin_medicamento: medication.fechaFinMedicamento,
-      // }]);
-      // setMedication(medicationInitialState);
+      setIsLoading(false)
+      setPatient(patientInitialState);
     }
   }
   
   const handleReset = () => setPatient(patientInitialState)
 
   return {
-     patient,
+    patients,
+    patient,
+    isLoading,
     handleChange,
     handleSubmit,
     handleReset

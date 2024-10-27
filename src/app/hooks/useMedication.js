@@ -57,21 +57,20 @@ export function useMedication({idPaciente, medicamentos}) {
       }
 
     toast.success('Medicamento registrado exitosamente');
-      
+    setMedications(prev => [...prev, {
+      nombre_medicamento: medication.nombreMedicamento,
+      dosis_medicamento: medication.dosisMedicamento,
+      intervalo_medicamento: medication.intervaloMedicamento,
+      via_administracion_medicamento: medication.viaAdministracionMedicamento,
+      fecha_inicio_medicamento: medication.fechaInicioMedicamento,
+      fecha_fin_medicamento: medication.fechaFinMedicamento,
+    }]);
 
       // setError(null)
     } catch (error) {
       console.error('Error:', error)
     } finally {
       setIsLoading(false)
-      setMedications(prev => [...prev, {
-        nombre_medicamento: medication.nombreMedicamento,
-        dosis_medicamento: medication.dosisMedicamento,
-        intervalo_medicamento: medication.intervaloMedicamento,
-        via_administracion_medicamento: medication.viaAdministracionMedicamento,
-        fecha_inicio_medicamento: medication.fechaInicioMedicamento,
-        fecha_fin_medicamento: medication.fechaFinMedicamento,
-      }]);
       setMedication(medicationInitialState);
     }
   }
