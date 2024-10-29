@@ -1,11 +1,11 @@
 'use client'
 import propTypes from 'prop-types'
 import { useState } from 'react';
-import { PlusCircleIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { PlusCircleIcon, PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { Card } from "./Card";
-import { Button, Dialog, DialogBody, DialogFooter, DialogHeader, IconButton, List, ListItem, ListItemSuffix, Tooltip, Typography } from "@/app/MTailwind";
+import { Button, Dialog, DialogBody, DialogFooter, DialogHeader, IconButton, List, ListItem, ListItemSuffix, Tooltip } from "@/app/MTailwind";
 import { AddMedicationForm } from '@/components/molecules/forms/AddMedicationForm';
-import { useMedication } from '@/hooks/useMedication';
+import { useMedications } from '@/hooks/useMedications';
 import { formatDate } from '@/utils/utils';
 
 export const ActiveMedications = ({ idPaciente, medicamentos }) => {
@@ -15,7 +15,7 @@ export const ActiveMedications = ({ idPaciente, medicamentos }) => {
     handleChange,
     handleSubmit,
     handleDelete
-  } = useMedication({ idPaciente, medicamentos })
+  } = useMedications({ idPaciente, medicamentos })
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
@@ -24,18 +24,18 @@ export const ActiveMedications = ({ idPaciente, medicamentos }) => {
     <>
       <Card >
         <Card.CardHeader icon={
-          <IconButton variant="text" onClick={handleOpen} >
-            <PlusCircleIcon className="h-6 w-6 stroke-2" />
-          </IconButton>
+          medications.length > 0 ?
+            <IconButton variant="text" onClick={handleOpen} >
+              <PlusCircleIcon className="h-6 w-6 stroke-2" />
+            </IconButton>
+            : null
         }>
           {`Médicamentos activos`}
         </Card.CardHeader>
-        {medications ?
+        {medications.length > 0 ?
           <List className='w-full p-2 rounded-none'>
             {medications?.map(({ id_medicamento, nombre_medicamento, dosis_medicamento, via_administracion_medicamento, intervalo_medicamento, fecha_inicio_medicamento, fecha_fin_medicamento }, index) => {
-
               const isFechaFinExpired = new Date(fecha_fin_medicamento).getTime() < new Date().getTime();
-
               return (
                 <Tooltip key={index} className="border border-blue-gray-50 bg-white px-4 py-3 shadow-xl shadow-black/10 text-black"
                   placement="bottom" content={
@@ -64,7 +64,10 @@ export const ActiveMedications = ({ idPaciente, medicamentos }) => {
             })}
           </List>
           :
-          <Typography variant="h3" className="text-base p-4">{`#TODO: `}No tiene medicamentos activos</Typography >
+          <Button color="green" variant="text" fullWidth className='flex items-center gap-2 rounded-none' onClick={handleOpen}>
+            <PlusIcon className="text-green-500 h-10 w-10 stroke-2 border border-dashed border-green-500 rounded-lg" />
+            <span>Agregar medicamentos</span>
+          </Button >
         }
       </Card>
       <Dialog open={open} handler={handleOpen} >
