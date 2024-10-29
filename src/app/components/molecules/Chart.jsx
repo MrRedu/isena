@@ -1,12 +1,11 @@
 'use client'
 import propTypes from 'prop-types'
-import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, XAxis, YAxis, Tooltip } from 'recharts';
+import { CartesianGrid, Legend, Area, AreaChart, ResponsiveContainer, XAxis, YAxis, Tooltip } from 'recharts';
 
 export const Chart = ({ data = [], type }) => {
-
   return (
     <ResponsiveContainer aspect={3} width="100%" height="auto" className={"pr-8"} >
-      <LineChart
+      <AreaChart
         width={400}
         height={200}
         data={data}
@@ -22,8 +21,8 @@ export const Chart = ({ data = [], type }) => {
         <YAxis />
         <Tooltip />
         <Legend />
-        <Line type="monotone" dataKey={'value'} name={type.charAt(0).toUpperCase() + type.slice(1).replace(/_/g, " ")} stroke="#db598d" activeDot={{ r: 4 }} />
-      </LineChart>
+        <Area type="monotone" dataKey={'value'} name={type.charAt(0).toUpperCase() + type.slice(1).replace(/_/g, " ")} stroke="#db598d" fill='#f1b0cd' activeDot={{ r: 4 }} />
+      </AreaChart>
     </ResponsiveContainer>
   )
 };

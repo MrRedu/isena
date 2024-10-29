@@ -2,8 +2,7 @@
 import propTypes from 'prop-types'
 import { useState } from 'react';
 import { PlusCircleIcon, PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
-import { Card } from "./Card";
-import { Button, Dialog, DialogBody, DialogFooter, DialogHeader, IconButton, List, ListItem, ListItemSuffix, Tooltip } from "@/app/MTailwind";
+import { Button, Dialog, DialogBody, DialogFooter, DialogHeader, IconButton, List, ListItem, ListItemSuffix, Tooltip, Card, Typography } from "@/app/MTailwind";
 import { AddMedicationForm } from '@/components/molecules/forms/AddMedicationForm';
 import { useMedications } from '@/hooks/useMedications';
 import { formatDate } from '@/utils/utils';
@@ -22,16 +21,14 @@ export const ActiveMedications = ({ idPaciente, medicamentos }) => {
 
   return (
     <>
-      <Card >
-        <Card.CardHeader icon={
-          medications.length > 0 ?
-            <IconButton variant="text" onClick={handleOpen} >
-              <PlusCircleIcon className="h-6 w-6 stroke-2" />
-            </IconButton>
-            : null
-        }>
-          {`Médicamentos activos`}
-        </Card.CardHeader>
+      <Card className='rounded-none border shadow-none overflow-hidden'>
+        <div className='flex justify-between items-center bg-blush-50 px-4 py-2 h-[52px]'>
+          <Typography variant="h3" className='font-bold uppercase text-sm'> {`Médicamentos activos`}</Typography>
+          {medications.length > 0 && <IconButton variant="text" onClick={handleOpen}>
+            <PlusCircleIcon className="h-6 w-6 stroke-2" />
+          </IconButton>}
+        </div>
+
         {medications.length > 0 ?
           <List className='w-full p-2 rounded-none'>
             {medications?.map(({ id_medicamento, nombre_medicamento, dosis_medicamento, via_administracion_medicamento, intervalo_medicamento, fecha_inicio_medicamento, fecha_fin_medicamento }, index) => {
