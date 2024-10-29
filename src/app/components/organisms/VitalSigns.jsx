@@ -4,7 +4,7 @@ import { Accordion, AccordionBody, AccordionHeader, IconButton } from "@/app/MTa
 import { useState } from 'react';
 import { Chart } from '@/components/molecules/Chart';
 import { Card } from '@/components/molecules/cards/Card';
-import { PlusCircleIcon } from '@heroicons/react/24/outline';
+import { HeartIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
 import { formatDate } from '@/utils/utils';
 
 // Función para transformar los datos
@@ -48,7 +48,10 @@ export const VitalSigns = ({ vitalSigns = [], patient = {} }) => {
         >
           <AccordionHeader onClick={() => handleOpen(index + 1)}>
             <div className="flex justify-between w-full px-4 text-base font-normal">
-              <span>{label}</span>
+              <span className="flex items-center gap-2">
+                <HeartIcon className="w-6 h-6 text-red-500" />
+                {label}
+              </span>
               <span>
                 <span className="font-bold">{getLatestValue(patient ? patient[key] : [])}{` `}</span>
                 <span className="text-sm">{unitMeasurement}</span>
