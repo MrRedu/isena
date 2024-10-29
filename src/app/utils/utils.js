@@ -32,7 +32,7 @@ export function formatDate(isoDate) {
   const year = date.getUTCFullYear();
   
   // Formatear la fecha
-  return `${day} ${month.slice(0, 3)}. ${year}`;
+  return `${day} ${month?.slice(0, 3)}. ${year}`;
 }
 
 export function formatNumber(number = 0) {

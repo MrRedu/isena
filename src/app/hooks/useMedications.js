@@ -11,7 +11,7 @@ const medicationInitialState = {
   fechaFinMedicamento: "",
 }
 
-export function useMedication({idPaciente, medicamentos}) {
+export function useMedications({idPaciente, medicamentos}) {
   const [medications, setMedications] = useState(medicamentos || [])
   const [medication, setMedication] = useState(medicationInitialState)
   const [isLoading, setIsLoading] = useState(false)
@@ -33,7 +33,7 @@ export function useMedication({idPaciente, medicamentos}) {
       !medication.intervaloMedicamento || 
       !medication.viaAdministracionMedicamento || 
       !medication.fechaInicioMedicamento
-    ) return toast.error('Todos los campos son obligatorios')
+    ) return toast.error('Los campos marcados con (*) son obligatorios')
 
     if (!medication.fechaFinMedicamento) {
       medication.fechaFinMedicamento = null
@@ -57,21 +57,20 @@ export function useMedication({idPaciente, medicamentos}) {
       }
 
     toast.success('Medicamento registrado exitosamente');
-      
+    setMedications(prev => [...prev, {
+      nombre_medicamento: medication.nombreMedicamento,
+      dosis_medicamento: medication.dosisMedicamento,
+      intervalo_medicamento: medication.intervaloMedicamento,
+      via_administracion_medicamento: medication.viaAdministracionMedicamento,
+      fecha_inicio_medicamento: medication.fechaInicioMedicamento,
+      fecha_fin_medicamento: medication.fechaFinMedicamento,
+    }]);
 
       // setError(null)
     } catch (error) {
       console.error('Error:', error)
     } finally {
       setIsLoading(false)
-      setMedications(prev => [...prev, {
-        nombre_medicamento: medication.nombreMedicamento,
-        dosis_medicamento: medication.dosisMedicamento,
-        intervalo_medicamento: medication.intervaloMedicamento,
-        via_administracion_medicamento: medication.viaAdministracionMedicamento,
-        fecha_inicio_medicamento: medication.fechaInicioMedicamento,
-        fecha_fin_medicamento: medication.fechaFinMedicamento,
-      }]);
       setMedication(medicationInitialState);
     }
   }

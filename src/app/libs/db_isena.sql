@@ -50,12 +50,12 @@ CREATE TABLE `tbl_pacientes` (
   `nombres_paciente` varchar(64) NOT NULL COMMENT 'Nombres del paciente',
   `apellidos_paciente` varchar(64) NOT NULL COMMENT 'Apellidos del paciente',
   `cedula_paciente` varchar(8) NOT NULL COMMENT 'Cédula de identidad del paciente',
-  `telefono_paciente` varchar(12) NOT NULL COMMENT 'Teléfono del paciente',
+  `telefono_paciente` varchar(11) NOT NULL COMMENT 'Teléfono del paciente',
   `fecha_nacimiento_paciente` DATE NOT NULL COMMENT 'Fecha de nacimiento del paciente',
   `correo_paciente` varchar(82) COMMENT 'Correo del paciente',
-  `direccion_paciente` varchar(255) NOT NULL COMMENT 'Dirección del paciente'
+  `direccion_paciente` varchar(255) COMMENT 'Dirección del paciente'
 
-  -- alturas
+  -- alturas 
   -- pesos --> "pesos": [{ "valor": 75, "fecha_peso": "2022-01-01"},{  "valor": 80,"fecha_peso": "2022-06-06"}, ...],
   -- temperaturas
   -- frecuencias respiratorias

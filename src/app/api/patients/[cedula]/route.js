@@ -29,7 +29,7 @@ SELECT
      WHERE pt.id_paciente = p.id_paciente) AS temperaturas,
 
     -- Agrupando frecuencias respiratorias en un array
-    (SELECT JSON_ARRAYAGG(JSON_OBJECT('fecha_frecuencia', fr.fecha_registro, 'valor', fr.frecuencia_respiratoria))
+    (SELECT JSON_ARRAYAGG(JSON_OBJECT('fecha_frecuencia_respiratoria', fr.fecha_registro, 'valor', fr.frecuencia_respiratoria))
      FROM tbl_frecuencias_respiratorias fr 
      WHERE fr.id_paciente = p.id_paciente) AS frecuencias_respiratorias,
 
