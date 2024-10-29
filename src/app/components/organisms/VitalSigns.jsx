@@ -1,9 +1,8 @@
 'use client'
 import propTypes from 'prop-types'
-import { Accordion, AccordionBody, AccordionHeader, IconButton } from "@/app/MTailwind";
 import { useState } from 'react';
+import { Accordion, AccordionBody, AccordionHeader, IconButton, Typography, Card } from "@/app/MTailwind";
 import { Chart } from '@/components/molecules/Chart';
-import { Card } from '@/components/molecules/cards/Card';
 import { HeartIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
 import { formatDate } from '@/utils/utils';
 
@@ -33,14 +32,14 @@ export const VitalSigns = ({ vitalSigns = [], patient = {} }) => {
   const handleOpen = (value) => setOpen(open === value ? 0 : value);
 
   return (
-    <Card>
-      <Card.CardHeader icon={
+    <Card className='rounded-none border shadow-none overflow-hidden'>
+      <div className='flex justify-between items-center bg-blush-50 px-4 py-2 h-[52px] '>
+        <Typography variant="h3" className='font-bold uppercase text-sm'>{'Signos vitales'}</Typography>
         <IconButton variant="text" onClick={() => console.log("click")} >
           <PlusCircleIcon className="h-6 w-6 stroke-2" />
         </IconButton>
-      }>
-        {'Signos vitales'}
-      </Card.CardHeader>
+      </div>
+
       {vitalSigns.map(({ label, unitMeasurement, key }, index) => (
         <Accordion key={index}
           open={open === index + 1}
