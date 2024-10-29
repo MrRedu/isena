@@ -1,9 +1,8 @@
 import propTypes from 'prop-types'
 import { getPatient } from '@/services/patients'
 import { Section } from '@/components/atoms/Section'
-import { Button, Typography } from '@/app/MTailwind'
 import { formatDate, formatNumber } from '@/utils/utils'
-import { ActiveMedications, VitalSigns, MedicalHistory, PatientProfile } from '@/components/organisms/'
+import { ActiveMedications, VitalSigns, MedicalHistory, PatientProfile, MedicalConsultation } from '@/components/organisms/'
 
 const signosVitales = [
   { label: 'Altura', unitMeasurement: 'm', key: 'alturas' },
@@ -31,11 +30,9 @@ export default async function Patient({ cedula }) {
         <MedicalHistory />
       </div>
 
-
       {/* Right */}
       <div className='flex flex-col gap-4'>
-        <Button size='lg'>{`Agendar nueva consulta`}</Button>
-        <Typography variant="h3" className='font-bold uppercase text-sm'>{`Citas agendadas`}</Typography>
+        <MedicalConsultation />
       </div>
     </Section >
   )

@@ -2,6 +2,31 @@
 import { IconButton, Typography, Card } from "@/app/MTailwind";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
 
+// const antecedentes = {
+//   patologicos: [
+//     {
+//       titulo: 'Traumatismo',
+//       descripcion: 'El 21/06/2018 se pegó en la cabeza. Contusión de tercer grado.'
+//     },
+//     {
+//       titulo: 'Cirugías previas',
+//       descripcion: 'Exanguineotransfusión al nacer. IMSS SOL a los 4 años.'
+//     }
+//   ],
+//   heredofamiliares: [
+//     {
+//       titulo: 'Diabetes',
+//       descripcion: 'Abuelo paterno. Abuelo materno.'
+//     },
+//     {
+//       titulo: 'Hipertensión arterial',
+//       descripcion: 'Padre. Madre.'
+//     }
+//   ],
+//   noPatologicos: [],
+//   alergias: []
+// }
+
 export const MedicalHistory = () => {
   return (
     <Card className="rounded-none border shadow-none overflow-hidden" >
@@ -23,13 +48,11 @@ export const MedicalHistory = () => {
           <Typography variant="h4" className='font-bold uppercase text-sm px-2 py-4 text-blush-700'>{'Antecedentes heredofamiliares'}</Typography>
           <ul className='flex flex-col'>
             <li className='p-2 border-b'>Traumatismo: Equis cosa</li>
-            <li className='p-2 border-b'>Traumatismo: Equis cosa</li>
           </ul>
         </div>
         <div>
           <Typography variant="h4" className='font-bold uppercase text-sm px-2 py-4 text-blush-700'>{'Antecedentes no patológicos'}</Typography>
           <ul className='flex flex-col'>
-            <li className='p-2 border-b'>Traumatismo: Equis cosa</li>
             <li className='p-2 border-b'>Traumatismo: Equis cosa</li>
             <li className='p-2'>Traumatismo: Equis cosa</li>
           </ul>
@@ -37,7 +60,6 @@ export const MedicalHistory = () => {
         <div>
           <Typography variant="h4" className='font-bold uppercase text-sm px-2 py-4 text-blush-700'>{'Alergías'}</Typography>
           <ul className='flex flex-col'>
-            <li className='p-2 border-b'>Traumatismo: Equis cosa</li>
             <li className='p-2 border-b'>Traumatismo: Equis cosa</li>
             <li className='p-2'>Traumatismo: Equis cosa</li>
           </ul>
