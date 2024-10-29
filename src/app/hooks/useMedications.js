@@ -11,7 +11,7 @@ const medicationInitialState = {
   fechaFinMedicamento: "",
 }
 
-export function useMedication({idPaciente, medicamentos}) {
+export function useMedications({idPaciente, medicamentos}) {
   const [medications, setMedications] = useState(medicamentos || [])
   const [medication, setMedication] = useState(medicationInitialState)
   const [isLoading, setIsLoading] = useState(false)
@@ -33,7 +33,7 @@ export function useMedication({idPaciente, medicamentos}) {
       !medication.intervaloMedicamento || 
       !medication.viaAdministracionMedicamento || 
       !medication.fechaInicioMedicamento
-    ) return toast.error('Todos los campos son obligatorios')
+    ) return toast.error('Los campos marcados con (*) son obligatorios')
 
     if (!medication.fechaFinMedicamento) {
       medication.fechaFinMedicamento = null

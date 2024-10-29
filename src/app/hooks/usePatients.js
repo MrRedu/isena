@@ -12,10 +12,10 @@ const patientInitialState = {
   direccionPaciente: "",
 }
 
-export function usePatient({ initialStatePatients}) {
+export function usePatients({ initialStatePatients}) {
   const [patients, setPatients] = useState(initialStatePatients || [])
-  const [isLoading, setIsLoading] = useState(false)
   const [patient, setPatient] = useState(patientInitialState)
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleChange = (e) => {
     const { name, value } = e.target;
