@@ -1,12 +1,12 @@
 'use client'
 import propTypes from 'prop-types'
 import { Input } from "@/app/MTailwind";
-export const AddMedicationForm = ({ medicationState, handleChange }) => {
+export const AddMedicationForm = ({ medication, handleChange }) => {
   return (
     <form className="flex flex-col gap-8 p-4" >
       <Input
         name="nombreMedicamento"
-        value={medicationState?.nombreMedicamento}
+        value={medication?.nombreMedicamento}
         onChange={handleChange}
         type="text"
         variant="static"
@@ -16,7 +16,7 @@ export const AddMedicationForm = ({ medicationState, handleChange }) => {
       />
       <Input
         name="dosisMedicamento"
-        value={medicationState?.dosisMedicamento}
+        value={medication?.dosisMedicamento}
         onChange={handleChange}
         type="text"
         variant="static"
@@ -27,7 +27,7 @@ export const AddMedicationForm = ({ medicationState, handleChange }) => {
       <div className="grid md:grid-cols-2 gap-8 w-full">
         <Input
           name="viaAdministracionMedicamento"
-          value={medicationState?.viaAdministracionMedicamento}
+          value={medication?.viaAdministracionMedicamento}
           onChange={handleChange}
           type="text"
           variant="static"
@@ -37,7 +37,7 @@ export const AddMedicationForm = ({ medicationState, handleChange }) => {
         />
         <Input
           name="intervaloMedicamento"
-          value={medicationState?.intervaloMedicamento}
+          value={medication?.intervaloMedicamento}
           onChange={handleChange}
           type="text"
           variant="static"
@@ -50,7 +50,7 @@ export const AddMedicationForm = ({ medicationState, handleChange }) => {
         <Input
           type="date"
           name="fechaInicioMedicamento"
-          value={medicationState?.fechaInicioMedicamento}
+          value={medication?.fechaInicioMedicamento}
           onChange={handleChange}
           label="Fecha de inicio"
           variant="static"
@@ -59,7 +59,7 @@ export const AddMedicationForm = ({ medicationState, handleChange }) => {
         <Input
           type="date"
           name="fechaFinMedicamento"
-          value={medicationState?.fechaFinMedicamento}
+          value={medication?.fechaFinMedicamento}
           onChange={handleChange}
           label="Fecha de fin"
           variant="static"
@@ -70,6 +70,6 @@ export const AddMedicationForm = ({ medicationState, handleChange }) => {
 };
 
 AddMedicationForm.propTypes = {
-  medicationState: propTypes.object,
+  medication: propTypes.object,
   handleChange: propTypes.func,
 }
