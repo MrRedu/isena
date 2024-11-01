@@ -28,7 +28,7 @@ const getLatestValue = (dataArray) => {
 };
 
 export const VitalSigns = ({ vitalSigns = [], patient = {} }) => {
-  const [open, setOpen] = useState(1);
+  const [open, setOpen] = useState(0);
   const handleOpen = (value) => setOpen(open === value ? 0 : value);
 
   return (
