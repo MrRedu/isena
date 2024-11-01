@@ -12,7 +12,6 @@ const SUBTITLE_PATIENTS = "Tabla con todos los pacientes registrados";
 export default async function PatientsPage() {
   const { data: patients } = await getAllPatients();
   const mappedPatients = patients.map((patient) => ({
-    id: patient.id_paciente,
     cedula: patient.cedula_paciente,
     nombres: patient.nombres_paciente,
     apellidos: patient.apellidos_paciente,

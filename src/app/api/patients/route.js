@@ -18,7 +18,7 @@ export async function GET() {
   }
 }
 
-// Registrar un nuevo medicamento
+// Registrar un nuevo paciente
 export async function POST(req) {
   try {
     const { 
@@ -45,7 +45,7 @@ export async function POST(req) {
       {
         message: 'Patient created successfully',
         patient: {
-          idPatient: result.insertId,
+          idPatient: result[0].insertId,
         },
       },
       { status: 201 }

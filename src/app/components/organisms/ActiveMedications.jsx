@@ -7,14 +7,9 @@ import { AddMedicationForm } from '@/components/molecules/forms/AddMedicationFor
 import { useMedications } from '@/hooks/useMedications';
 import { formatDate } from '@/utils/utils';
 
-export const ActiveMedications = ({ idPaciente, medicamentos }) => {
-  const {
-    medications,
-    medication,
-    handleChange,
-    handleSubmit,
-    handleDelete
-  } = useMedications({ idPaciente, medicamentos })
+export const ActiveMedications = ({ cedulaPaciente
+}) => {
+  const { medications, handleDelete, medication, handleChange, handleSubmit, isLoading } = useMedications({ cedulaPaciente })
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(!open);
@@ -29,7 +24,20 @@ export const ActiveMedications = ({ idPaciente, medicamentos }) => {
           </IconButton>}
         </div>
 
-        {medications.length > 0 ?
+        {isLoading && (
+          <div className="flex justify-center items-center h-32 py-12">
+            <div className="animate-spin rounded-full h-24 w-24 border-t-2 border-b-2 border-blush-500"></div>
+          </div>
+        )}
+
+        {!isLoading && medications.length === 0 && (
+          <Button color="green" variant="text" fullWidth className='flex items-center gap-2 rounded-none' onClick={handleOpen}>
+            <PlusIcon className="text-green-500 h-10 w-10 stroke-2 border border-dashed border-green-500 rounded-lg" />
+            <span>Agregar medicamentos</span>
+          </Button >
+        )}
+
+        {medications.length > 0 && (
           <List className='w-full p-2 rounded-none'>
             {medications?.map(({ id_medicamento, nombre_medicamento, dosis_medicamento, via_administracion_medicamento, intervalo_medicamento, fecha_inicio_medicamento, fecha_fin_medicamento }, index) => {
               const isFechaFinExpired = new Date(fecha_fin_medicamento).getTime() < new Date().getTime();
@@ -56,21 +64,16 @@ export const ActiveMedications = ({ idPaciente, medicamentos }) => {
                     </IconButton>
                   </ListItem>
                 </Tooltip>
-
               )
             })}
           </List>
-          :
-          <Button color="green" variant="text" fullWidth className='flex items-center gap-2 rounded-none' onClick={handleOpen}>
-            <PlusIcon className="text-green-500 h-10 w-10 stroke-2 border border-dashed border-green-500 rounded-lg" />
-            <span>Agregar medicamentos</span>
-          </Button >
-        }
+        )}
+
       </Card>
       <Dialog open={open} handler={handleOpen} >
         <DialogHeader>{`Agregar medicamento`}</DialogHeader>
         <DialogBody>
-          <AddMedicationForm medicationState={medication} handleChange={handleChange} />
+          <AddMedicationForm medication={medication} handleChange={handleChange} />
         </DialogBody>
         <DialogFooter>
           <Button
@@ -91,6 +94,5 @@ export const ActiveMedications = ({ idPaciente, medicamentos }) => {
 };
 
 ActiveMedications.propTypes = {
-  idPaciente: propTypes.string,
-  medicamentos: propTypes.array
+  cedulaPaciente: propTypes.number,
 }

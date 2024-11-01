@@ -26,7 +26,7 @@ export default async function Patient({ cedula }) {
 
       {/* Center */}
       <div className='flex flex-col gap-4'>
-        <ActiveMedications idPaciente={paciente?.id_paciente} medicamentos={paciente?.medicamentos} />
+        <ActiveMedications cedulaPaciente={paciente?.cedula_paciente} />
         <MedicalHistory />
       </div>
 
