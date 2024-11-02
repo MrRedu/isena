@@ -21,7 +21,7 @@ export const SessionRedirect = ({ children }) => {
       }
     } else {
       // Si el usuario no está logueado, redirigir a /login si no está ya allí
-      if (currentPath !== '/login' && currentPath !== '/register') {
+      if (currentPath !== '/login' && currentPath !== '/register' && currentPath !== '/terms-and-conditions') {
         router.push('/login')
       }
     }
