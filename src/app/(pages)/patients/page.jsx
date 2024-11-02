@@ -1,9 +1,12 @@
-
-
 import { Section } from "@/components/atoms/Section";
 // Mover de aqui
 import { PatientsTable } from "@/components/organisms/tables/PatientsTable";
 import { getAllPatients } from "@/services/patients";
+
+export const metadata = {
+  title: 'Pacientes',
+  description: 'Página de pacientes',
+}
 
 const TABLE_HEADER_PATIENTS = ["Cédula", "Apellidos", "Nombres", "Edad", "Teléfono", "Última consulta", "Acciones"];
 const TITLE_PATIENTS = "Pacientes";
