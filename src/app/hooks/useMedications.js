@@ -1,21 +1,37 @@
-import { useState } from "react"
 import { toast } from "sonner"
-import { deleteMedication } from "@/services/medications"
+import { useEffect, useState } from "react"
+import { deleteMedication, getMedicationsByCedula } from "@/services/medications"
 
 const medicationInitialState = {
   nombreMedicamento: "",
   dosisMedicamento: "",
-  intervaloMedicamento: "",
   viaAdministracionMedicamento: "",
+  intervaloMedicamento: "",
   fechaInicioMedicamento: "",
   fechaFinMedicamento: "",
 }
 
-export function useMedications({idPaciente, medicamentos}) {
-  const [medications, setMedications] = useState(medicamentos || [])
+export function useMedications({cedulaPaciente}) {
+  const [medications, setMedications] = useState([])
   const [medication, setMedication] = useState(medicationInitialState)
   const [isLoading, setIsLoading] = useState(false)
-
+  
+  const getMedications = async ({ cedulaPaciente }, { signal }) => {
+    try {
+      setIsLoading(true)
+      const medicationsByCedula = await getMedicationsByCedula(
+        { cedulaPaciente },
+        { signal }
+      )
+      setMedications(medicationsByCedula)
+    } catch (error) {
+      console.error("Error fetching medications:", error);
+      // toast.error('Error al obtener medicamentos'); // Mensaje para el usuario
+    } finally {
+      setIsLoading(false)
+    }
+  }
+  
   const handleChange = (e) => {
     const { name, value } = e.target
     setMedication(prev => ({
@@ -35,9 +51,11 @@ export function useMedications({idPaciente, medicamentos}) {
       !medication.fechaInicioMedicamento
     ) return toast.error('Los campos marcados con (*) son obligatorios')
 
-    if (!medication.fechaFinMedicamento) {
-      medication.fechaFinMedicamento = null
-    }
+    const payload = {
+      ...medication,
+      cedulaPaciente,
+      fechaFinMedicamento: medication.fechaFinMedicamento === "" ? null : medication.fechaFinMedicamento // Convertir cadena vacía a null
+    };
 
     try {
       setIsLoading(true)
@@ -46,32 +64,34 @@ export function useMedications({idPaciente, medicamentos}) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          ...medication,
-          idPaciente,
-        }),
+        body: JSON.stringify(payload),
       })
 
       if (!response.ok) {
         throw new Error('Error al registrar el medicamento')
       }
 
-    toast.success('Medicamento registrado exitosamente');
-    setMedications(prev => [...prev, {
-      nombre_medicamento: medication.nombreMedicamento,
-      dosis_medicamento: medication.dosisMedicamento,
-      intervalo_medicamento: medication.intervaloMedicamento,
-      via_administracion_medicamento: medication.viaAdministracionMedicamento,
-      fecha_inicio_medicamento: medication.fechaInicioMedicamento,
-      fecha_fin_medicamento: medication.fechaFinMedicamento,
-    }]);
+      // Success
+      const data = await response.json()
+      setMedications([...medications, {
+        id_medicamento: data.idMedicamento,
+        nombre_medicamento :medication.nombreMedicamento,
+        dosis_medicamento :medication.dosisMedicamento,
+        via_administracion_medicamento :medication.viaAdministracionMedicamento,
+        intervalo_medicamento :medication.intervaloMedicamento,
+        fecha_inicio_medicamento:medication.fechaInicioMedicamento,
+        fecha_fin_medicamento:medication.fechaFinMedicamento
+      }])
 
+      toast.success('Medicamento registrado exitosamente');
+  } catch (error) {
       // setError(null)
-    } catch (error) {
       console.error('Error:', error)
+      toast.error('Error al registrar el medicamento');
+      throw new Error('Error al registrar el medicamento')
     } finally {
       setIsLoading(false)
-      setMedication(medicationInitialState);
+      handleReset()
     }
   }
 
@@ -79,6 +99,15 @@ export function useMedications({idPaciente, medicamentos}) {
      deleteMedication(id)
      setMedications(medications.filter(medication => medication.id_medicamento !== id))
   }
+
+  const handleReset = () => setMedication(medicationInitialState)
+
+  useEffect(() => {
+    const abortController = new AbortController()
+    getMedications({ cedulaPaciente }, { signal: abortController.signal })
+    
+    return () => abortController.abort()
+  }, [  ])
   
   return {
     medications,
@@ -86,6 +115,7 @@ export function useMedications({idPaciente, medicamentos}) {
     handleChange,
     handleSubmit,
     isLoading,
-    handleDelete
+    handleDelete,
+    handleReset
   }
 }

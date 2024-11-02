@@ -29,7 +29,7 @@ export const MedicalConsultation = () => {
       <Button size='lg' variant="outlined">{`Iniciar nueva consulta`}</Button>
       <div>
 
-        <Typography variant="h3" className='font-bold uppercase text-sm'>{`Citas agendadas`}</Typography>
+        <Typography variant="h3" className='font-bold uppercase text-sm'>{`Consultas agendadas`}</Typography>
 
         {
           consultas.map(({ id, title, datetime }) => (
