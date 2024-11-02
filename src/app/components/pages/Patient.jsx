@@ -4,15 +4,6 @@ import { Section } from '@/components/atoms/Section'
 import { formatDate, formatNumber } from '@/utils/utils'
 import { ActiveMedications, VitalSigns, MedicalHistory, PatientProfile, MedicalConsultation } from '@/components/organisms/'
 
-const signosVitales = [
-  { label: 'Altura', unitMeasurement: 'm', key: 'alturas' },
-  { label: 'Peso', unitMeasurement: 'kg', key: 'pesos' },
-  { label: 'Temperatura', unitMeasurement: '°C', key: 'temperaturas' },
-  { label: 'Frec. Respiratoria', unitMeasurement: 'rpm', key: 'frecuencias_respiratorias' },
-  { label: 'Presión Arterial', unitMeasurement: 'mmHg', key: 'presiones_arteriales' },
-  { label: 'Frec. Cardiaca', unitMeasurement: 'bpm', key: 'frecuencias_cardiacas' },
-];
-
 export default async function Patient({ cedula }) {
   const { data: paciente = {} } = await getPatient({ cedula })
   return (
@@ -20,7 +11,7 @@ export default async function Patient({ cedula }) {
       {/* Left */}
       <div className='flex flex-col gap-4'>
         <PatientProfile nombres={paciente?.nombres_paciente} apellidos={paciente?.apellidos_paciente} cedula={formatNumber(paciente?.cedula_paciente)} fechaNacimiento={formatDate(paciente?.fecha_nacimiento_paciente)} />
-        <VitalSigns vitalSigns={signosVitales} patient={paciente} />
+        <VitalSigns cedulaPaciente={paciente?.cedula_paciente} />
       </div>
 
 
