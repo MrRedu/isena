@@ -47,12 +47,7 @@ export const LoginForm = () => {
             type="submit"
             loading={isLoading}
             onClick={handleSubmit}
-            className="
-              
-              bg-blush-500 hover:bg-blush-600 hover:shadow-none
-               px-12 py-4 text-blush-50 
-               w-fit
-              "
+            className="bg-blush-500 hover:bg-blush-600 hover:shadow-none px-12 py-4 text-blush-50  w-fit"
           >
             {`Iniciar sesión`}
           </Button>

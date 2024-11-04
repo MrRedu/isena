@@ -12,30 +12,22 @@ import {
   CardFooter,
   Tooltip,
   Input,
-  Dialog,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
 } from "@/app/MTailwind";
 import { formatNumber, whatIsMyAge } from "@/utils/utils";
 import Link from 'next/link';
-import { AddPatientForm } from '../forms/AddPatientForm';
-import { usePatients } from '@/hooks/usePatients';
 
 export const PatientsTable = ({ title, subtitle, tableHeader, tableRows = [] }) => {
-  const { patients, patient, handleChange, handleSubmit, isLoading } = usePatients({ initialStatePatients: tableRows })
+  const { users } = useUsers({ initialStatePatients: tableRows })
 
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(!open);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const patientsPerPage = 10;
-  const totalPages = Math.ceil(patients.length / patientsPerPage);
+  const usersPerPage = 10;
+  const totalPages = Math.ceil(users.length / usersPerPage);
 
   // Get current patients for the current page
-  const indexOfLastPatient = currentPage * patientsPerPage;
-  const indexOfFirstPatient = indexOfLastPatient - patientsPerPage;
-  const currentPatients = patients.slice(indexOfFirstPatient, indexOfLastPatient);
+  const indexOfLastPatient = currentPage * usersPerPage;
+  const indexOfFirstPatient = indexOfLastPatient - usersPerPage;
+  const currentPatients = users.slice(indexOfFirstPatient, indexOfLastPatient);
 
   // Pagination handlers
   const handleNextPage = () => {
@@ -63,31 +55,6 @@ export const PatientsTable = ({ title, subtitle, tableHeader, tableRows = [] }) 
             </Typography>
           </div>
           <div className="flex flex-col lg:flex-row w-full shrink-0 gap-2 md:w-max">
-            <Button variant="outlined" className="text-blush-500 border-blush-500" onClick={handleOpen}>
-              {`Registrar paciente`}
-            </Button>
-            <Dialog open={open} handler={handleOpen}   >
-              <DialogHeader>{`Registrar paciente`}</DialogHeader>
-              <DialogBody className="max-h-[75vh] w-full overflow-y-auto">
-                <AddPatientForm patient={patient} handleChange={handleChange}
-                />
-              </DialogBody>
-              <DialogFooter>
-                <Button
-                  variant="text"
-                  color="red"
-                  onClick={handleOpen}
-                  className="mr-1"
-                >
-                  <span>Cancelar</span>
-                </Button>
-                <Button variant="gradient" color="green"
-                  onClick={handleSubmit} loading={isLoading}
-                >
-                  <span>{isLoading ? 'Registrando...' : 'Registrar'}</span>
-                </Button>
-              </DialogFooter>
-            </Dialog>
             <div className="w-full md:w-72">
               <Input
                 label="V-9.696.363"

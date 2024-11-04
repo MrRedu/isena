@@ -1,4 +1,5 @@
 import { RegisterForm } from "@/components/organisms/forms/RegisterForm";
+import Image from "next/image";
 
 export const metadata = {
   title: 'Crear cuenta',
@@ -24,6 +25,15 @@ export default function RegisterPage() {
       <div className="w-full lg:w-6/12 lg:m-32">
         <RegisterForm />
       </div>
+      <Image src="/logo.webp" alt="Logo ISENA"
+        width={320} height={200}
+        className='
+          absolute
+          w-52 lg:w-64 h-auto
+          top-12 right-[50%] left-[50%] bottom-auto transform translate-x-[-50%]
+          lg:top-auto lg:right-auto lg:bottom-12 lg:left-16 lg:translate-x-0
+        '
+      />
     </div>
   )
 };

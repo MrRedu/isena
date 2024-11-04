@@ -1,4 +1,5 @@
 import { LoginForm } from '@/components/organisms/forms/LoginForm'
+import Image from 'next/image'
 
 export const metadata = {
   title: 'Iniciar sesión',
@@ -25,6 +26,15 @@ export default function LoginPage() {
       <div className="w-full lg:w-6/12 lg:ml-32">
         <LoginForm />
       </div>
+      <Image src="/logo.webp" alt="Logo ISENA"
+        width={320} height={200}
+        className='
+          absolute
+          w-52 lg:w-64 h-auto
+          top-12 right-[50%] left-[50%] bottom-auto transform translate-x-[-50%]
+          lg:top-auto lg:right-16 lg:bottom-12 lg:left-auto lg:translate-x-0
+        '
+      />
     </div>
   )
 };

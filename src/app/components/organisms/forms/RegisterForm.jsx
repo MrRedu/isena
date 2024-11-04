@@ -23,7 +23,7 @@ export const RegisterForm = () => {
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div className="flex flex-col gap-8">
-            <div className="flex gap-8">
+            <div className="flex gap-8 flex-col lg:flex-row">
               <Input
                 id="name"
                 name="name"
@@ -33,7 +33,7 @@ export const RegisterForm = () => {
                 value={formData.name}
                 label="Nombres"
                 required
-                className="w-full"
+                className="w-full "
               />
               <Input
                 id="lastName"

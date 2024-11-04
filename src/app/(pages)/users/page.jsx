@@ -1,5 +1,14 @@
 import { Section } from "@/components/atoms/Section";
 
+export const metadata = {
+  title: 'Usuarios',
+  description: 'Página de usuarios',
+}
+
+const TABLE_HEADER_USERS = ["Correo", "Apellidos", "Nombres", "Status", "Rol", "Acciones"];
+const TITLE_USERS = "Usuarios";
+const SUBTITLE_USERS = "Tabla con todos los usuarios del sistema";
+
 export default function UsersPage() {
   return (
     <Section>
