@@ -18,7 +18,7 @@ export const ActiveMedications = ({ cedulaPaciente
     <>
       <Card className='rounded-none border shadow-none overflow-hidden'>
         <div className='flex justify-between items-center bg-blush-50 px-4 py-2 h-[52px]'>
-          <Typography variant="h3" className='font-bold uppercase text-sm'> {`Médicamentos activos`}</Typography>
+          <Typography variant="h3" className='font-bold uppercase text-sm'> {`Medicamentos activos`}</Typography>
           {medications.length > 0 && <IconButton variant="text" onClick={handleOpen}>
             <PlusCircleIcon className="h-6 w-6 stroke-2" />
           </IconButton>}
