@@ -3,10 +3,11 @@ import propTypes from 'prop-types'
 import { useState } from 'react';
 import { Accordion, AccordionBody, AccordionHeader, IconButton, Typography, Card, Dialog, DialogHeader, DialogBody, DialogFooter, Button } from "@/app/MTailwind";
 import { Chart } from '@/components/molecules/Chart';
-import { HeartIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
-import { useVitalSigns } from '../../hooks/useVitalSigns';
+import { PlusCircleIcon } from '@heroicons/react/24/outline';
+import { useVitalSigns } from '@/hooks/useVitalSigns';
 import { AddVitalSignsForm } from './forms/AddVitalSignsForm';
 import { format } from '@formkit/tempo';
+import { HeightIcon, LungsIcon, TemperatureIcon, WeightIcon, BloodPressureIcon, HeartRateIcon } from '@/components/atoms/icons';
 
 // Función para transformar los datos
 const transformData = (data, type) => {
@@ -30,12 +31,12 @@ const getLatestValue = (dataArray) => {
 };
 
 const signosVitales = [
-  { key: 'alturas', label: 'Altura', unitMeasurement: 'm', icon: <HeartIcon className="w-6 h-6 text-red-500" /> },
-  { key: 'pesos', label: 'Peso', unitMeasurement: 'kg', icon: <HeartIcon className="w-6 h-6 text-red-500" /> },
-  { key: 'temperaturas', label: 'Temperatura', unitMeasurement: '°C', icon: <HeartIcon className="w-6 h-6 text-red-500" /> },
-  { key: 'frecuencias_respiratorias', label: 'Frec. Respiratoria', unitMeasurement: 'rpm', icon: <HeartIcon className="w-6 h-6 text-red-500" /> },
-  { key: 'presiones_arteriales', label: 'Presión Arterial', unitMeasurement: 'mmHg', icon: <HeartIcon className="w-6 h-6 text-red-500" /> },
-  { key: 'frecuencias_cardiacas', label: 'Frec. Cardiaca', unitMeasurement: 'bpm', icon: <HeartIcon className="w-6 h-6 text-red-500" /> },
+  { key: 'alturas', label: 'Altura', unitMeasurement: 'm', icon: <HeightIcon className="w-6 h-6 text-orange-500" /> },
+  { key: 'pesos', label: 'Peso', unitMeasurement: 'kg', icon: <WeightIcon className="w-6 h-6 text-green-500" /> },
+  { key: 'temperaturas', label: 'Temperatura', unitMeasurement: '°C', icon: <TemperatureIcon className="w-6 h-6 text-red-300" /> },
+  { key: 'frecuencias_respiratorias', label: 'Frec. Respiratoria', unitMeasurement: 'rpm', icon: <LungsIcon className="w-6 h-6 text-blue-500" /> },
+  { key: 'presiones_arteriales', label: 'Presión Arterial', unitMeasurement: 'mmHg', icon: <BloodPressureIcon className="w-6 h-6 text-red-500" /> },
+  { key: 'frecuencias_cardiacas', label: 'Frec. Cardiaca', unitMeasurement: 'bpm', icon: <HeartRateIcon className="w-6 h-6 text-red-500" /> },
 ];
 
 export const VitalSigns = ({ cedulaPaciente }) => {
@@ -109,7 +110,6 @@ export const VitalSigns = ({ cedulaPaciente }) => {
     </>
   )
 };
-
 VitalSigns.propTypes = {
   cedulaPaciente: propTypes.string
 }
