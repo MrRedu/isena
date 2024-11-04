@@ -4,6 +4,8 @@ export const initialValueFormLogin = {
 }
 
 export const initialValueFormRegister = {
+  name: '',
+  lastName: '',
   email: '',
   password: '',
   confirmPassword: '',

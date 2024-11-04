@@ -17,3 +17,34 @@ export async function GET() {
     )
   }
 }
+
+// Crear un nuevo usuario
+export async function POST(req) {
+  try {
+    const { name, lastName, email, password } = await req.json()
+
+    const result = await connection.query('INSERT INTO tbl_usuarios SET ?', {
+      nombres_usuario: name,
+      apellidos_usuario: lastName,
+      correo_usuario: email,
+      contrasena_usuario: password,
+    })
+
+    return NextResponse.json(
+      {
+        message: 'User created successfully',
+        idUser: result[0].insertId,
+      },
+      { status: 201 }
+    )
+  } catch (error) {
+    console.error(error)
+    return NextResponse.json(
+      {
+        message: error.message,
+        manualMessage: 'Error creating user',
+      },
+      { status: 500 }
+    )
+  }
+}
