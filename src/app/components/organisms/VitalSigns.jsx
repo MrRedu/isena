@@ -39,7 +39,7 @@ const signosVitales = [
 ];
 
 export const VitalSigns = ({ cedulaPaciente }) => {
-  const { vitalSigns, isLoading } = useVitalSigns({ cedulaPaciente })
+  const { vitalSigns, vitalSign, handleChange, handleSubmit, isLoading } = useVitalSigns({ cedulaPaciente })
 
   const [open, setOpen] = useState(0);
   const handleOpen = (value) => setOpen(open === value ? 0 : value);
@@ -90,7 +90,7 @@ export const VitalSigns = ({ cedulaPaciente }) => {
       <Dialog open={openModal} handler={handleOpenModal} >
         <DialogHeader>{`Registrar signos vitales`}</DialogHeader>
         <DialogBody>
-          <AddVitalSignsForm />
+          <AddVitalSignsForm vitalSign={vitalSign} handleChange={handleChange} />
         </DialogBody>
         <DialogFooter>
           <Button
@@ -101,9 +101,7 @@ export const VitalSigns = ({ cedulaPaciente }) => {
           >
             <span>Cancelar</span>
           </Button>
-          <Button variant="gradient" color="green"
-            onClick={handleOpenModal}
-          >
+          <Button variant="gradient" color="green" onClick={handleSubmit}>
             <span>Agregar</span>
           </Button>
         </DialogFooter>

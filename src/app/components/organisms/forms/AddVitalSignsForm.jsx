@@ -1,17 +1,22 @@
 'use client'
-
+import propTypes from 'prop-types'
 import { Input } from "@/app/MTailwind";
-import { useState } from "react";
 
-export const AddVitalSignsForm = () => {
-  const [expirationDate, setExpirationDate] = useState("")
+// altura: "",
+// peso: "",
+// temperatura: "",
+// frecuenciaRespiratoria: "",
+// presionArterial: "",
+// frecuenciaCardiaca: "",
 
-  const handleChange = (event) => setExpirationDate(event.target.value)
+export const AddVitalSignsForm = ({ vitalSign, handleChange }) => {
 
   return (
     <form className="flex flex-col gap-8 p-4" >
       <div className="grid md:grid-cols-2 gap-8 w-full">
         <Input
+          value={vitalSign?.altura}
+          name='altura'
           onChange={handleChange}
           type="text"
           variant="static"
@@ -19,6 +24,8 @@ export const AddVitalSignsForm = () => {
           placeholder='ej: 1.70 m'
         />
         <Input
+          value={vitalSign?.peso}
+          name='peso'
           onChange={handleChange}
           type="text"
           variant="static"
@@ -28,6 +35,8 @@ export const AddVitalSignsForm = () => {
       </div>
       <div className="grid md:grid-cols-2 gap-8 w-full">
         <Input
+          value={vitalSign?.temperatura}
+          name='temperatura'
           onChange={handleChange}
           type="text"
           variant="static"
@@ -35,6 +44,8 @@ export const AddVitalSignsForm = () => {
           placeholder='ej: 37.5 °C'
         />
         <Input
+          value={vitalSign?.frecuenciaRespiratoria}
+          name='frecuenciaRespiratoria'
           onChange={handleChange}
           type="text"
           variant="static"
@@ -45,6 +56,12 @@ export const AddVitalSignsForm = () => {
       </div>
       <div className="grid md:grid-cols-2 gap-8 w-full">
         <Input
+          value={vitalSign?.presionArterial
+            .replace(/[^0-9]/g, "")
+            .replace(/(\d{3})(\d{0,3})/, (_, g1, g2) => g1 + (g2 ? '/' + g2 : ''))
+            .substring(0, 7)}
+          name='presionArterial'
+          onChange={handleChange}
           type="text"
           variant="static"
           label="Presión Arterial"
@@ -57,13 +74,10 @@ export const AddVitalSignsForm = () => {
           containerProps={{
             className: "!min-w-0",
           }}
-          value={expirationDate
-            .replace(/[^0-9]/g, "")
-            .replace(/(\d{3})(\d{0,3})/, (_, g1, g2) => g1 + (g2 ? '/' + g2 : ''))
-            .substring(0, 7)}
-          onChange={(e) => setExpirationDate(e.target.value)}
         />
         <Input
+          value={vitalSign?.frecuenciaCardiaca}
+          name='frecuenciaCardiaca'
           onChange={handleChange}
           type="text"
           variant="static"
@@ -75,3 +89,8 @@ export const AddVitalSignsForm = () => {
     </form>
   )
 };
+
+AddVitalSignsForm.propTypes = {
+  vitalSign: propTypes.object,
+  handleChange: propTypes.func
+}

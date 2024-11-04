@@ -1,25 +1,40 @@
 import { useEffect, useState } from "react"
-import { getVitalSignsByCedula } from "../services/vitalSigns"
+import { getVitalSignsByCedula } from "@/services/vitalSigns"
+import { vitalSignInitialState } from "@/utils/consts"
 
 export function useVitalSigns({ cedulaPaciente }) {
 const [vitalSigns, setVitalSigns] = useState([])
+const [vitalSign, setVitalSign] = useState(vitalSignInitialState)
 const [isLoading, setIsLoading] = useState(false)
 
-const getVitalSigns = async ({ cedulaPaciente }, { signal }) => {
-  try {
-    setIsLoading(true)
-    const vitalSignsByCedula = await getVitalSignsByCedula(
-      { cedulaPaciente },
-      { signal }
-    )
-    setVitalSigns(vitalSignsByCedula)
-  } catch (error) {
-    console.error("Error fetching vital signs:", error);
-    // toast.error('Error al obtener signos vitales'); // Mensaje para el usuario
-  } finally {
-    setIsLoading(false)
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setVitalSign(prev => ({
+      ...prev,
+      [name]: value
+    }))
   }
-}
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    console.log(vitalSign)
+  }
+
+  const getVitalSigns = async ({ cedulaPaciente }, { signal }) => {
+    try {
+      setIsLoading(true)
+      const vitalSignsByCedula = await getVitalSignsByCedula(
+        { cedulaPaciente },
+        { signal }
+      )
+      setVitalSigns(vitalSignsByCedula)
+    } catch (error) {
+      console.error("Error fetching vital signs:", error);
+      // toast.error('Error al obtener signos vitales'); // Mensaje para el usuario
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
 useEffect(() => {
   const abortController = new AbortController()
@@ -31,6 +46,9 @@ useEffect(() => {
 
   return {  
     vitalSigns,
+    vitalSign,
+    handleChange,
+    handleSubmit,
     isLoading
   }
 }

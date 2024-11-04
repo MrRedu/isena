@@ -11,3 +11,21 @@ export const initialValueFormRegister = {
   confirmPassword: '',
   acceptTerms: false
 }
+
+export const medicationInitialState = {
+  nombreMedicamento: "",
+  dosisMedicamento: "",
+  viaAdministracionMedicamento: "",
+  intervaloMedicamento: "",
+  fechaInicioMedicamento: "",
+  fechaFinMedicamento: "",
+}
+
+export const vitalSignInitialState = {
+  altura: "",
+  peso: "",
+  temperatura: "",
+  frecuenciaRespiratoria: "",
+  presionArterial: "",
+  frecuenciaCardiaca: "",
+}
