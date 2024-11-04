@@ -11,12 +11,7 @@ export default function PatientPage({ params: { cedula } }) {
   return (
     <Section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       <div className='flex flex-col gap-4'>
-        <PatientProfile
-          nombres={'Luis Andrés'}
-          apellidos={'Cheng Romero'}
-          cedula={'12.345.678'}
-          fechaNacimiento={'21 Ene. 2000'}
-        />
+        <PatientProfile cedulaPaciente={cedula} />
         <VitalSigns cedulaPaciente={cedula} />
       </div>
       <div className='flex flex-col gap-4'>

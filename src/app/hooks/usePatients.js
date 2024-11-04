@@ -1,16 +1,8 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { toast } from "sonner";
-import { validateEmail } from "../utils/utils";
-
-const patientInitialState = {
-  nombresPaciente: "",
-  apellidosPaciente: "",
-  cedulaPaciente: "",
-  telefonoPaciente: "",
-  fechaNacimientoPaciente: "",
-  correoPaciente: "",
-  direccionPaciente: "",
-}
+import { validateEmail } from "@/utils/utils";
+import { patientInitialState } from "@/utils/consts";
+import { getPatientByCedula } from "../services/patients";
 
 export function usePatients({ initialStatePatients}) {
   const [patients, setPatients] = useState(initialStatePatients || [])
@@ -90,5 +82,40 @@ export function usePatients({ initialStatePatients}) {
     handleChange,
     handleSubmit,
     handleReset
+  }
+}
+
+export function usePatient({ cedulaPaciente }) {
+const [patient, setPatient] = useState({})
+const [isLoading,  setIsLoading] = useState(false)
+
+  const getPatient = async ({ cedulaPaciente }, { signal }) => {
+    try {
+      setIsLoading(true)
+      const {data: patientData} = await getPatientByCedula(
+        { cedula: cedulaPaciente },
+        { signal }
+      ) 
+      setPatient(patientData)
+    } catch (error) {
+      console.error("Error fetching patient:", error);
+      // toast.error('Error al obtener signos vitales'); // Mensaje para el usuario
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  useEffect(() => {
+  const abortController = new AbortController()
+
+  getPatient({cedulaPaciente}, {signal: abortController.signal})
+
+  return () =>   abortController.abort()
+  }, [ ])
+
+
+  return {
+    patient,
+    isLoading
   }
 }

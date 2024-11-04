@@ -29,3 +29,13 @@ export const vitalSignInitialState = {
   presionArterial: "",
   frecuenciaCardiaca: "",
 }
+
+export const patientInitialState = {
+  nombresPaciente: "",
+  apellidosPaciente: "",
+  cedulaPaciente: "",
+  telefonoPaciente: "",
+  fechaNacimientoPaciente: "",
+  correoPaciente: "",
+  direccionPaciente: "",
+}

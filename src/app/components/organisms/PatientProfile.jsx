@@ -1,20 +1,21 @@
+'use client'
 import propTypes from 'prop-types'
 import { Card } from "@/app/MTailwind";
-export const PatientProfile = ({ nombres, apellidos, cedula, fechaNacimiento }) => {
+import { usePatient } from '@/hooks/usePatients';
+export const PatientProfile = ({ cedulaPaciente }) => {
+  const { patient, isLoading } = usePatient({ cedulaPaciente })
+  console.log(patient, isLoading)
   return (
     <Card className='rounded-none border shadow-none overflow-hidden p-4'>
       <h2 className='font-bold uppercase text-lg flex flex-col'>
-        <span>{nombres}</span>
-        <span>{apellidos}</span>
+        <span>{patient?.nombres_paciente}</span>
+        <span>{patient?.apellidos_paciente}</span>
       </h2>
-      <p className=''>{cedula} | {fechaNacimiento}</p>
+      <p className=''>{patient?.cedula_paciente} | {patient?.fecha_nacimiento_paciente}</p>
     </Card>
   )
 };
 
 PatientProfile.propTypes = {
-  nombres: propTypes.string,
-  apellidos: propTypes.string,
-  cedula: propTypes.string,
-  fechaNacimiento: propTypes.string
+  cedulaPaciente: propTypes.string
 }

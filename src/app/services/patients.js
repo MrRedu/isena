@@ -10,13 +10,14 @@ export const getAllPatients = async () => {
   return patients
 }
 
-export const getPatient = async ({ cedula }) => {
+export const getPatientByCedula = async ({ cedula }, { signal }) => {
   const result = await fetch(`http://localhost:3000/api/patients/${cedula}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
     },
-    cache: 'no-cache'
+    cache: 'no-cache',
+    signal
   })
   const patient = await result.json()
   return patient
