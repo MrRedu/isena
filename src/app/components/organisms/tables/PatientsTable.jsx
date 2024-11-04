@@ -19,7 +19,7 @@ import {
 } from "@/app/MTailwind";
 import { formatNumber, whatIsMyAge } from "@/utils/utils";
 import Link from 'next/link';
-import { AddPatientForm } from '../../molecules/forms/AddPatientForm';
+import { AddPatientForm } from '../forms/AddPatientForm';
 import { usePatients } from '@/hooks/usePatients';
 
 export const PatientsTable = ({ title, subtitle, tableHeader, tableRows = [] }) => {

@@ -3,7 +3,7 @@ import propTypes from 'prop-types'
 import { useState } from 'react';
 import { PlusCircleIcon, PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { Button, Dialog, DialogBody, DialogFooter, DialogHeader, IconButton, List, ListItem, ListItemSuffix, Tooltip, Card, Typography } from "@/app/MTailwind";
-import { AddMedicationForm } from '@/components/molecules/forms/AddMedicationForm';
+import { AddMedicationForm } from '@/components/organisms/forms/AddMedicationForm';
 import { useMedications } from '@/hooks/useMedications';
 import { formatDate } from '@/utils/utils';
 

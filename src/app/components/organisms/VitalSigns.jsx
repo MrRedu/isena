@@ -1,11 +1,12 @@
 'use client'
 import propTypes from 'prop-types'
 import { useState } from 'react';
-import { Accordion, AccordionBody, AccordionHeader, IconButton, Typography, Card } from "@/app/MTailwind";
+import { Accordion, AccordionBody, AccordionHeader, IconButton, Typography, Card, Dialog, DialogHeader, DialogBody, DialogFooter, Button } from "@/app/MTailwind";
 import { Chart } from '@/components/molecules/Chart';
 import { HeartIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
 import { formatDate } from '@/utils/utils';
 import { useVitalSigns } from '../../hooks/useVitalSigns';
+import { AddVitalSignsForm } from './forms/AddVitalSignsForm';
 
 // Función para transformar los datos
 const transformData = (data, type) => {
@@ -43,45 +44,71 @@ export const VitalSigns = ({ cedulaPaciente }) => {
   const [open, setOpen] = useState(0);
   const handleOpen = (value) => setOpen(open === value ? 0 : value);
 
+  const [openModal, setOpenModal] = useState(false);
+  const handleOpenModal = () => setOpenModal(!openModal);
+
   return (
-    <Card className='rounded-none border shadow-none overflow-hidden'>
-      <div className='flex justify-between items-center bg-blush-50 px-4 py-2 h-[52px] '>
-        <Typography variant="h3" className='font-bold uppercase text-sm'>{'Signos vitales'}</Typography>
-        <IconButton variant="text" onClick={() => console.log("click")} >
-          <PlusCircleIcon className="h-6 w-6 stroke-2" />
-        </IconButton>
-      </div>
-      {isLoading && (
-        <div className="flex items-center justify-center h-full">
-          <Typography variant="h4" className='font-bold uppercase text-sm'>{'Cargando...'}</Typography>
+    <>
+      <Card className='rounded-none border shadow-none overflow-hidden'>
+        <div className='flex justify-between items-center bg-blush-50 px-4 py-2 h-[52px] '>
+          <Typography variant="h3" className='font-bold uppercase text-sm'>{'Signos vitales'}</Typography>
+          <IconButton variant="text" onClick={() => handleOpenModal()} >
+            <PlusCircleIcon className="h-6 w-6 stroke-2" />
+          </IconButton>
         </div>
-      )}
-      {vitalSigns && !isLoading &&
-        (signosVitales.map(({ key, label, unitMeasurement, icon }, index) => (
-          <Accordion key={index}
-            open={open === index + 1}
-            className='h-full'
+        {isLoading && (
+          <div className="flex items-center justify-center h-full">
+            <Typography variant="h4" className='font-bold uppercase text-sm'>{'Cargando...'}</Typography>
+          </div>
+        )}
+        {vitalSigns && !isLoading &&
+          (signosVitales.map(({ key, label, unitMeasurement, icon }, index) => (
+            <Accordion key={index}
+              open={open === index + 1}
+              className='h-full'
+            >
+              <AccordionHeader onClick={() => handleOpen(index + 1)}>
+                <div className="flex justify-between w-full px-4 text-base font-normal">
+                  <span className="flex items-center gap-2">
+                    {icon}
+                    {label}
+                  </span>
+                  <span>
+                    <span className="font-bold">{getLatestValue(vitalSigns ? vitalSigns[key] : [])}{` `}</span>
+                    <span className="text-sm">{unitMeasurement}</span>
+                  </span>
+                </div>
+              </AccordionHeader>
+              <AccordionBody className="w-full">
+                <Chart data={transformData(vitalSigns ? vitalSigns : {}, key)} type={key} />
+              </AccordionBody>
+            </Accordion>
+          ))
+          )
+        }
+      </Card>
+      <Dialog open={openModal} handler={handleOpenModal} >
+        <DialogHeader>{`Registrar signos vitales`}</DialogHeader>
+        <DialogBody>
+          <AddVitalSignsForm />
+        </DialogBody>
+        <DialogFooter>
+          <Button
+            variant="text"
+            color="red"
+            onClick={handleOpenModal}
+            className="mr-1"
           >
-            <AccordionHeader onClick={() => handleOpen(index + 1)}>
-              <div className="flex justify-between w-full px-4 text-base font-normal">
-                <span className="flex items-center gap-2">
-                  {icon}
-                  {label}
-                </span>
-                <span>
-                  <span className="font-bold">{getLatestValue(vitalSigns ? vitalSigns[key] : [])}{` `}</span>
-                  <span className="text-sm">{unitMeasurement}</span>
-                </span>
-              </div>
-            </AccordionHeader>
-            <AccordionBody className="w-full">
-              <Chart data={transformData(vitalSigns ? vitalSigns : {}, key)} type={key} />
-            </AccordionBody>
-          </Accordion>
-        ))
-        )
-      }
-    </Card>
+            <span>Cancelar</span>
+          </Button>
+          <Button variant="gradient" color="green"
+            onClick={handleOpenModal}
+          >
+            <span>Agregar</span>
+          </Button>
+        </DialogFooter>
+      </Dialog>
+    </>
   )
 };
 
