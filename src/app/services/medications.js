@@ -8,22 +8,34 @@ export const getMedicationsByCedula = async ({cedulaPaciente} , {signal}) => {
       headers: {
         'Content-Type': 'application/json',
       },
+      cache: 'no-cache',
       signal
     })
-    const {data} = await result.json()
-    return data
+    const medications = await result.json()
+    return medications
   } catch (error) {
+    console.error('Error:', error)
     throw new Error('Error loading medications')
   }
 }
 
 export const deleteMedication = async id => {
-  const result = await fetch(`http://localhost:3000/api/medications/${id}`, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
-  if (!result.ok) return toast.error('Error al eliminar el medicamento')
-  if (result.ok) return toast.success(`El medicamento ha sido eliminado`)
+  const URL = `http://localhost:3000/api/medications/${id}`
+  try {
+    const result = await fetch(URL, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    if (!result.ok) {
+      throw new Error('Error deleting medication')
+    }
+    toast.success('Medicamento eliminado correctamente')
+  } catch (error) {
+    console.error('Error:', error)
+    throw new Error('Error deleting medication')
+  }
+
+
 }

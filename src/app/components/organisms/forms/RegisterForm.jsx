@@ -23,6 +23,30 @@ export const RegisterForm = () => {
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div className="flex flex-col gap-8">
+            <div className="flex gap-8 flex-col lg:flex-row">
+              <Input
+                id="name"
+                name="name"
+                type="text"
+                variant="static"
+                onChange={handleChange}
+                value={formData.name}
+                label="Nombres"
+                required
+                className="w-full "
+              />
+              <Input
+                id="lastName"
+                name="lastName"
+                type="text"
+                variant="static"
+                onChange={handleChange}
+                value={formData.lastName}
+                label="Apellidos"
+                required
+                className="w-full"
+              />
+            </div>
             <Input
               id="email"
               name="email"

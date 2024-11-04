@@ -59,15 +59,11 @@ export function SidebarWithBurgerMenu() {
         >
           <div className="mb-2 flex items-center gap-4 p-4">
             <Image
-              src="/avatar-dev.webp"
+              src="/logo.webp"
               alt="brand"
-              width={40}
-              height={40}
-              className="h-8 w-8"
+              width={220}
+              height={60}
             />
-            <Typography variant="h5" color="blue-gray">
-              ISENA
-            </Typography>
           </div>
           <List>
             <Link href="/">

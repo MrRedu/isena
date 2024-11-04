@@ -41,27 +41,33 @@ export const MedicalHistory = () => {
         <div>
           <Typography variant="h4" className='font-bold uppercase text-sm px-2 py-4 text-blush-700'>{'Antecedentes patólogicos'}</Typography>
           <ul className='flex flex-col'>
-            <li className='p-2 border-b'>Traumatismo: Equis cosa</li>
+            <li className='p-2 border-b'>Cirugías previas: Apendicectomia en 06/2018</li>
+            <li className='p-2 border-b'>Diabetes: Tipo II</li>
+            <li className='p-2 border-b'>Cardiopatias: Presión arterial alta</li>
+            <li className='p-2 border-b'>Otros: Problemas respiratorios, *otro*</li>
           </ul>
         </div>
         <div>
           <Typography variant="h4" className='font-bold uppercase text-sm px-2 py-4 text-blush-700'>{'Antecedentes heredofamiliares'}</Typography>
           <ul className='flex flex-col'>
-            <li className='p-2 border-b'>Traumatismo: Equis cosa</li>
+            <li className='p-2 border-b'>Psiquiatrícos: No</li>
+            <li className='p-2 border-b'>Diabetes: Abuelo y abuela paterno, padre.</li>
+            <li className='p-2 border-b'>Hipertensión arterial: Abuelo y abuela materno.</li>
           </ul>
         </div>
         <div>
           <Typography variant="h4" className='font-bold uppercase text-sm px-2 py-4 text-blush-700'>{'Antecedentes no patológicos'}</Typography>
           <ul className='flex flex-col'>
-            <li className='p-2 border-b'>Traumatismo: Equis cosa</li>
-            <li className='p-2'>Traumatismo: Equis cosa</li>
+            <li className='p-2 border-b'>Alcoholismo</li>
+            <li className='p-2 border-b'>Tabaquismo</li>
+            <li className='p-2 border-b'>Actividad física nula</li>
           </ul>
         </div>
         <div>
           <Typography variant="h4" className='font-bold uppercase text-sm px-2 py-4 text-blush-700'>{'Alergías'}</Typography>
           <ul className='flex flex-col'>
-            <li className='p-2 border-b'>Traumatismo: Equis cosa</li>
-            <li className='p-2'>Traumatismo: Equis cosa</li>
+            <li className='p-2 border-b'>Medicamentos: AINEs</li>
+            <li className='p-2'>Otors: Camarones</li>
           </ul>
         </div>
       </div>

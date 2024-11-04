@@ -1,36 +1,12 @@
 import { toast } from "sonner"
 import { useEffect, useState } from "react"
 import { deleteMedication, getMedicationsByCedula } from "@/services/medications"
-
-const medicationInitialState = {
-  nombreMedicamento: "",
-  dosisMedicamento: "",
-  viaAdministracionMedicamento: "",
-  intervaloMedicamento: "",
-  fechaInicioMedicamento: "",
-  fechaFinMedicamento: "",
-}
+import { medicationInitialState } from "@/utils/consts"
 
 export function useMedications({cedulaPaciente}) {
   const [medications, setMedications] = useState([])
   const [medication, setMedication] = useState(medicationInitialState)
   const [isLoading, setIsLoading] = useState(false)
-  
-  const getMedications = async ({ cedulaPaciente }, { signal }) => {
-    try {
-      setIsLoading(true)
-      const medicationsByCedula = await getMedicationsByCedula(
-        { cedulaPaciente },
-        { signal }
-      )
-      setMedications(medicationsByCedula)
-    } catch (error) {
-      console.error("Error fetching medications:", error);
-      // toast.error('Error al obtener medicamentos'); // Mensaje para el usuario
-    } finally {
-      setIsLoading(false)
-    }
-  }
   
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -101,6 +77,22 @@ export function useMedications({cedulaPaciente}) {
   }
 
   const handleReset = () => setMedication(medicationInitialState)
+
+  const getMedications = async ({ cedulaPaciente }, { signal }) => {
+    try {
+      setIsLoading(true)
+      const { data } = await getMedicationsByCedula(
+        { cedulaPaciente },
+        { signal }
+      )
+      setMedications(data)
+    } catch (error) {
+      console.error("Error fetching medications:", error);
+      // toast.error('Error al obtener medicamentos'); // Mensaje para el usuario
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   useEffect(() => {
     const abortController = new AbortController()

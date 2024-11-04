@@ -1,8 +1,7 @@
 'use client'
 import propTypes from 'prop-types'
 import { useState } from 'react';
-
-import { DocumentIcon, EyeIcon } from "@heroicons/react/24/solid";
+import { EyeIcon } from "@heroicons/react/24/solid";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import {
   Card, IconButton, Typography,
@@ -12,30 +11,21 @@ import {
   CardFooter,
   Tooltip,
   Input,
-  Dialog,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
+  Chip,
 } from "@/app/MTailwind";
-import { formatNumber, whatIsMyAge } from "@/utils/utils";
-import Link from 'next/link';
-import { AddPatientForm } from '../forms/AddPatientForm';
-import { usePatients } from '@/hooks/usePatients';
+import { useUsers } from '@/hooks/useUsers';
 
-export const PatientsTable = ({ title, subtitle, tableHeader, tableRows = [] }) => {
-  const { patients, patient, handleChange, handleSubmit, isLoading } = usePatients({ initialStatePatients: tableRows })
-
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(!open);
+export const UsersTable = ({ title, subtitle, tableHeader, tableRows = [] }) => {
+  const { users } = useUsers({ initialStateUsers: tableRows })
 
   const [currentPage, setCurrentPage] = useState(1);
-  const patientsPerPage = 10;
-  const totalPages = Math.ceil(patients.length / patientsPerPage);
+  const usersPerPage = 10;
+  const totalPages = Math.ceil(users.length / usersPerPage);
 
-  // Get current patients for the current page
-  const indexOfLastPatient = currentPage * patientsPerPage;
-  const indexOfFirstPatient = indexOfLastPatient - patientsPerPage;
-  const currentPatients = patients.slice(indexOfFirstPatient, indexOfLastPatient);
+  // Get current users for the current page
+  const indexOfLastUser = currentPage * usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  const currentPatients = users.slice(indexOfFirstUser, indexOfLastUser);
 
   // Pagination handlers
   const handleNextPage = () => {
@@ -63,34 +53,9 @@ export const PatientsTable = ({ title, subtitle, tableHeader, tableRows = [] }) 
             </Typography>
           </div>
           <div className="flex flex-col lg:flex-row w-full shrink-0 gap-2 md:w-max">
-            <Button variant="outlined" className="text-blush-500 border-blush-500" onClick={handleOpen}>
-              {`Registrar paciente`}
-            </Button>
-            <Dialog open={open} handler={handleOpen}   >
-              <DialogHeader>{`Registrar paciente`}</DialogHeader>
-              <DialogBody className="max-h-[75vh] w-full overflow-y-auto">
-                <AddPatientForm patient={patient} handleChange={handleChange}
-                />
-              </DialogBody>
-              <DialogFooter>
-                <Button
-                  variant="text"
-                  color="red"
-                  onClick={handleOpen}
-                  className="mr-1"
-                >
-                  <span>Cancelar</span>
-                </Button>
-                <Button variant="gradient" color="green"
-                  onClick={handleSubmit} loading={isLoading}
-                >
-                  <span>{isLoading ? 'Registrando...' : 'Registrar'}</span>
-                </Button>
-              </DialogFooter>
-            </Dialog>
             <div className="w-full md:w-72">
               <Input
-                label="V-9.696.363"
+                label="Nombre"
                 icon={<MagnifyingGlassIcon className="h-5 w-5" />}
               />
             </div>
@@ -123,12 +88,11 @@ export const PatientsTable = ({ title, subtitle, tableHeader, tableRows = [] }) 
             {currentPatients.map(
               (
                 {
-                  cedula,
-                  nombres,
+                  correo,
                   apellidos,
-                  telefono,
-                  fechaNacimiento,
-                  ultimaConsulta,
+                  nombres,
+                  status,
+                  rol,
                 },
                 index,
               ) => {
@@ -138,14 +102,14 @@ export const PatientsTable = ({ title, subtitle, tableHeader, tableRows = [] }) 
                   : "p-4 border-b border-blush-50";
 
                 return (
-                  <tr key={`${cedula}${index}`}>
+                  <tr key={`${correo}${index}`}>
                     <td className={classes}>
                       <div className="flex items-center gap-3">
                         <Typography
                           variant="small"
                           color="blue-gray"
                         >
-                          {formatNumber(cedula)}
+                          {correo}
                         </Typography>
                       </div>
                     </td>
@@ -168,49 +132,38 @@ export const PatientsTable = ({ title, subtitle, tableHeader, tableRows = [] }) 
                       </Typography>
                     </td>
                     <td className={classes}>
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {whatIsMyAge(fechaNacimiento)}
-                      </Typography>
+                      <div className="w-max">
+                        <Chip
+                          size="sm"
+                          variant="ghost"
+                          value={status}
+                          color={
+                            status === "Habilitado" ? "green" : "red"
+                          }
+                        />
+                      </div>
                     </td>
                     <td className={classes}>
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {telefono}
-                      </Typography>
-                    </td>
-                    <td className={classes}>
-                      <div className="flex items-center gap-3">
-                        <div className="flex flex-col">
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal capitalize"
-                          >
-                            {ultimaConsulta}
-                          </Typography>
-                        </div>
+                      <div className="w-max">
+                        <Chip
+                          size="sm"
+                          variant="ghost"
+                          value={rol}
+                          color={
+                            rol === "Administrador" ? "blue"
+                              : rol === "Desarrollador" ? "purple"
+                                : rol === "Médico" ? "indigo" : "amber"
+                          }
+                        />
                       </div>
                     </td>
                     <td className={classes}>
                       <Tooltip content="Ver detalles">
-                        <Link href={`/patients/${cedula}`}>
-                          <IconButton variant="text">
-                            <EyeIcon className="h-4 w-4" />
-                          </IconButton>
-                        </Link>
-                      </Tooltip>
-
-                      <Tooltip content="Imprimir historia">
-                        <IconButton variant="text" size="sm">
-                          <DocumentIcon className="h-4 w-4 text-gray-900" />
+                        {/* <Link href={`/patients/${cedula}`}> */}
+                        <IconButton variant="text">
+                          <EyeIcon className="h-4 w-4" />
                         </IconButton>
+                        {/* </Link> */}
                       </Tooltip>
                     </td>
                   </tr>
@@ -241,11 +194,11 @@ export const PatientsTable = ({ title, subtitle, tableHeader, tableRows = [] }) 
           Siguiente
         </Button>
       </CardFooter>
-    </Card>
+    </Card >
   )
 };
 
-PatientsTable.propTypes = {
+UsersTable.propTypes = {
   title: propTypes.string,
   subtitle: propTypes.string,
   tableHeader: propTypes.array,

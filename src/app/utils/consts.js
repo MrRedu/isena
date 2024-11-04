@@ -4,8 +4,38 @@ export const initialValueFormLogin = {
 }
 
 export const initialValueFormRegister = {
+  name: '',
+  lastName: '',
   email: '',
   password: '',
   confirmPassword: '',
   acceptTerms: false
+}
+
+export const medicationInitialState = {
+  nombreMedicamento: "",
+  dosisMedicamento: "",
+  viaAdministracionMedicamento: "",
+  intervaloMedicamento: "",
+  fechaInicioMedicamento: "",
+  fechaFinMedicamento: "",
+}
+
+export const vitalSignInitialState = {
+  altura: "",
+  peso: "",
+  temperatura: "",
+  frecuenciaRespiratoria: "",
+  presionArterial: "",
+  frecuenciaCardiaca: "",
+}
+
+export const patientInitialState = {
+  nombresPaciente: "",
+  apellidosPaciente: "",
+  cedulaPaciente: "",
+  telefonoPaciente: "",
+  fechaNacimientoPaciente: "",
+  correoPaciente: "",
+  direccionPaciente: "",
 }

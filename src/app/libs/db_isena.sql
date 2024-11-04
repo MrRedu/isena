@@ -25,8 +25,8 @@ CREATE TABLE `tbl_usuarios` (
 
   -- Llaves foráneas
 
-  `id_rol_usuario` int(11) NOT NULL COMMENT 'ID del rol del usuario',
-  `id_status_usuario` int(11) NOT NULL COMMENT 'ID del status del usuario',
+  `id_rol_usuario` int(11) NOT NULL DEFAULT '4' COMMENT 'ID del rol del usuario',
+  `id_status_usuario` int(11) NOT NULL DEFAULT '2' COMMENT 'ID del status del usuario',
 
   FOREIGN KEY (`id_rol_usuario`) REFERENCES `tbl_roles`(`id_rol`),
   FOREIGN KEY (`id_status_usuario`) REFERENCES `tbl_status_usuarios`(`id_status`)

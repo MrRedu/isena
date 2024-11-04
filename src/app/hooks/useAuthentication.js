@@ -3,11 +3,10 @@ import { signIn } from 'next-auth/react'
 import { initialValueFormLogin, initialValueFormRegister } from '@/utils/consts'
 import { validateEmail } from '@/utils/utils'
 import { toast } from 'sonner'
+import { hashPassword } from '../services/authServices'
 
 export function useLogin() {
-  const [formData, setFormData] = useState(
-    initialValueFormLogin
-  )
+  const [formData, setFormData] = useState(initialValueFormLogin)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
 
@@ -55,10 +54,20 @@ export function useLogin() {
   }
 }
 
+
+async function loadEmail(email) {
+  const response = await fetch(`http://localhost:3000/api/users/${email}`)
+  if (response.status === 200) {
+    return true
+  } else if (response.status === 404) {
+    return false
+  } else {
+    throw new Error(`Error: #${response.status}`)
+  }
+}
+
 export function useRegister() {
-  const [formData, setFormData] = useState(
-    initialValueFormRegister
-  )
+  const [formData, setFormData] = useState(initialValueFormRegister)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
 
@@ -74,6 +83,8 @@ export function useRegister() {
 
     // Validaciones antes de enviar el formulario
     if(
+      !formData.name || 
+      !formData.lastName ||
       !formData.email || 
       !formData.password || 
       !formData.confirmPassword       
@@ -81,12 +92,46 @@ export function useRegister() {
 
     const isEmailValid = validateEmail(formData.email)
     if(!isEmailValid) return toast.error('El correo electrónico no es válido')
+    if (!formData.password) return toast.error('La contraseña es obligatoria')
+    if (formData.password.length < 8) return toast.error('La contraseña debe tener al menos 8 caracteres')
     if(formData.password !== formData.confirmPassword) return toast.error('Las contraseñas no coinciden')
     if(!formData.acceptTerms)return toast.error('Se deben aceptar los términos y condiciones')
-      // Mejorar la validación del correo que ya existe
-    const isEmailRegistered = await fetch(`http://localhost:3000/api/users/${formData.email}`)
-    if(isEmailRegistered.ok) return toast.error('El correo electrónico ya se encuentra registrado')
+    const isEmailRegistered = await loadEmail(formData.email)
+    if(isEmailRegistered) return toast.error('El correo electrónico ya se encuentra registrado')
 
+      try {
+        setIsLoading(true)
+        const hashedPassword = await hashPassword(formData.password)
+        const response = await fetch('http://localhost:3000/api/users/', {
+          method: 'POST',
+          body: JSON.stringify({
+            name: formData.name,
+            lastName: formData.lastName,
+            email: formData.email,
+            password: hashedPassword,
+          }),
+        })
+  
+        if (!response.ok) {
+          throw new Error('Error creating user')
+        }
+  
+        if (response.status === 201) {
+          setFormData(initialValueFormRegister)
+          signIn('credentials', {
+            email: formData.email,
+            password: formData.password,
+            redirect: true,
+            callbackUrl: '/',
+          })
+        }
+  
+        setError(null)
+      } catch (error) {
+        setError(error.message)
+      } finally {
+        setIsLoading(false)
+      }
   }
 
   const handleReset = () => setFormData(initialValueFormRegister)

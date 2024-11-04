@@ -8,8 +8,8 @@ export const getVitalSignsByCedula = async ({cedulaPaciente} , {signal}) => {
       },
       signal
     })
-    const { data } = await result.json()
-    return data
+    const vitalSigns = await result.json()
+    return vitalSigns
   } catch (error) {
     throw new Error('Error loading vital signs')
   }

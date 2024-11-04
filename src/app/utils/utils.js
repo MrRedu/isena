@@ -19,22 +19,6 @@ export function whatIsMyAge(fechaNacimiento) {
   return Math.floor(((fechaActual - fechaNace) / (1000 * 60 * 60 * 24) / 365));;
 }
 
-export function formatDate(isoDate) {
-  const date = new Date(isoDate);
-  
-  // Obtener el día, mes y año
-  const day = String(date.getUTCDate()).padStart(2, '0');
-  const monthNames = [
-      "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-      "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
-  ];
-  const month = monthNames[date.getUTCMonth()]; // Mes comienza en 0
-  const year = date.getUTCFullYear();
-  
-  // Formatear la fecha
-  return `${day} ${month?.slice(0, 3)}. ${year}`;
-}
-
 export function formatNumber(number = 0) {
   // Convertir el número a cadena
   let numberStr = number.toString();
