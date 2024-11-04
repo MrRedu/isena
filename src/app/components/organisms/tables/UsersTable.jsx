@@ -1,8 +1,7 @@
 'use client'
 import propTypes from 'prop-types'
 import { useState } from 'react';
-
-import { DocumentIcon, EyeIcon } from "@heroicons/react/24/solid";
+import { EyeIcon } from "@heroicons/react/24/solid";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import {
   Card, IconButton, Typography,
@@ -12,22 +11,21 @@ import {
   CardFooter,
   Tooltip,
   Input,
+  Chip,
 } from "@/app/MTailwind";
-import { formatNumber, whatIsMyAge } from "@/utils/utils";
-import Link from 'next/link';
+import { useUsers } from '@/hooks/useUsers';
 
-export const PatientsTable = ({ title, subtitle, tableHeader, tableRows = [] }) => {
-  const { users } = useUsers({ initialStatePatients: tableRows })
-
+export const UsersTable = ({ title, subtitle, tableHeader, tableRows = [] }) => {
+  const { users } = useUsers({ initialStateUsers: tableRows })
 
   const [currentPage, setCurrentPage] = useState(1);
   const usersPerPage = 10;
   const totalPages = Math.ceil(users.length / usersPerPage);
 
-  // Get current patients for the current page
-  const indexOfLastPatient = currentPage * usersPerPage;
-  const indexOfFirstPatient = indexOfLastPatient - usersPerPage;
-  const currentPatients = users.slice(indexOfFirstPatient, indexOfLastPatient);
+  // Get current users for the current page
+  const indexOfLastUser = currentPage * usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  const currentPatients = users.slice(indexOfFirstUser, indexOfLastUser);
 
   // Pagination handlers
   const handleNextPage = () => {
@@ -57,7 +55,7 @@ export const PatientsTable = ({ title, subtitle, tableHeader, tableRows = [] }) 
           <div className="flex flex-col lg:flex-row w-full shrink-0 gap-2 md:w-max">
             <div className="w-full md:w-72">
               <Input
-                label="V-9.696.363"
+                label="Nombre"
                 icon={<MagnifyingGlassIcon className="h-5 w-5" />}
               />
             </div>
@@ -91,12 +89,11 @@ export const PatientsTable = ({ title, subtitle, tableHeader, tableRows = [] }) 
             {currentPatients.map(
               (
                 {
-                  cedula,
-                  nombres,
+                  correo,
                   apellidos,
-                  telefono,
-                  fechaNacimiento,
-                  ultimaConsulta,
+                  nombres,
+                  status,
+                  rol,
                 },
                 index,
               ) => {
@@ -106,14 +103,14 @@ export const PatientsTable = ({ title, subtitle, tableHeader, tableRows = [] }) 
                   : "p-4 border-b border-blue-gray-50";
 
                 return (
-                  <tr key={`${cedula}${index}`}>
+                  <tr key={`${correo}${index}`}>
                     <td className={classes}>
                       <div className="flex items-center gap-3">
                         <Typography
                           variant="small"
                           color="blue-gray"
                         >
-                          {formatNumber(cedula)}
+                          {correo}
                         </Typography>
                       </div>
                     </td>
@@ -136,49 +133,38 @@ export const PatientsTable = ({ title, subtitle, tableHeader, tableRows = [] }) 
                       </Typography>
                     </td>
                     <td className={classes}>
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {whatIsMyAge(fechaNacimiento)}
-                      </Typography>
+                      <div className="w-max">
+                        <Chip
+                          size="sm"
+                          variant="ghost"
+                          value={status}
+                          color={
+                            status === "Habilitado" ? "green" : "red"
+                          }
+                        />
+                      </div>
                     </td>
                     <td className={classes}>
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {telefono}
-                      </Typography>
-                    </td>
-                    <td className={classes}>
-                      <div className="flex items-center gap-3">
-                        <div className="flex flex-col">
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal capitalize"
-                          >
-                            {ultimaConsulta}
-                          </Typography>
-                        </div>
+                      <div className="w-max">
+                        <Chip
+                          size="sm"
+                          variant="ghost"
+                          value={rol}
+                          color={
+                            rol === "Administrador" ? "blue"
+                              : rol === "Desarrollador" ? "purple"
+                                : rol === "Médico" ? "indigo" : "amber"
+                          }
+                        />
                       </div>
                     </td>
                     <td className={classes}>
                       <Tooltip content="Ver detalles">
-                        <Link href={`/patients/${cedula}`}>
-                          <IconButton variant="text">
-                            <EyeIcon className="h-4 w-4" />
-                          </IconButton>
-                        </Link>
-                      </Tooltip>
-
-                      <Tooltip content="Imprimir historia">
-                        <IconButton variant="text" size="sm">
-                          <DocumentIcon className="h-4 w-4 text-gray-900" />
+                        {/* <Link href={`/patients/${cedula}`}> */}
+                        <IconButton variant="text">
+                          <EyeIcon className="h-4 w-4" />
                         </IconButton>
+                        {/* </Link> */}
                       </Tooltip>
                     </td>
                   </tr>
@@ -209,11 +195,11 @@ export const PatientsTable = ({ title, subtitle, tableHeader, tableRows = [] }) 
           Siguiente
         </Button>
       </CardFooter>
-    </Card>
+    </Card >
   )
 };
 
-PatientsTable.propTypes = {
+UsersTable.propTypes = {
   title: propTypes.string,
   subtitle: propTypes.string,
   tableHeader: propTypes.array,

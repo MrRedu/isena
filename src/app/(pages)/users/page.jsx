@@ -1,4 +1,6 @@
 import { Section } from "@/components/atoms/Section";
+import { UsersTable } from "@/components/organisms/tables/UsersTable";
+import { getAllUsers } from "@/services/users";
 
 export const metadata = {
   title: 'Usuarios',
@@ -9,15 +11,19 @@ const TABLE_HEADER_USERS = ["Correo", "Apellidos", "Nombres", "Status", "Rol", "
 const TITLE_USERS = "Usuarios";
 const SUBTITLE_USERS = "Tabla con todos los usuarios del sistema";
 
-export default function UsersPage() {
+export default async function UsersPage() {
+  const { data: users } = await getAllUsers();
+  const mappedUsers = users.map((user) => ({
+    correo: user.correo_usuario,
+    apellidos: user.apellidos_usuario,
+    nombres: user.nombres_usuario,
+    status: user.nombre_status,
+    rol: user.nombre_rol
+  }))
+
   return (
     <Section>
-      <h2 className="font-bold">{`Página de usuarios`}</h2>
-      <hr className="my-4" />
-      <ul className="list-disc list-inside">
-        <li>Tabla de usuarios</li>
-        <li>Poder habilitar/deshabilitar usuarios</li>
-      </ul>
+      <UsersTable title={TITLE_USERS} subtitle={SUBTITLE_USERS} tableHeader={TABLE_HEADER_USERS} tableRows={mappedUsers} />
     </Section>
   )
 };
