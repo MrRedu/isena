@@ -23,11 +23,11 @@ const [isLoading, setIsLoading] = useState(false)
   const getVitalSigns = async ({ cedulaPaciente }, { signal }) => {
     try {
       setIsLoading(true)
-      const vitalSignsByCedula = await getVitalSignsByCedula(
+      const { data } = await getVitalSignsByCedula(
         { cedulaPaciente },
         { signal }
       )
-      setVitalSigns(vitalSignsByCedula)
+      setVitalSigns(data)
     } catch (error) {
       console.error("Error fetching vital signs:", error);
       // toast.error('Error al obtener signos vitales'); // Mensaje para el usuario

@@ -81,11 +81,11 @@ export function useMedications({cedulaPaciente}) {
   const getMedications = async ({ cedulaPaciente }, { signal }) => {
     try {
       setIsLoading(true)
-      const medicationsByCedula = await getMedicationsByCedula(
+      const { data } = await getMedicationsByCedula(
         { cedulaPaciente },
         { signal }
       )
-      setMedications(medicationsByCedula)
+      setMedications(data)
     } catch (error) {
       console.error("Error fetching medications:", error);
       // toast.error('Error al obtener medicamentos'); // Mensaje para el usuario

@@ -92,12 +92,23 @@ const [isLoading,  setIsLoading] = useState(false)
   const getPatient = async ({ cedulaPaciente }, { signal }) => {
     try {
       setIsLoading(true)
-      const {data: patientData} = await getPatientByCedula(
+      const { data } = await getPatientByCedula(
         { cedula: cedulaPaciente },
         { signal }
-      ) 
-      setPatient(patientData)
-    } catch (error) {
+      )
+ 
+      const dataMapped = {
+        nombres: data.nombres_paciente,
+        apellidos: data.apellidos_paciente,
+        cedula: data.cedula_paciente,
+        fechaNacimiento: data.fecha_nacimiento_paciente,
+        telefono: data.telefono_paciente,
+        correo: data.correo_paciente,
+        direccion: data.direccion_paciente,
+      }
+
+      setPatient(dataMapped)
+    } catch (error) { 
       console.error("Error fetching patient:", error);
       // toast.error('Error al obtener signos vitales'); // Mensaje para el usuario
     } finally {
@@ -106,12 +117,11 @@ const [isLoading,  setIsLoading] = useState(false)
   }
 
   useEffect(() => {
-  const abortController = new AbortController()
-
-  getPatient({cedulaPaciente}, {signal: abortController.signal})
-
-  return () =>   abortController.abort()
-  }, [ ])
+    const abortController = new AbortController()
+    getPatient({ cedulaPaciente }, { signal: abortController.signal })
+    
+    return () => abortController.abort()
+  }, [  ])
 
 
   return {
