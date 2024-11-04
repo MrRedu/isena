@@ -4,9 +4,9 @@ import { useState } from 'react';
 import { Accordion, AccordionBody, AccordionHeader, IconButton, Typography, Card, Dialog, DialogHeader, DialogBody, DialogFooter, Button } from "@/app/MTailwind";
 import { Chart } from '@/components/molecules/Chart';
 import { HeartIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
-import { formatDate } from '@/utils/utils';
 import { useVitalSigns } from '../../hooks/useVitalSigns';
 import { AddVitalSignsForm } from './forms/AddVitalSignsForm';
+import { format } from '@formkit/tempo';
 
 // Función para transformar los datos
 const transformData = (data, type) => {
@@ -20,7 +20,7 @@ const transformData = (data, type) => {
       value = item.valor; // Para otros tipos de datos
     }
 
-    return { name: formatDate(name), value }; // Retorna el nuevo formato
+    return { name: format(name, "MMM D, YYYY", "es"), value };
   });
 };
 

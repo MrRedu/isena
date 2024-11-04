@@ -5,7 +5,7 @@ import { PlusCircleIcon, PlusIcon, TrashIcon } from "@heroicons/react/24/outline
 import { Button, Dialog, DialogBody, DialogFooter, DialogHeader, IconButton, List, ListItem, ListItemSuffix, Tooltip, Card, Typography } from "@/app/MTailwind";
 import { AddMedicationForm } from '@/components/organisms/forms/AddMedicationForm';
 import { useMedications } from '@/hooks/useMedications';
-import { formatDate } from '@/utils/utils';
+import { format } from '@formkit/tempo';
 
 export const ActiveMedications = ({ cedulaPaciente
 }) => {
@@ -48,8 +48,12 @@ export const ActiveMedications = ({ cedulaPaciente
                       <span>Nombre: {nombre_medicamento}</span>
                       <span>Dosis: {dosis_medicamento}</span>
                       <span>Vía: {via_administracion_medicamento}</span>
-                      <span>Inicio: {formatDate(fecha_inicio_medicamento)}</span>
-                      {fecha_fin_medicamento && <span className={`${isFechaFinExpired && 'text-red-500'}`}>Fin: {formatDate(fecha_fin_medicamento)}</span>}
+                      <span>Inicio: {format(fecha_inicio_medicamento, "MMM D, YYYY", "es")}</span>
+                      {fecha_fin_medicamento &&
+                        (<span className={`${isFechaFinExpired && 'text-red-500'}`}>
+                          Fin: {format(fecha_fin_medicamento, "MMM D, YYYY", "es")}
+                        </span>)
+                      }
                       <span>Intervalo: {intervalo_medicamento}</span>
                     </div>
                   }>
