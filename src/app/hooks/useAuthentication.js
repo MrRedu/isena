@@ -54,9 +54,8 @@ export function useLogin() {
   }
 }
 
-
 async function loadEmail(email) {
-  const response = await fetch(`http://localhost:3000/api/users/${email}`)
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${email}`)
   if (response.status === 200) {
     return true
   } else if (response.status === 404) {
@@ -102,7 +101,7 @@ export function useRegister() {
       try {
         setIsLoading(true)
         const hashedPassword = await hashPassword(formData.password)
-        const response = await fetch('http://localhost:3000/api/users/', {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/`, {
           method: 'POST',
           body: JSON.stringify({
             name: formData.name,

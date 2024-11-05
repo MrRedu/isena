@@ -1,5 +1,5 @@
 export const getAllPatients = async () => {
-  const URL = `http://localhost:3000/api/patients`
+  const URL = `${process.env.NEXT_PUBLIC_API_URL}/patients`
   try {
     const result = await fetch(URL, {
       method: 'GET',
@@ -17,7 +17,7 @@ export const getAllPatients = async () => {
 }
 
 export const getPatientByCedula = async ({ cedula }, { signal }) => {
-  const URL = `http://localhost:3000/api/patients/${cedula}`
+  const URL = `${process.env.NEXT_PUBLIC_API_URL}/patients/${cedula}`
   try {
     const result = await fetch(URL, {
       method: 'GET',

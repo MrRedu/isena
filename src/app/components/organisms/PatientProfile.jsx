@@ -7,7 +7,6 @@ import { formatNumber } from '@/utils/utils';
 import { DefaultSkeleton } from '@/components/atoms/DefaultSkeleton';
 export const PatientProfile = ({ cedulaPaciente }) => {
   const { patient, isLoading } = usePatient({ cedulaPaciente })
-  console.log(patient)
   return (
     <Card className='rounded-none border shadow-none overflow-hidden p-4'>
       {isLoading && <DefaultSkeleton />}

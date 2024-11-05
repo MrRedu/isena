@@ -35,7 +35,7 @@ export function useMedications({cedulaPaciente}) {
 
     try {
       setIsLoading(true)
-      const response = await fetch(`http://localhost:3000/api/medications/`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/medications/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -99,7 +99,7 @@ export function useMedications({cedulaPaciente}) {
     getMedications({ cedulaPaciente }, { signal: abortController.signal })
     
     return () => abortController.abort()
-  }, [  ])
+  }, [ cedulaPaciente ])
   
   return {
     medications,

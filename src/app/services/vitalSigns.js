@@ -1,5 +1,5 @@
 export const getVitalSignsByCedula = async ({cedulaPaciente} , {signal}) => {
-  const URL = `http://localhost:3000/api/vital-signs/${cedulaPaciente}`
+  const URL = `${process.env.NEXT_PUBLIC_API_URL}/vital-signs/${cedulaPaciente}`
   try {
     const result = await fetch(URL, {
       method: 'GET',
