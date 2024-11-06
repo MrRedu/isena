@@ -17,7 +17,6 @@ const [isLoading, setIsLoading] = useState(false)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log(vitalSign)
   }
 
   const getVitalSigns = async ({ cedulaPaciente }, { signal }) => {
@@ -42,7 +41,7 @@ useEffect(() => {
   getVitalSigns({cedulaPaciente}, {signal: abortController.signal})
 
   return () =>   abortController.abort()
-  }, [])
+  }, [ cedulaPaciente ])
 
   return {  
     vitalSigns,

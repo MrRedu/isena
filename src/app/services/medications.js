@@ -1,7 +1,7 @@
 import { toast } from "sonner"
 
 export const getMedicationsByCedula = async ({cedulaPaciente} , {signal}) => {
-  const URL = `http://localhost:3000/api/patients/${cedulaPaciente}/medications`
+  const URL = `${process.env.NEXT_PUBLIC_API_URL}/patients/${cedulaPaciente}/medications`
   try {
     const result = await fetch(URL, {
       method: 'GET',
@@ -20,7 +20,7 @@ export const getMedicationsByCedula = async ({cedulaPaciente} , {signal}) => {
 }
 
 export const deleteMedication = async id => {
-  const URL = `http://localhost:3000/api/medications/${id}`
+  const URL = `${process.env.NEXT_PUBLIC_API_URL}/medications/${id}`
   try {
     const result = await fetch(URL, {
       method: 'DELETE',

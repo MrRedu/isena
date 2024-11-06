@@ -5,7 +5,7 @@ import { validatePassword } from '@/services/authServices'
 async function login(credentials) {
   try {
     const response = await fetch(
-      `http://localhost:3000/api/users/${credentials.email}`
+      `${process.env.NEXT_PUBLIC_API_URL}/users/${credentials.email}`
     )
     if (!response.ok) throw new Error('Something went wrong')
     const { data: user } = await response.json()

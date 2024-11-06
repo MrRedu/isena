@@ -3,6 +3,11 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../../api/auth/[...nextauth]/route";
 import { Card } from "@/app/MTailwind";
 
+export const metadata = {
+  title: 'Perfil',
+  description: 'Página de perfil',
+}
+
 export default async function ProfilePage() {
   const session = await getServerSession(authOptions)
 

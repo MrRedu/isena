@@ -1,7 +1,6 @@
 import { Section } from "@/components/atoms/Section";
-// Mover de aqui
-import { PatientsTable } from "@/components/organisms/tables/PatientsTable";
 import { getAllPatients } from "@/services/patients";
+import { PatientsTable } from "@/components/organisms/tables/PatientsTable";
 
 export const metadata = {
   title: 'Pacientes',
@@ -13,7 +12,7 @@ const TITLE_PATIENTS = "Pacientes";
 const SUBTITLE_PATIENTS = "Tabla con todos los pacientes registrados";
 
 export default async function PatientsPage() {
-  const { data: patients } = await getAllPatients();
+  const { data: patients = [] } = await getAllPatients();
   const mappedPatients = patients.map((patient) => ({
     cedula: patient.cedula_paciente,
     nombres: patient.nombres_paciente,
@@ -24,7 +23,8 @@ export default async function PatientsPage() {
 
   return (
     <Section>
-      <PatientsTable title={TITLE_PATIENTS} subtitle={SUBTITLE_PATIENTS} tableHeader={TABLE_HEADER_PATIENTS} tableRows={mappedPatients} />
+      {patients.length > 0 && <PatientsTable title={TITLE_PATIENTS} subtitle={SUBTITLE_PATIENTS} tableHeader={TABLE_HEADER_PATIENTS} tableRows={mappedPatients} />}
     </Section>
   )
 };
+

@@ -1,5 +1,5 @@
 export const getAllUsers = async () => {
-  const URL = `http://localhost:3000/api/users`
+  const URL = `${process.env.NEXT_PUBLIC_API_URL}/users`
   try {
     const result = await fetch(URL, {
       method: 'GET',

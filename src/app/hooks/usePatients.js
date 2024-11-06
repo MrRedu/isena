@@ -41,7 +41,7 @@ export function usePatients({ initialStatePatients}) {
 
      try {
       setIsLoading(true)
-      const response = await fetch(`http://localhost:3000/api/patients/`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/patients/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -121,7 +121,7 @@ const [isLoading,  setIsLoading] = useState(false)
     getPatient({ cedulaPaciente }, { signal: abortController.signal })
     
     return () => abortController.abort()
-  }, [  ])
+  }, [ cedulaPaciente ])
 
 
   return {
