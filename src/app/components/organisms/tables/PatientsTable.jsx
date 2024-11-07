@@ -17,7 +17,7 @@ import {
   DialogBody,
   DialogFooter,
 } from "@/app/MTailwind";
-import { formatNumber, whatIsMyAge } from "@/utils/utils";
+import { formatNumber, calculateAge } from "@/utils/utils";
 import Link from 'next/link';
 import { AddPatientForm } from '../forms/AddPatientForm';
 import { usePatients } from '@/hooks/usePatients';
@@ -173,7 +173,7 @@ export const PatientsTable = ({ title, subtitle, tableHeader, tableRows = [] }) 
                         color="blue-gray"
                         className="font-normal"
                       >
-                        {whatIsMyAge(fechaNacimiento)}
+                        {calculateAge(fechaNacimiento)}
                       </Typography>
                     </td>
                     <td className={classes}>

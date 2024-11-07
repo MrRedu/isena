@@ -4,7 +4,7 @@ export const validateEmail = email => {
   return emailRegex.test(String(email).toLowerCase())
 }
 
-export function whatIsMyAge(fechaNacimiento) {
+export function calculateAge(fechaNacimiento) {
   let fechaNace = new Date(fechaNacimiento);
   let fechaActual = new Date()
 
