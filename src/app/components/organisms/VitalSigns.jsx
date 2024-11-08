@@ -98,14 +98,15 @@ const signosVitales = [
 ]
 
 export const VitalSigns = ({ cedulaPaciente }) => {
-  const { vitalSigns, vitalSign, handleChange, handleSubmit, isLoading } =
-    useVitalSigns({ cedulaPaciente })
-
-  const [open, setOpen] = useState(0)
-  const handleOpen = value => setOpen(open === value ? 0 : value)
-
   const [openModal, setOpenModal] = useState(false)
   const handleOpenModal = () => setOpenModal(!openModal)
+
+  const { vitalSigns, vitalSign, handleChange, handleSubmit, isLoading } =
+    useVitalSigns({ cedulaPaciente, handleOpenModal })
+
+  const [openAccordion, setOpenAccordion] = useState(0)
+  const handleOpen = value => setOpenAccordion(openAccordion === value ? 0 : value)
+
 
   return (
     <>
@@ -128,7 +129,7 @@ export const VitalSigns = ({ cedulaPaciente }) => {
         {vitalSigns &&
           !isLoading &&
           signosVitales.map(({ key, label, unitMeasurement, icon }, index) => (
-            <Accordion key={index} open={open === index + 1} className="h-full">
+            <Accordion key={index} open={openAccordion === index + 1} className="h-full">
               <AccordionHeader className="w-full border-none border-gray-200" onClick={() => handleOpen(index + 1)}>
                 <div className="flex justify-between w-full px-4 text-base font-normal">
                   <span className="flex items-center gap-4">
@@ -144,7 +145,7 @@ export const VitalSigns = ({ cedulaPaciente }) => {
                   </span>
                 </div>
                 <ChevronDownIcon
-                  className={`w-4 h-4 transition-transform ${open === index + 1 ? 'rotate-180' : ''}`}
+                  className={`w-4 h-4 transition-transform ${openAccordion === index + 1 ? 'rotate-180' : ''}`}
                 />
               </AccordionHeader>
               <AccordionBody className="w-full">
