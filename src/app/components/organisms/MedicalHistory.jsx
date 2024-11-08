@@ -1,13 +1,13 @@
 'use client'
 import propTypes from 'prop-types'
-import { IconButton, Typography, Card } from '@/app/MTailwind'
-import { PlusCircleIcon } from '@heroicons/react/24/outline'
+import { IconButton, Typography, Card, Button } from '@/app/MTailwind'
+import { PlusCircleIcon, PlusIcon } from '@heroicons/react/24/outline'
 import { useMedicalHistory } from '../../hooks/useMedicalHistory'
 
 export const MedicalHistory = ({ cedulaPaciente }) => {
   const { medicalHistory, isLoading } = useMedicalHistory({ cedulaPaciente })
 
-  const groupedAntecedentes = medicalHistory.reduce((acc, antecedente) => {
+  const groupedAntecedentes = medicalHistory?.reduce((acc, antecedente) => {
     const tipo = antecedente.tipo_antecedente;
 
     if (!acc[tipo]) {
@@ -34,22 +34,32 @@ export const MedicalHistory = ({ cedulaPaciente }) => {
       </div>
 
       <div>
-        {Object.keys(groupedAntecedentes).map(tipo => (
-          <div key={tipo}>
-            <h2>{tipo}</h2>
-            <ul>
-              {groupedAntecedentes[tipo].map(item => (
-                <li key={item.id_antecedente}>
-                  <strong>{item.título}:</strong> {item.descripción}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-        {/* Mensajes si no hay antecedentes */}
-        {Object.keys(groupedAntecedentes).length === 0 && (
-          <p>No hay antecedentes disponibles.</p>
+        {groupedAntecedentes && Object.keys(groupedAntecedentes).length > 0 ? (
+          Object.keys(groupedAntecedentes).map(tipo => (
+            <div key={tipo}>
+              <h2>{tipo}</h2>
+              <ul>
+                {groupedAntecedentes[tipo].map(item => (
+                  <li key={item.id_antecedente}>
+                    <strong>{item.título}:</strong> {item.descripción}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        ) : (
+          <Button
+            color="green"
+            variant="text"
+            fullWidth
+            className="flex items-center gap-2 rounded-none"
+          // onClick={handleOpen}
+          >
+            <PlusIcon className="text-green-500 h-10 w-10 stroke-2 border border-dashed border-green-500 rounded-lg" />
+            <span>Agregar antecedentes</span>
+          </Button>
         )}
+
       </div>
     </Card>
   )
