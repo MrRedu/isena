@@ -152,4 +152,23 @@ CREATE TABLE `tbl_consultas` (
   FOREIGN KEY (`id_usuario`) REFERENCES `tbl_usuarios`(`id_usuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla de consultas';
 
+DROP TABLE IF EXISTS `tbl_tipos_antecedentes`;
+CREATE TABLE `tbl_tipos_antecedentes` (
+  `id_tipo_antecedente` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID del tipo de antecedente',
+  `nombre_tipo_antecedente` varchar(32) NOT NULL COMMENT 'Nombre del tipo de antecedente',
+  `descripcion_tipo_antecedente` varchar(255) NOT NULL COMMENT 'Descripción del tipo de antecedente'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla de tipos de antecedentes';
+INSERT INTO `tbl_tipos_antecedentes` (`id_tipo_antecedente`, `nombre_tipo_antecedente`, `descripcion_tipo_antecedente`) VALUES (1, 'Patológicos', 'Son el conjunto de datos que reflejan el historial médico de un paciente, incluyendo enfermedades previas, cirugías, hospitalizaciones y condiciones crónicas.'), (2, 'Heredofamiliares', 'Se refieren a las enfermedades y condiciones de salud que han afectado a los familiares directos del paciente (como padres y abuelos).'), (3, 'No patológicos', 'Abarcan aspectos de la vida del paciente que no están relacionados con enfermedades, tales como el estado civil, ocupación, hábitos alimenticios, actividad física y entorno social.'), (4, 'Alergias', 'Son reacciones del sistema inmunológico a sustancias que generalmente son inofensivas para la mayoría de las personas. Pueden influir en las decisiones médicas, como la elección de medicamentos o tratamientos, evitando así reacciones adversas'); 
 
+DROP TABLE IF EXISTS `tbl_antecedentes`;
+CREATE TABLE `tbl_antecedentes` (
+  `id_antecedente` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID del antecedente',
+  `cedula_paciente` int(11) NOT NULL COMMENT 'ID del paciente al cual pertenece el antecedente',
+  `id_tipo_antecedente` int(11) NOT NULL COMMENT 'ID del tipo de antecedente',
+  `título` varchar(32) NOT NULL COMMENT 'Título del antecedente',
+  `descripción` text NOT NULL COMMENT 'Descripción del antecedente',
+
+  FOREIGN KEY (`cedula_paciente`) REFERENCES `tbl_pacientes`(`cedula_paciente`),
+  FOREIGN KEY (`id_tipo_antecedente`) REFERENCES `tbl_tipos_antecedentes`(`id_tipo_antecedente`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla de antecedentes';
+INSERT INTO `tbl_antecedentes` (`id_antecedente`, `cedula_paciente`, `id_tipo_antecedente`, `título`, `descripción`) VALUES (1, 12345678, 1, 'Cirugías previas', 'Apendicectomia en 06/2018'), (2, 12345678, 1, 'Diabetes', 'Tipo II'), (3, 12345678, 2, 'Psiquiátricos', 'Ninguno'), (4, 12345678, 2, 'Hipertensión arterial', 'Abuela materna, abuelo paterno y materno'), (5, 12345678, 3, 'Alcoholismo', 'En reuniones'), (6, 12345678, 3, 'Actividad física', 'Nunca'), (7, 12345678, 4, 'Medicamentos', 'AINEs'), (8, 12345678, 4, 'Alimentos', 'Camarones, Atún, Chigüire');
