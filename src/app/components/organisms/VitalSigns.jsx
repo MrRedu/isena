@@ -15,7 +15,7 @@ import {
   Button,
 } from '@/app/MTailwind'
 import { Chart } from '@/components/molecules/Chart'
-import { PlusCircleIcon } from '@heroicons/react/24/outline'
+import { ChevronDownIcon, PlusCircleIcon } from '@heroicons/react/24/outline'
 import { useVitalSigns } from '@/hooks/useVitalSigns'
 import { AddVitalSignsForm } from './forms/AddVitalSignsForm'
 import { format } from '@formkit/tempo'
@@ -109,13 +109,13 @@ export const VitalSigns = ({ cedulaPaciente }) => {
 
   return (
     <>
-      <Card className="rounded-none border shadow-none overflow-hidden">
-        <div className="flex justify-between items-center bg-blush-50 px-4 py-2 h-[52px] ">
+      <Card className="rounded shadow overflow-hidden">
+        <div className="flex justify-between items-center bg-blush-50 px-4 py-2 h-[52px]">
           <Typography variant="h3" className="font-bold uppercase text-sm">
-            {'Signos vitales'}
+            {'Últimos signos vitales'}
           </Typography>
           <IconButton variant="text" onClick={() => handleOpenModal()}>
-            <PlusCircleIcon className="h-6 w-6 stroke-2" />
+            <PlusCircleIcon className="h-6 w-6 stroke-3 text-blush-500" />
           </IconButton>
         </div>
         {isLoading && (
@@ -129,20 +129,23 @@ export const VitalSigns = ({ cedulaPaciente }) => {
           !isLoading &&
           signosVitales.map(({ key, label, unitMeasurement, icon }, index) => (
             <Accordion key={index} open={open === index + 1} className="h-full">
-              <AccordionHeader onClick={() => handleOpen(index + 1)}>
+              <AccordionHeader className="w-full border-none border-gray-200" onClick={() => handleOpen(index + 1)}>
                 <div className="flex justify-between w-full px-4 text-base font-normal">
-                  <span className="flex items-center gap-2">
+                  <span className="flex items-center gap-4">
                     {icon}
                     {label}
                   </span>
                   <span>
-                    <span className="font-bold">
+                    <span className="font-bold text-blush-950">
                       {getLatestValue(vitalSigns ? vitalSigns[key] : [])}
                       {` `}
                     </span>
                     <span className="text-sm">{unitMeasurement}</span>
                   </span>
                 </div>
+                <ChevronDownIcon
+                  className={`w-4 h-4 transition-transform ${open === index + 1 ? 'rotate-180' : ''}`}
+                />
               </AccordionHeader>
               <AccordionBody className="w-full">
                 <Chart

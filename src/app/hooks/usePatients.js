@@ -76,6 +76,7 @@ export function usePatients({ initialStatePatients }) {
       // setError(null)
     } catch (error) {
       console.error('Error:', error)
+      throw new Error('Error al registrar el paciente')
     } finally {
       setIsLoading(false)
       setPatient(patientInitialState)

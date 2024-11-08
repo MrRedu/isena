@@ -2,48 +2,65 @@
 import propTypes from 'prop-types'
 import { Input } from '@/app/MTailwind'
 
-// altura: "",
-// peso: "",
-// temperatura: "",
-// frecuenciaRespiratoria: "",
-// presionArterial: "",
-// frecuenciaCardiaca: "",
-
 export const AddVitalSignsForm = ({ vitalSign, handleChange }) => {
   return (
     <form className="flex flex-col gap-8 p-4">
       <div className="grid md:grid-cols-2 gap-8 w-full">
         <Input
-          value={vitalSign?.altura}
+          value={vitalSign?.altura
+            .replace(/[^0-9.]/g, '') // Permitir solo dígitos y un punto decimal
+            .replace(/^0+/, '') // Eliminar ceros iniciales
+            .replace(/(\..*)\..*/g, '$1') // Permitir solo un punto decimal
+            .replace(/^(\d)(\d{0,2})?$/, (_, g1, g2) => g1 + (g2 ? '.' + g2 : '')) // Agregar punto después del primer dígito
+            .substring(0, 4)} // Limitar a 4 caracteres (ej: 1.70)
           name="altura"
           onChange={handleChange}
           type="text"
           variant="static"
           label="Altura"
           placeholder="ej: 1.70 m"
+          maxLength={4}
+          required
         />
         <Input
-          value={vitalSign?.peso}
+          value={vitalSign?.peso
+            .replace(/[^0-9.]/g, '') // Permitir solo dígitos y un punto decimal
+            .replace(/^0+/, '') // Eliminar ceros iniciales
+            .replace(/(\..*)\..*/g, '$1') // Permitir solo un punto decimal
+            .replace(/^(\d{1,3})(\d{0,2})?$/, (_, g1, g2) => g1 + (g2 ? '.' + g2 : '')) // Agregar punto después de 3 dígitos
+            .substring(0, 6)} // Limitar a 6 caracteres en total (ej: 123.45)
           name="peso"
           onChange={handleChange}
           type="text"
           variant="static"
           label="Peso"
           placeholder="ej: 70 kg"
+          maxLength={6}
+          required
         />
       </div>
       <div className="grid md:grid-cols-2 gap-8 w-full">
         <Input
-          value={vitalSign?.temperatura}
+          value={vitalSign?.temperatura
+            .replace(/[^0-9.]/g, '') // Permitir solo dígitos y un punto decimal
+            .replace(/^0+/, '') // Eliminar ceros iniciales
+            .replace(/(\..*)\..*/g, '$1') // Permitir solo un punto decimal
+            .replace(/^(\d{2})(\d{0,2})?$/, (_, g1, g2) => g1 + (g2 ? '.' + g2 : '')) // Agregar punto después de dos dígitos
+            .substring(0, 5)} // Limitar a 6 caracteres en total (ej: 37.5)
           name="temperatura"
           onChange={handleChange}
           type="text"
           variant="static"
           label="Temperatura"
           placeholder="ej: 37.5 °C"
+          maxLength={5}
+          required
         />
         <Input
-          value={vitalSign?.frecuenciaRespiratoria}
+          value={vitalSign?.frecuenciaRespiratoria
+            .replace(/[^0-9]/g, '') // Permitir solo dígitos
+            .replace(/^0+/, '') // Eliminar ceros iniciales
+            .substring(0, 3)} // Limitar a 3 caracteres
           name="frecuenciaRespiratoria"
           onChange={handleChange}
           type="text"
@@ -51,6 +68,7 @@ export const AddVitalSignsForm = ({ vitalSign, handleChange }) => {
           label="Frec. Respiratoria"
           placeholder="ej: 12 rpm"
           maxLength={3}
+          required
         />
       </div>
       <div className="grid md:grid-cols-2 gap-8 w-full">
@@ -76,9 +94,13 @@ export const AddVitalSignsForm = ({ vitalSign, handleChange }) => {
           containerProps={{
             className: '!min-w-0',
           }}
+          required
         />
         <Input
-          value={vitalSign?.frecuenciaCardiaca}
+          value={vitalSign?.frecuenciaCardiaca
+            .replace(/[^0-9]/g, '') // Permitir solo dígitos
+            .replace(/^0+/, '') // Eliminar ceros iniciales
+            .substring(0, 3)} // Limitar a 3 caracteres
           name="frecuenciaCardiaca"
           onChange={handleChange}
           type="text"
@@ -86,6 +108,7 @@ export const AddVitalSignsForm = ({ vitalSign, handleChange }) => {
           label="Frecuencia Cardiaca"
           placeholder="ej: 80 bpm"
           maxLength={3}
+          required
         />
       </div>
     </form>

@@ -19,17 +19,15 @@ export const MedicalHistory = ({ cedulaPaciente }) => {
     return acc;
   }, {});
 
-  console.log(groupedAntecedentes)
-
   return (
-    <Card className="rounded-none border shadow-none overflow-hidden">
+    <Card className="rounded shadow overflow-hidden">
       <div className="flex justify-between items-center bg-blush-50 px-4 py-2 h-[52px] ">
         <Typography
           variant="h3"
           className="font-bold uppercase text-sm"
         >{`Antecedentes`}</Typography>
         <IconButton variant="text" onClick={() => console.log('click')}>
-          <PlusCircleIcon className="h-6 w-6 stroke-2" />
+          <PlusCircleIcon className="h-6 w-6 stroke-3 text-blush-500" />
         </IconButton>
       </div>
 

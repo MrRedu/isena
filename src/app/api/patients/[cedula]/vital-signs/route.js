@@ -51,3 +51,61 @@ export async function GET(req, { params }) {
     )
   }
 }
+
+export async function POST(req, { params }) {
+  try {
+    const {
+      peso,
+      altura,
+      temperatura,
+      frecuenciaCardiaca,
+      frecuenciaRespiratoria,
+      presionArterial,
+    } = await req.json()
+
+    await connection.query('INSERT INTO tbl_pesos SET ?', {
+      peso,
+      cedula_paciente: params.cedula,
+    })
+
+    await connection.query('INSERT INTO tbl_alturas SET ?', {
+      altura,
+      cedula_paciente: params.cedula,
+    })
+
+    await connection.query('INSERT INTO tbl_frecuencias_cardiacas SET ?', {
+      frecuencia_cardiaca: frecuenciaCardiaca,
+      cedula_paciente: params.cedula,
+    })
+
+    await connection.query('INSERT INTO tbl_temperaturas SET ?', {
+      temperatura,
+      cedula_paciente: params.cedula,
+    })
+
+    await connection.query('INSERT INTO tbl_frecuencias_respiratorias SET ?', {
+      frecuencia_respiratoria: frecuenciaRespiratoria,
+      cedula_paciente: params.cedula,
+    })
+
+    await connection.query('INSERT INTO tbl_presiones_arteriales SET ?', {
+      presion_sistolica: presionArterial.split('/')[0],
+      presion_diastolica: presionArterial.split('/')[1],
+      cedula_paciente: params.cedula,
+    })
+
+    return NextResponse.json(
+      { message: 'Vital signs created successfully' },
+      { status: 201 }
+    )
+  } catch (error) {
+    console.error(error)
+    return NextResponse.json(
+      {
+        message: error.message,
+        manualMessage: 'Error creating vital signs',
+      },
+      { status: 500 }
+    )
+  }
+}
