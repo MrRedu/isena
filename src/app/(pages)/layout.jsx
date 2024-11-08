@@ -1,5 +1,5 @@
 import propTypes from 'prop-types'
-import { Header } from "@/components/organisms/ui/Header"
+import { Header } from '@/components/organisms/ui/Header'
 
 export default function Layout({ children }) {
   return (

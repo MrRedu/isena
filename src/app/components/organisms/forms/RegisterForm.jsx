@@ -1,7 +1,7 @@
 'use client'
-import { useRegister } from "@/hooks/useAuthentication";
-import { Button, Checkbox, Input, Typography } from "@/app/MTailwind";
-import Link from "next/link";
+import { useRegister } from '@/hooks/useAuthentication'
+import { Button, Checkbox, Input, Typography } from '@/app/MTailwind'
+import Link from 'next/link'
 
 export const RegisterForm = () => {
   const {
@@ -17,7 +17,10 @@ export const RegisterForm = () => {
     <div className="flex flex-col items-center justify-center px-6 pt-8 mx-auto md:h-screen pt:mt-0">
       {/* <!-- Card --> */}
       <div className="w-full max-w-xl p-6 space-y-8 sm:p-8 bg-white rounded-lg shadow-lg border">
-        <Typography variant="h1" className="text-2xl font-bold text-blush-900 dark:text-white my-6">
+        <Typography
+          variant="h1"
+          className="text-2xl font-bold text-blush-900 dark:text-white my-6"
+        >
           {`Crear cuenta`}
         </Typography>
 
@@ -84,7 +87,10 @@ export const RegisterForm = () => {
             checked={formData.acceptTerms}
             onChange={handleChange}
             label={
-              <Typography color="blue-gray" className="flex items-center text-sm">
+              <Typography
+                color="blue-gray"
+                className="flex items-center text-sm"
+              >
                 Acepto los
                 <Link
                   href="/terms-and-conditions"
@@ -108,12 +114,15 @@ export const RegisterForm = () => {
 
           <div className="flex flex-col gap-2">
             <div className="text-sm font-medium text-gray-700">
-              ¿Ya tienes cuenta? <Link href="/login" className="text-blush-700 hover:underline"> Inicia sesión</Link>
+              ¿Ya tienes cuenta?{' '}
+              <Link href="/login" className="text-blush-700 hover:underline">
+                {' '}
+                Inicia sesión
+              </Link>
             </div>
           </div>
-
         </form>
       </div>
-    </div >
+    </div>
   )
-};
+}

@@ -1,22 +1,68 @@
-import { useEffect, useState } from "react"
-import { getVitalSignsByCedula } from "@/services/vitalSigns"
-import { vitalSignInitialState } from "@/utils/consts"
+import { useEffect, useState } from 'react'
+import { getVitalSignsByCedula } from '@/services/vitalSigns'
+import { vitalSignInitialState } from '@/utils/consts'
+import { toast } from 'sonner'
+
+// const vitalSigns = {
+//   altura: '1.23',
+//   frecuenciaCardiaca: '123',
+//   frecuenciaRespiratoria: '123',
+//   peso: '123.12',
+//   presionArterial: '222/222',
+//   temperatura: '12.31',
+// }
 
 export function useVitalSigns({ cedulaPaciente }) {
-const [vitalSigns, setVitalSigns] = useState([])
-const [vitalSign, setVitalSign] = useState(vitalSignInitialState)
-const [isLoading, setIsLoading] = useState(false)
+  const [vitalSigns, setVitalSigns] = useState([])
+  const [vitalSign, setVitalSign] = useState(vitalSignInitialState)
+  const [isLoading, setIsLoading] = useState(false)
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     const { name, value } = e.target
     setVitalSign(prev => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }))
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault()
+
+    if (
+      !vitalSign.peso ||
+      !vitalSign.altura ||
+      !vitalSign.temperatura ||
+      !vitalSign.frecuenciaCardiaca ||
+      !vitalSign.frecuenciaRespiratoria ||
+      !vitalSign.presionArterial
+    )
+      return toast.error('Los campos marcados con (*) son obligatorios')
+
+    if (vitalSign.presionArterial.length < 6)
+      return toast.error(
+        'La presión arterial no puede tener menos de 5 caracteres'
+      )
+
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/patients/${cedulaPaciente}/vital-signs`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(vitalSign),
+        }
+      )
+    } catch (error) {
+      console.error('Error:', error)
+      throw new Error('Error creating vital sign')
+    } finally {
+      // setVitalSign(vitalSignInitialState) ??
+      setIsLoading(false)
+    }
+
+    console.table(vitalSign)
   }
 
   const getVitalSigns = async ({ cedulaPaciente }, { signal }) => {
@@ -28,28 +74,26 @@ const [isLoading, setIsLoading] = useState(false)
       )
       setVitalSigns(data)
     } catch (error) {
-      console.error("Error fetching vital signs:", error);
-      // toast.error('Error al obtener signos vitales'); // Mensaje para el usuario
+      console.error('Error fetching vital signs:', error)
+      // toast.error('Error al obtener X'); // Mensaje para el usuario
     } finally {
       setIsLoading(false)
     }
   }
 
-useEffect(() => {
-  const abortController = new AbortController()
+  useEffect(() => {
+    const abortController = new AbortController()
 
-  getVitalSigns({cedulaPaciente}, {signal: abortController.signal})
+    getVitalSigns({ cedulaPaciente }, { signal: abortController.signal })
 
-  return () =>   abortController.abort()
-  }, [ cedulaPaciente ])
+    return () => abortController.abort()
+  }, [cedulaPaciente])
 
-  return {  
+  return {
     vitalSigns,
     vitalSign,
     handleChange,
     handleSubmit,
-    isLoading
+    isLoading,
   }
 }
-
-

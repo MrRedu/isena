@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 import {
   IconButton,
   Typography,
@@ -10,7 +10,7 @@ import {
   AccordionBody,
   Drawer,
   Card,
-} from "@/app/MTailwind";
+} from '@/app/MTailwind'
 import {
   UserCircleIcon,
   Cog6ToothIcon,
@@ -21,49 +21,41 @@ import {
   IdentificationIcon,
   ChevronDownIcon,
   ArrowLeftStartOnRectangleIcon,
-  ChartBarIcon
-} from "@heroicons/react/24/solid";
-import {
-  Bars3Icon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
-import Link from "next/link";
-import { signOut } from "next-auth/react";
-import Image from "next/image";
+  ChartBarIcon,
+} from '@heroicons/react/24/solid'
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import Link from 'next/link'
+import { signOut } from 'next-auth/react'
+import Image from 'next/image'
 
 export function SidebarWithBurgerMenu() {
-  const [open, setOpen] = useState(0);
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [open, setOpen] = useState(0)
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
-  const handleOpen = (value) => {
-    setOpen(open === value ? 0 : value);
-  };
+  const handleOpen = value => {
+    setOpen(open === value ? 0 : value)
+  }
 
-  const openDrawer = () => setIsDrawerOpen(true);
-  const closeDrawer = () => setIsDrawerOpen(false);
+  const openDrawer = () => setIsDrawerOpen(true)
+  const closeDrawer = () => setIsDrawerOpen(false)
 
   return (
     <>
-      <IconButton variant="text" size="lg" onClick={openDrawer} >
+      <IconButton variant="text" size="lg" onClick={openDrawer}>
         {isDrawerOpen ? (
           <XMarkIcon className="h-8 w-8 stroke-2" />
         ) : (
           <Bars3Icon className="h-8 w-8 stroke-2" />
         )}
       </IconButton>
-      <Drawer open={isDrawerOpen} onClose={closeDrawer} overlay={false}  >
+      <Drawer open={isDrawerOpen} onClose={closeDrawer} overlay={false}>
         <Card
           color="transparent"
           shadow={false}
           className="h-[calc(100vh-2rem)] w-full p-4"
         >
           <div className="mb-2 flex items-center gap-4 p-4">
-            <Image
-              src="/logo.webp"
-              alt="brand"
-              width={220}
-              height={60}
-            />
+            <Image src="/logo.webp" alt="brand" width={220} height={60} />
           </div>
           <List>
             <Link href="/">
@@ -95,8 +87,9 @@ export function SidebarWithBurgerMenu() {
               icon={
                 <ChevronDownIcon
                   strokeWidth={2.5}
-                  className={`mx-auto h-4 w-4 transition-transform ${open === 2 ? "rotate-180" : ""
-                    }`}
+                  className={`mx-auto h-4 w-4 transition-transform ${
+                    open === 2 ? 'rotate-180' : ''
+                  }`}
                 />
               }
             >
@@ -159,10 +152,9 @@ export function SidebarWithBurgerMenu() {
               </ListItemPrefix>
               {`Cerrar sesión`}
             </ListItem>
-
           </List>
         </Card>
       </Drawer>
     </>
-  );
+  )
 }

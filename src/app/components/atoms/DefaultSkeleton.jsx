@@ -1,4 +1,4 @@
-import { Typography } from "@/app/MTailwind";
+import { Typography } from '@/app/MTailwind'
 export function DefaultSkeleton() {
   return (
     <div className="max-w-full animate-pulse">
@@ -38,5 +38,5 @@ export function DefaultSkeleton() {
         &nbsp;
       </Typography>
     </div>
-  );
+  )
 }

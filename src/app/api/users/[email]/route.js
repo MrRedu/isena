@@ -12,7 +12,10 @@ export async function GET(req, { params }) {
       return NextResponse.json({ message: 'User not found' }, { status: 404 })
     }
 
-    return NextResponse.json({ data: result[0], message: 'OK' }, { status: 200 })
+    return NextResponse.json(
+      { data: result[0], message: 'OK' },
+      { status: 200 }
+    )
   } catch (error) {
     console.error(error)
     return NextResponse.json(

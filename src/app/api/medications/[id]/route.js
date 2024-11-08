@@ -1,5 +1,5 @@
-import { NextResponse } from "next/server"
-import { connection } from "@/libs/mysql"
+import { NextResponse } from 'next/server'
+import { connection } from '@/libs/mysql'
 
 // Eliminar medicamento
 export async function DELETE(req, { params }) {

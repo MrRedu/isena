@@ -1,9 +1,9 @@
 'use client'
 import propTypes from 'prop-types'
-import { Input } from "@/app/MTailwind";
+import { Input } from '@/app/MTailwind'
 export const AddMedicationForm = ({ medication, handleChange }) => {
   return (
-    <form className="flex flex-col gap-8 p-4" >
+    <form className="flex flex-col gap-8 p-4">
       <Input
         name="nombreMedicamento"
         value={medication?.nombreMedicamento}
@@ -63,11 +63,12 @@ export const AddMedicationForm = ({ medication, handleChange }) => {
           onChange={handleChange}
           label="Fecha de fin"
           variant="static"
-          min={new Date().toISOString().split('T')[0]} />
+          min={new Date().toISOString().split('T')[0]}
+        />
       </div>
     </form>
   )
-};
+}
 
 AddMedicationForm.propTypes = {
   medication: propTypes.object,

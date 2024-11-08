@@ -10,7 +10,7 @@ export const SessionRedirect = ({ children }) => {
 
   useEffect(() => {
     // Verificar si la sesión está cargando
-    if (status === "loading") return
+    if (status === 'loading') return
 
     const currentPath = window.location.pathname
 
@@ -21,7 +21,11 @@ export const SessionRedirect = ({ children }) => {
       }
     } else {
       // Si el usuario no está logueado, redirigir a /login si no está ya allí
-      if (currentPath !== '/login' && currentPath !== '/register' && currentPath !== '/terms-and-conditions') {
+      if (
+        currentPath !== '/login' &&
+        currentPath !== '/register' &&
+        currentPath !== '/terms-and-conditions'
+      ) {
         router.push('/login')
       }
     }

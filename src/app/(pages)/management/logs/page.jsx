@@ -1,4 +1,4 @@
-import { Section } from "@/components/atoms/Section";
+import { Section } from '@/components/atoms/Section'
 
 export default function LogsPage() {
   return (
@@ -11,4 +11,4 @@ export default function LogsPage() {
       </ul>
     </Section>
   )
-};
+}

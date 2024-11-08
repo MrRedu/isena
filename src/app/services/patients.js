@@ -4,16 +4,16 @@ export const getAllPatients = async () => {
     const result = await fetch(URL, {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      cache: 'no-cache'
+      cache: 'no-cache',
     })
     const patients = await result.json()
     return patients
   } catch (error) {
     console.error('Error:', error)
     throw new Error('Error loading patients')
-  }  
+  }
 }
 
 export const getPatientByCedula = async ({ cedula }, { signal }) => {
@@ -22,10 +22,10 @@ export const getPatientByCedula = async ({ cedula }, { signal }) => {
     const result = await fetch(URL, {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       cache: 'no-cache',
-      signal
+      signal,
     })
     const patient = await result.json()
     return patient
@@ -33,5 +33,4 @@ export const getPatientByCedula = async ({ cedula }, { signal }) => {
     console.error('Error:', error)
     throw new Error('Error loading patient')
   }
-
 }

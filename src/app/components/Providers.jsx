@@ -8,9 +8,7 @@ export function Providers({ children, session }) {
     <>
       <Toaster />
       <SessionProvider session={session}>
-        <SessionRedirect>
-          {children}
-        </SessionRedirect>
+        <SessionRedirect>{children}</SessionRedirect>
       </SessionProvider>
     </>
   )

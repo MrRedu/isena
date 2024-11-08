@@ -1,6 +1,6 @@
 'use client'
-import { SidebarWithBurgerMenu } from "@/components/organisms/ui/Sidebar"
-import { Avatar } from "@/components/organisms/ui/Avatar";
+import { SidebarWithBurgerMenu } from '@/components/organisms/ui/Sidebar'
+import { Avatar } from '@/components/organisms/ui/Avatar'
 
 export const Header = () => {
   return (
@@ -9,4 +9,4 @@ export const Header = () => {
       <Avatar />
     </header>
   )
-};
+}
