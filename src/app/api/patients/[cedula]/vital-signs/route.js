@@ -89,8 +89,8 @@ export async function POST(req, { params }) {
     })
 
     await connection.query('INSERT INTO tbl_presiones_arteriales SET ?', {
-      presion_sistolica: presionArterial.split('/')[0],
-      presion_diastolica: presionArterial.split('/')[1],
+      presion_sistolica: presionArterial.sistolica,
+      presion_diastolica: presionArterial.diastolica,
       cedula_paciente: params.cedula,
     })
 

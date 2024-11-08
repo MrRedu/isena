@@ -43,6 +43,23 @@ export function useVitalSigns({ cedulaPaciente }) {
         'La presión arterial no puede tener menos de 5 caracteres'
       )
 
+      /** todo: 
+       * Q SE AGREGUE DINÁMICO, SIN REINICAR PÁGINA
+       *  Q SE PUEDA HACER UN ADD CADA 12H
+       *  TOASTER Q DIGA Q SE AGREGÓ
+       * 
+       * GENERAL: Q SE CIERREN LOS MODALES CUANDO SEA SUCCESS
+       * 
+       *  */
+
+    const payload = {
+      ...vitalSign,
+      presionArterial: {
+        sistolica: vitalSign.presionArterial.split('/')[0],
+        diastolica: vitalSign.presionArterial.split('/')[1],
+      },
+    }
+
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/patients/${cedulaPaciente}/vital-signs`,
@@ -51,7 +68,7 @@ export function useVitalSigns({ cedulaPaciente }) {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(vitalSign),
+          body: JSON.stringify(payload),
         }
       )
     } catch (error) {
