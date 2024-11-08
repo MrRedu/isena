@@ -7,7 +7,19 @@ import { useMedicalHistory } from '../../hooks/useMedicalHistory'
 export const MedicalHistory = ({ cedulaPaciente }) => {
   const { medicalHistory, isLoading } = useMedicalHistory({ cedulaPaciente })
 
-  console.log(medicalHistory)
+  const groupedAntecedentes = medicalHistory.reduce((acc, antecedente) => {
+    const tipo = antecedente.tipo_antecedente;
+
+    if (!acc[tipo]) {
+      acc[tipo] = [];
+    }
+
+    acc[tipo].push(antecedente);
+
+    return acc;
+  }, {});
+
+  console.log(groupedAntecedentes)
 
   return (
     <Card className="rounded-none border shadow-none overflow-hidden">
@@ -21,69 +33,23 @@ export const MedicalHistory = ({ cedulaPaciente }) => {
         </IconButton>
       </div>
 
-      <div className="flex flex-col gap-4 p-2">
-        <div>
-          <Typography
-            variant="h4"
-            className="font-bold uppercase text-sm px-2 py-4 text-blush-700"
-          >
-            {'Antecedentes patólogicos'}
-          </Typography>
-          <ul className="flex flex-col">
-            <li className="p-2 border-b">
-              Cirugías previas: Apendicectomia en 06/2018
-            </li>
-            <li className="p-2 border-b">Diabetes: Tipo II</li>
-            <li className="p-2 border-b">
-              Cardiopatias: Presión arterial alta
-            </li>
-            <li className="p-2 border-b">
-              Otros: Problemas respiratorios, *otro*
-            </li>
-          </ul>
-        </div>
-        <div>
-          <Typography
-            variant="h4"
-            className="font-bold uppercase text-sm px-2 py-4 text-blush-700"
-          >
-            {'Antecedentes heredofamiliares'}
-          </Typography>
-          <ul className="flex flex-col">
-            <li className="p-2 border-b">Psiquiatrícos: No</li>
-            <li className="p-2 border-b">
-              Diabetes: Abuelo y abuela paterno, padre.
-            </li>
-            <li className="p-2 border-b">
-              Hipertensión arterial: Abuelo y abuela materno.
-            </li>
-          </ul>
-        </div>
-        <div>
-          <Typography
-            variant="h4"
-            className="font-bold uppercase text-sm px-2 py-4 text-blush-700"
-          >
-            {'Antecedentes no patológicos'}
-          </Typography>
-          <ul className="flex flex-col">
-            <li className="p-2 border-b">Alcoholismo</li>
-            <li className="p-2 border-b">Tabaquismo</li>
-            <li className="p-2 border-b">Actividad física nula</li>
-          </ul>
-        </div>
-        <div>
-          <Typography
-            variant="h4"
-            className="font-bold uppercase text-sm px-2 py-4 text-blush-700"
-          >
-            {'Alergías'}
-          </Typography>
-          <ul className="flex flex-col">
-            <li className="p-2 border-b">Medicamentos: AINEs</li>
-            <li className="p-2">Otors: Camarones</li>
-          </ul>
-        </div>
+      <div>
+        {Object.keys(groupedAntecedentes).map(tipo => (
+          <div key={tipo}>
+            <h2>{tipo}</h2>
+            <ul>
+              {groupedAntecedentes[tipo].map(item => (
+                <li key={item.id_antecedente}>
+                  <strong>{item.título}:</strong> {item.descripción}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+        {/* Mensajes si no hay antecedentes */}
+        {Object.keys(groupedAntecedentes).length === 0 && (
+          <p>No hay antecedentes disponibles.</p>
+        )}
       </div>
     </Card>
   )

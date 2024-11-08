@@ -4,7 +4,21 @@ import { connection } from '@/libs/mysql'
 export async function GET(req, { params }) {
   try {
     const [result] = await connection.query(
-      'SELECT * FROM tbl_antecedentes WHERE cedula_paciente = ?',
+      `
+      SELECT 
+    a.id_antecedente,
+    a.cedula_paciente,
+    t.id_tipo_antecedente,
+    t.nombre_tipo_antecedente AS tipo_antecedente,
+    a.título,
+    a.descripción
+FROM 
+    tbl_antecedentes a
+JOIN 
+    tbl_tipos_antecedentes t ON a.id_tipo_antecedente = t.id_tipo_antecedente
+WHERE 
+    a.cedula_paciente = ?
+      `,
       [params.cedula]
     )
 
