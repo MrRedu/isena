@@ -1,12 +1,12 @@
-export const getVitalSignsByCedula = async ({cedulaPaciente} , {signal}) => {
-  const URL = `${process.env.NEXT_PUBLIC_API_URL}/vital-signs/${cedulaPaciente}`
+export const getVitalSignsByCedula = async ({ cedulaPaciente }, { signal }) => {
+  const URL = `${process.env.NEXT_PUBLIC_API_URL}/patients/${cedulaPaciente}/vital-signs`
   try {
     const result = await fetch(URL, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
-      signal
+      signal,
     })
     const vitalSigns = await result.json()
     return vitalSigns

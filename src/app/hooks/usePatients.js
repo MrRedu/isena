@@ -110,7 +110,7 @@ const [isLoading,  setIsLoading] = useState(false)
       setPatient(dataMapped)
     } catch (error) { 
       console.error("Error fetching patient:", error);
-      // toast.error('Error al obtener signos vitales'); // Mensaje para el usuario
+      // toast.error('Error al obtener X'); // Mensaje para el usuario
     } finally {
       setIsLoading(false)
     }
