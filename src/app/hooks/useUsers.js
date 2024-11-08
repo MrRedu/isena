@@ -1,11 +1,12 @@
-import { useState } from "react"
+import { useState } from 'react'
 
-export function useUsers({initialStateUsers}) {
-  const [users, 
+export function useUsers({ initialStateUsers }) {
+  const [
+    users,
     // setUsers
-    ] = useState( initialStateUsers )
-  
+  ] = useState(initialStateUsers)
+
   return {
-    users
+    users,
   }
 }

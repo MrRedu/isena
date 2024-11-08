@@ -7,25 +7,23 @@ export const metadata = {
     template: '%s | ISENA',
     default: 'ISENA',
   },
-  description: 'Sistema de gestión de historias médicas para el Instituto de senología de Aragua',
+  description:
+    'Sistema de gestión de historias médicas para el Instituto de senología de Aragua',
 }
 
 export default async function RootLayout({
   children,
   params: {
     session,
-    // ...params 
+    // ...params
   },
 }) {
-
   return (
     <html lang="es">
       <body
       // className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Providers session={session}>
-          {children}
-        </Providers >
+        <Providers session={session}>{children}</Providers>
       </body>
     </html>
   )

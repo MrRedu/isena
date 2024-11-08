@@ -22,7 +22,8 @@ export function useLogin() {
 
     // Validaciones antes de enviar el formulario
     const isValidEmail = validateEmail(formData.email)
-    if (!formData.email || !formData.password) return toast.error('Todos los campos son obligatorios')
+    if (!formData.email || !formData.password)
+      return toast.error('Todos los campos son obligatorios')
     if (!isValidEmail) return toast.error('El correo electrónico no es valido')
 
     try {
@@ -34,7 +35,8 @@ export function useLogin() {
         redirect: false,
       })
 
-      if (response.status === 401) return toast.error('Credenciales incorrectas')
+      if (response.status === 401)
+        return toast.error('Credenciales incorrectas')
     } catch (error) {
       setError(error)
       console.error(error)
@@ -55,7 +57,9 @@ export function useLogin() {
 }
 
 async function loadEmail(email) {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${email}`)
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/users/${email}`
+  )
   if (response.status === 200) {
     return true
   } else if (response.status === 404) {
@@ -81,27 +85,34 @@ export function useRegister() {
     e.preventDefault()
 
     // Validaciones antes de enviar el formulario
-    if(
-      !formData.name || 
+    if (
+      !formData.name ||
       !formData.lastName ||
-      !formData.email || 
-      !formData.password || 
-      !formData.confirmPassword       
-    ) return toast.error('Todos los campos son obligatorios')
+      !formData.email ||
+      !formData.password ||
+      !formData.confirmPassword
+    )
+      return toast.error('Todos los campos son obligatorios')
 
     const isEmailValid = validateEmail(formData.email)
-    if(!isEmailValid) return toast.error('El correo electrónico no es válido')
+    if (!isEmailValid) return toast.error('El correo electrónico no es válido')
     if (!formData.password) return toast.error('La contraseña es obligatoria')
-    if (formData.password.length < 8) return toast.error('La contraseña debe tener al menos 8 caracteres')
-    if(formData.password !== formData.confirmPassword) return toast.error('Las contraseñas no coinciden')
-    if(!formData.acceptTerms)return toast.error('Se deben aceptar los términos y condiciones')
+    if (formData.password.length < 8)
+      return toast.error('La contraseña debe tener al menos 8 caracteres')
+    if (formData.password !== formData.confirmPassword)
+      return toast.error('Las contraseñas no coinciden')
+    if (!formData.acceptTerms)
+      return toast.error('Se deben aceptar los términos y condiciones')
     const isEmailRegistered = await loadEmail(formData.email)
-    if(isEmailRegistered) return toast.error('El correo electrónico ya se encuentra registrado')
+    if (isEmailRegistered)
+      return toast.error('El correo electrónico ya se encuentra registrado')
 
-      try {
-        setIsLoading(true)
-        const hashedPassword = await hashPassword(formData.password)
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/`, {
+    try {
+      setIsLoading(true)
+      const hashedPassword = await hashPassword(formData.password)
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/users/`,
+        {
           method: 'POST',
           body: JSON.stringify({
             name: formData.name,
@@ -109,28 +120,29 @@ export function useRegister() {
             email: formData.email,
             password: hashedPassword,
           }),
-        })
-  
-        if (!response.ok) {
-          throw new Error('Error creating user')
         }
-  
-        if (response.status === 201) {
-          setFormData(initialValueFormRegister)
-          signIn('credentials', {
-            email: formData.email,
-            password: formData.password,
-            redirect: true,
-            callbackUrl: '/',
-          })
-        }
-  
-        setError(null)
-      } catch (error) {
-        setError(error.message)
-      } finally {
-        setIsLoading(false)
+      )
+
+      if (!response.ok) {
+        throw new Error('Error creating user')
       }
+
+      if (response.status === 201) {
+        setFormData(initialValueFormRegister)
+        signIn('credentials', {
+          email: formData.email,
+          password: formData.password,
+          redirect: true,
+          callbackUrl: '/',
+        })
+      }
+
+      setError(null)
+    } catch (error) {
+      setError(error.message)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   const handleReset = () => setFormData(initialValueFormRegister)
@@ -143,4 +155,4 @@ export function useRegister() {
     isLoading,
     error,
   }
-} 
+}

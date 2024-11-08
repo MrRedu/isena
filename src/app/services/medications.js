@@ -1,6 +1,9 @@
-import { toast } from "sonner"
+import { toast } from 'sonner'
 
-export const getMedicationsByCedula = async ({cedulaPaciente} , {signal}) => {
+export const getMedicationsByCedula = async (
+  { cedulaPaciente },
+  { signal }
+) => {
   const URL = `${process.env.NEXT_PUBLIC_API_URL}/patients/${cedulaPaciente}/medications`
   try {
     const result = await fetch(URL, {
@@ -9,7 +12,7 @@ export const getMedicationsByCedula = async ({cedulaPaciente} , {signal}) => {
         'Content-Type': 'application/json',
       },
       cache: 'no-cache',
-      signal
+      signal,
     })
     const medications = await result.json()
     return medications
@@ -36,6 +39,4 @@ export const deleteMedication = async id => {
     console.error('Error:', error)
     throw new Error('Error deleting medication')
   }
-
-
 }

@@ -9,33 +9,33 @@ export const initialValueFormRegister = {
   email: '',
   password: '',
   confirmPassword: '',
-  acceptTerms: false
+  acceptTerms: false,
 }
 
 export const medicationInitialState = {
-  nombreMedicamento: "",
-  dosisMedicamento: "",
-  viaAdministracionMedicamento: "",
-  intervaloMedicamento: "",
-  fechaInicioMedicamento: "",
-  fechaFinMedicamento: "",
+  nombreMedicamento: '',
+  dosisMedicamento: '',
+  viaAdministracionMedicamento: '',
+  intervaloMedicamento: '',
+  fechaInicioMedicamento: '',
+  fechaFinMedicamento: '',
 }
 
 export const vitalSignInitialState = {
-  altura: "",
-  peso: "",
-  temperatura: "",
-  frecuenciaRespiratoria: "",
-  presionArterial: "",
-  frecuenciaCardiaca: "",
+  altura: '',
+  peso: '',
+  temperatura: '',
+  frecuenciaRespiratoria: '',
+  presionArterial: '',
+  frecuenciaCardiaca: '',
 }
 
 export const patientInitialState = {
-  nombresPaciente: "",
-  apellidosPaciente: "",
-  cedulaPaciente: "",
-  telefonoPaciente: "",
-  fechaNacimientoPaciente: "",
-  correoPaciente: "",
-  direccionPaciente: "",
+  nombresPaciente: '',
+  apellidosPaciente: '',
+  cedulaPaciente: '',
+  telefonoPaciente: '',
+  fechaNacimientoPaciente: '',
+  correoPaciente: '',
+  direccionPaciente: '',
 }

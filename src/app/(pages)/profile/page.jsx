@@ -1,7 +1,7 @@
-import { Section } from "@/components/atoms/Section";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../../api/auth/[...nextauth]/route";
-import { Card } from "@/app/MTailwind";
+import { Section } from '@/components/atoms/Section'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '../../api/auth/[...nextauth]/route'
+import { Card } from '@/app/MTailwind'
 
 export const metadata = {
   title: 'Perfil',
@@ -20,9 +20,9 @@ export default async function ProfilePage() {
         <li>Interfaz para los datos del usuario</li>
         <li>Poder cambiar la contraseña</li>
       </ul>
-      <Card className="p-4 max-w-96 overflow-hidden" >
+      <Card className="p-4 max-w-96 overflow-hidden">
         <pre>{JSON.stringify(session, null, 2)}</pre>
       </Card>
     </Section>
   )
-};
+}

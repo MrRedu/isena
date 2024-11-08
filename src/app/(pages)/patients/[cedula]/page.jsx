@@ -1,6 +1,12 @@
 import propTypes from 'prop-types'
 import { Section } from '@/components/atoms/Section'
-import { ActiveMedications, VitalSigns, MedicalHistory, PatientProfile, MedicalConsultation } from '@/components/organisms/'
+import {
+  ActiveMedications,
+  VitalSigns,
+  MedicalHistory,
+  PatientProfile,
+  MedicalConsultation,
+} from '@/components/organisms/'
 
 export const metadata = {
   title: 'Paciente',
@@ -10,22 +16,22 @@ export const metadata = {
 export default function PatientPage({ params: { cedula } }) {
   return (
     <Section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      <div className='flex flex-col gap-4'>
+      <div className="flex flex-col gap-4">
         <PatientProfile cedulaPaciente={cedula} />
         <VitalSigns cedulaPaciente={cedula} />
       </div>
-      <div className='flex flex-col gap-4'>
+      <div className="flex flex-col gap-4">
         <ActiveMedications cedulaPaciente={cedula} />
-        <MedicalHistory />
+        <MedicalHistory cedulaPaciente={cedula} />
       </div>
-      <div className='flex flex-col gap-4'>
+      <div className="flex flex-col gap-4">
         <MedicalConsultation />
       </div>
-    </Section >
+    </Section>
   )
-};
+}
 
 PatientPage.propTypes = {
   params: propTypes.object,
-  cedula: propTypes.string
+  cedula: propTypes.string,
 }

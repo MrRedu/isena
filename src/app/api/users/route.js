@@ -18,7 +18,7 @@ export async function GET() {
         tbl_roles r ON u.id_rol_usuario = r.id_rol
     JOIN 
         tbl_status_usuarios s ON u.id_status_usuario = s.id_status;
-      `);
+      `)
 
     return NextResponse.json({ data: result, message: 'OK' }, { status: 200 })
   } catch (error) {

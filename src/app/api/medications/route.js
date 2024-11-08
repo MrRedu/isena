@@ -3,7 +3,7 @@ import { connection } from '@/libs/mysql'
 
 export async function GET() {
   try {
-    const [result] = await connection.query("SELECT * FROM tbl_medicamentos");
+    const [result] = await connection.query('SELECT * FROM tbl_medicamentos')
 
     return NextResponse.json({ data: result, message: 'OK' }, { status: 200 })
   } catch (error) {
@@ -18,8 +18,6 @@ export async function GET() {
   }
 }
 
-
-
 export async function POST(req) {
   try {
     // Extract medication details from the request body
@@ -30,19 +28,22 @@ export async function POST(req) {
       viaAdministracionMedicamento,
       intervaloMedicamento,
       fechaInicioMedicamento,
-      fechaFinMedicamento
-    } = await req.json();
+      fechaFinMedicamento,
+    } = await req.json()
 
     // Insert the new medication into the database
-    const result = await connection.query('INSERT INTO tbl_medicamentos SET ?', {
-      cedula_paciente: cedulaPaciente,
-      nombre_medicamento: nombreMedicamento,
-      dosis_medicamento: dosisMedicamento,
-      via_administracion_medicamento: viaAdministracionMedicamento,
-      intervalo_medicamento: intervaloMedicamento,
-      fecha_inicio_medicamento: fechaInicioMedicamento,
-      fecha_fin_medicamento: fechaFinMedicamento,
-    });
+    const result = await connection.query(
+      'INSERT INTO tbl_medicamentos SET ?',
+      {
+        cedula_paciente: cedulaPaciente,
+        nombre_medicamento: nombreMedicamento,
+        dosis_medicamento: dosisMedicamento,
+        via_administracion_medicamento: viaAdministracionMedicamento,
+        intervalo_medicamento: intervaloMedicamento,
+        fecha_inicio_medicamento: fechaInicioMedicamento,
+        fecha_fin_medicamento: fechaFinMedicamento,
+      }
+    )
 
     // Return a success response with the new medication ID
     return NextResponse.json(
@@ -51,16 +52,16 @@ export async function POST(req) {
         message: 'Medication created successfully',
       },
       { status: 201 }
-    );
+    )
   } catch (error) {
     // Log the error and return a failure response
-    console.error(error);
+    console.error(error)
     return NextResponse.json(
       {
         message: error.message,
         manualMessage: 'Error creating medication',
       },
       { status: 500 }
-    );
+    )
   }
 }

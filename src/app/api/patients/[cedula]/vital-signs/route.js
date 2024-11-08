@@ -1,9 +1,10 @@
 import { NextResponse } from 'next/server'
 import { connection } from '@/libs/mysql'
 
-export async function GET( req, { params } ) {
+export async function GET(req, { params }) {
   try {
-    const [result] = await connection.query(`
+    const [result] = await connection.query(
+      `
     SELECT 
     (SELECT JSON_ARRAYAGG(JSON_OBJECT('fecha_peso', pw.fecha_registro, 'valor', pw.peso))
      FROM tbl_pesos pw 
@@ -31,9 +32,14 @@ export async function GET( req, { params } ) {
 
     FROM tbl_pacientes p
     WHERE p.cedula_paciente = ?
-    `, [params.cedula]);
+    `,
+      [params.cedula]
+    )
 
-    return NextResponse.json({ data: result[0], message: 'OK' }, { status: 200 })
+    return NextResponse.json(
+      { data: result[0], message: 'OK' },
+      { status: 200 }
+    )
   } catch (error) {
     console.error(error)
     return NextResponse.json(

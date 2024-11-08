@@ -1,4 +1,4 @@
-import { Section } from "@/components/atoms/Section";
+import { Section } from '@/components/atoms/Section'
 
 export default function HelpPage() {
   return (
@@ -10,4 +10,4 @@ export default function HelpPage() {
       </ul>
     </Section>
   )
-};
+}

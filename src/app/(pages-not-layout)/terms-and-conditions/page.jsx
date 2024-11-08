@@ -1,5 +1,5 @@
-import { Section } from "@/components/atoms/Section";
-import Link from "next/link";
+import { Section } from '@/components/atoms/Section'
+import Link from 'next/link'
 
 export const metadata = {
   title: 'Términos y Condiciones',
@@ -8,7 +8,9 @@ export const metadata = {
 export default function TermsAndConditionsPage() {
   return (
     <Section className="flex flex-col items-center justify-center mx-auto gap-4 max-w-[600px]">
-      <h1 className="font-bold text-2xl uppercase">{'Términos y Condiciones'}</h1>
+      <h1 className="font-bold text-2xl uppercase">
+        {'Términos y Condiciones'}
+      </h1>
       <ol className="list-decimal flex flex-col gap-6">
         <li>
           <h2 className="font-bold inline text-lg">Definiciones</h2>
@@ -96,8 +98,10 @@ export default function TermsAndConditionsPage() {
         </li>
       </ol>
 
-      <Link href="/login" className="my-8 hover:underline hover:text-blush-600">{`Volver a la página principal`}</Link>
-
+      <Link
+        href="/login"
+        className="my-8 hover:underline hover:text-blush-600"
+      >{`Volver a la página principal`}</Link>
     </Section>
   )
-};
+}

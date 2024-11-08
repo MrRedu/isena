@@ -3,7 +3,7 @@ import { connection } from '@/libs/mysql'
 
 export async function GET() {
   try {
-    const [result] = await connection.query("SELECT * FROM tbl_pacientes");
+    const [result] = await connection.query('SELECT * FROM tbl_pacientes')
 
     return NextResponse.json({ data: result, message: 'OK' }, { status: 200 })
   } catch (error) {
@@ -21,14 +21,14 @@ export async function GET() {
 // Registrar un nuevo paciente
 export async function POST(req) {
   try {
-    const { 
+    const {
       nombresPaciente,
       apellidosPaciente,
       cedulaPaciente,
       telefonoPaciente,
       fechaNacimientoPaciente,
       correoPaciente,
-      direccionPaciente
+      direccionPaciente,
     } = await req.json()
 
     const result = await connection.query('INSERT INTO tbl_pacientes SET ?', {
@@ -38,7 +38,7 @@ export async function POST(req) {
       telefono_paciente: telefonoPaciente,
       fecha_nacimiento_paciente: fechaNacimientoPaciente,
       correo_paciente: correoPaciente,
-      direccion_paciente: direccionPaciente
+      direccion_paciente: direccionPaciente,
     })
 
     return NextResponse.json(

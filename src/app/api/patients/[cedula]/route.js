@@ -66,10 +66,16 @@ WHERE
     )
 
     if (result.length === 0) {
-      return NextResponse.json({ message: 'Patient not found' }, { status: 404 })
+      return NextResponse.json(
+        { message: 'Patient not found' },
+        { status: 404 }
+      )
     }
 
-    return NextResponse.json({ data: result[0], message: 'OK' }, { status: 200 })
+    return NextResponse.json(
+      { data: result[0], message: 'OK' },
+      { status: 200 }
+    )
   } catch (error) {
     console.error(error)
     return NextResponse.json(

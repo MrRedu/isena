@@ -5,26 +5,26 @@ export const validateEmail = email => {
 }
 
 export function calculateAge(fechaNacimiento) {
-  let fechaNace = new Date(fechaNacimiento);
+  let fechaNace = new Date(fechaNacimiento)
   let fechaActual = new Date()
 
-  let mes = fechaActual.getMonth();
-  let dia = fechaActual.getDate();
-  let año = fechaActual.getFullYear();
+  let mes = fechaActual.getMonth()
+  let dia = fechaActual.getDate()
+  let año = fechaActual.getFullYear()
 
-  fechaActual.setDate(dia);
-  fechaActual.setMonth(mes);
-  fechaActual.setFullYear(año);
+  fechaActual.setDate(dia)
+  fechaActual.setMonth(mes)
+  fechaActual.setFullYear(año)
 
-  return Math.floor(((fechaActual - fechaNace) / (1000 * 60 * 60 * 24) / 365));;
+  return Math.floor((fechaActual - fechaNace) / (1000 * 60 * 60 * 24) / 365)
 }
 
 export function formatNumber(number = 0) {
   // Convertir el número a cadena
-  let numberStr = number.toString();
-  
+  let numberStr = number.toString()
+
   // Usar una expresión regular para insertar puntos
-  let resultado = numberStr.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
-  
-  return resultado;
+  let resultado = numberStr.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+
+  return resultado
 }
