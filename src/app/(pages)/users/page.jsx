@@ -11,8 +11,8 @@ const TABLE_HEADER_USERS = [
   'Correo',
   'Apellidos',
   'Nombres',
-  'Status',
   'Rol',
+  'Status',
   'Acciones',
 ]
 const TITLE_USERS = 'Usuarios'
