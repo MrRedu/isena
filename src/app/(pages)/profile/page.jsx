@@ -1,6 +1,6 @@
 import { Section } from '@/components/atoms/Section'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '../../api/auth/[...nextauth]/route'
+// import { getServerSession } from 'next-auth'
+// import { authOptions } from '../../api/auth/[...nextauth]/route'
 import {
   Tabs,
   TabsHeader,
@@ -11,7 +11,8 @@ import {
 import {
   Square3Stack3DIcon,
 } from "@heroicons/react/24/solid";
-import { ProfileInformationForm } from '../../components/organisms/forms/ProfileInformationForm';
+import { ProfileInformationForm } from '@/components/organisms/forms/ProfileInformationForm';
+import { EditPasswordForm } from '@/components/organisms/forms/EditPasswordForm';
 
 
 export const metadata = {
@@ -20,7 +21,7 @@ export const metadata = {
 }
 
 export default async function ProfilePage() {
-  const session = await getServerSession(authOptions)
+  // const session = await getServerSession(authOptions)
 
   return (
     <Section className='flex flex-col gap-4'>
@@ -50,10 +51,12 @@ export default async function ProfilePage() {
           unmount: { y: 250 },
         }}>
           <TabPanel value={'information'}>
-            <ProfileInformationForm name={session?.user?.name} lastName={session?.user?.lastName} email={session?.user?.email} />
+            <ProfileInformationForm
+            //  name={session?.user?.name} lastName={session?.user?.lastName} email={session?.user?.email}
+            />
           </TabPanel>
           <TabPanel value={'password'}>
-            {`password`}
+            <EditPasswordForm />
           </TabPanel>
         </TabsBody>
       </Tabs>
