@@ -1,10 +1,16 @@
 import propTypes from 'prop-types'
-import { Input } from '@/app/MTailwind';
-export const ProfileInformationForm = ({ name, lastName, rol, email, status }) => {
+import { Button, Input, Option, Select } from '@/app/MTailwind';
+export const ProfileInformationForm = () => {
+
+  const name = "Hacer el fetch"
+  const lastName = "Hacer el fetch"
+  const rol = "Hacer el fetch"
+  const email = "Hacer el fetch"
+  const status = "Hacer el fetch"
+
   return (
     <>
-      {/* <!-- Card --> */}
-      <form action="" className='my-6'>
+      <form action="" className='mt-16'>
         <div className="flex flex-col gap-8">
           <div className="flex gap-8 flex-col lg:flex-row">
             <Input
@@ -15,7 +21,6 @@ export const ProfileInformationForm = ({ name, lastName, rol, email, status }) =
               // onChange={handleChange}
               value={name}
               label="Nombres"
-              required
               className="w-full "
             />
             <Input
@@ -24,9 +29,7 @@ export const ProfileInformationForm = ({ name, lastName, rol, email, status }) =
               type="text"
               variant="static"
               value={lastName}
-              readOnly
               label="Apellidos"
-              required
               className="w-full"
             />
           </div>
@@ -40,11 +43,33 @@ export const ProfileInformationForm = ({ name, lastName, rol, email, status }) =
             label="Correo electrónico"
             placeholder="ejemplo@gmail.com"
           />
+          <div className="flex gap-8 flex-col lg:flex-row">
+            <Select variant="static" label="Rol" value={rol || 'Médico'}>
+              <Option disabled>{rol || 'Médico'}</Option>
+            </Select>
+            <Select variant="static" label="Status" value={status || 'Habilitado'}>
+              <Option disabled>Habilitado</Option>
+              <Option disabled>Deshabilitado</Option>
+            </Select>
+          </div>
+          <Button
+            color="blush"
+            fullWidth
+            className='mt-4'
+          // enabled cuando hayan cambios, si no, no.
+          >
+            Guardar cambios
+          </Button>
         </div>
       </form>
-      <p>{rol || 'Médico'}</p>
-      <p>{status || 'Habilitado'}</p>
     </>
   )
 };
 
+ProfileInformationForm.propTypes = {
+  name: propTypes.string,
+  lastName: propTypes.string,
+  rol: propTypes.string,
+  email: propTypes.string,
+  status: propTypes.string,
+}
