@@ -53,9 +53,7 @@ export function useMedications({ cedulaPaciente }) {
         }
       )
 
-      if (!response.ok) {
-        throw new Error('Error al registrar el medicamento')
-      }
+      if (!response.ok) throw new Error('Error al registrar el medicamento')
 
       // Success
       const data = await response.json()

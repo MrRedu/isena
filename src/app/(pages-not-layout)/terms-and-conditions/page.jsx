@@ -99,7 +99,7 @@ export default function TermsAndConditionsPage() {
       </ol>
 
       <Link
-        href="/login"
+        href="/"
         className="my-8 hover:underline hover:text-blush-600"
       >{`Volver a la página principal`}</Link>
     </Section>

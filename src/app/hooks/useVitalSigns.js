@@ -3,16 +3,7 @@ import { getVitalSignsByCedula } from '@/services/vitalSigns'
 import { vitalSignInitialState } from '@/utils/consts'
 import { toast } from 'sonner'
 
-// const vitalSigns = {
-//   altura: '1.23',
-//   frecuenciaCardiaca: '123',
-//   frecuenciaRespiratoria: '123',
-//   peso: '123.12',
-//   presionArterial: '222/222',
-//   temperatura: '12.31',
-// }
-
-export function useVitalSigns({ cedulaPaciente }) {
+export function useVitalSigns({ cedulaPaciente, handleOpenModal }) {
   const [vitalSigns, setVitalSigns] = useState([])
   const [vitalSign, setVitalSign] = useState(vitalSignInitialState)
   const [isLoading, setIsLoading] = useState(false)
@@ -38,10 +29,28 @@ export function useVitalSigns({ cedulaPaciente }) {
     )
       return toast.error('Los campos marcados con (*) son obligatorios')
 
+    if (vitalSign.temperatura.length < 5)
+      return toast.error('La temperatura no puede tener menos de 4 caracteres')
+
     if (vitalSign.presionArterial.length < 6)
       return toast.error(
         'La presión arterial no puede tener menos de 5 caracteres'
       )
+
+    /*
+     * TODO:
+     *  Que solo se pueda agregar un registro cada 8h
+     * Get del último registro --> Tomar la fecha y compararla con la actual
+     * Si la diferencia es menor a 8h, no se puede agregar
+     */
+
+    const payload = {
+      ...vitalSign,
+      presionArterial: {
+        sistolica: vitalSign.presionArterial.split('/')[0],
+        diastolica: vitalSign.presionArterial.split('/')[1],
+      },
+    }
 
     try {
       const response = await fetch(
@@ -51,14 +60,41 @@ export function useVitalSigns({ cedulaPaciente }) {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(vitalSign),
+          body: JSON.stringify(payload),
         }
       )
+
+      if (!response.ok) throw new Error('Error al registrar los signos vitales')
+
+      // Success
+      toast.success('Signos vitales registrados con éxito')
+      setVitalSigns(prev => ({
+        ...prev,
+        pesos: [...prev.pesos, { valor: vitalSign.peso }],
+        alturas: [...prev.alturas, { valor: vitalSign.altura }],
+        temperaturas: [...prev.temperaturas, { valor: vitalSign.temperatura }],
+        frecuencias_cardiacas: [
+          ...prev.frecuencias_cardiacas,
+          { valor: vitalSign.frecuenciaCardiaca },
+        ],
+        frecuencias_respiratorias: [
+          ...prev.frecuencias_respiratorias,
+          { valor: vitalSign.frecuenciaRespiratoria },
+        ],
+        presiones_arteriales: [
+          ...prev.presiones_arteriales,
+          {
+            sistolica: vitalSign.presionArterial.split('/')[0],
+            diastolica: vitalSign.presionArterial.split('/')[1],
+          },
+        ],
+      }))
+      handleOpenModal()
     } catch (error) {
       console.error('Error:', error)
       throw new Error('Error creating vital sign')
     } finally {
-      // setVitalSign(vitalSignInitialState) ??
+      setVitalSign(vitalSignInitialState)
       setIsLoading(false)
     }
 
