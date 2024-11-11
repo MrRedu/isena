@@ -4,11 +4,13 @@ import { initialValueFormLogin, initialValueFormRegister } from '@/utils/consts'
 import { validateEmail } from '@/utils/utils'
 import { toast } from 'sonner'
 import { hashPassword } from '../services/authServices'
+import { useRouter } from 'next/navigation'
 
 export function useLogin() {
   const [formData, setFormData] = useState(initialValueFormLogin)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
+  const router = useRouter()
 
   const handleChange = e => {
     setFormData(prev => ({
@@ -28,15 +30,20 @@ export function useLogin() {
 
     try {
       setIsLoading(true)
-      const response = await signIn('credentials', {
+      const result = await signIn('credentials', {
+        redirect: false,
         email: formData.email,
         password: formData.password,
-        callbackUrl: `/`,
-        redirect: false,
       })
 
-      if (response.status === 401)
-        return toast.error('Credenciales incorrectas')
+      if (result.status === 401) return toast.error('Credenciales incorrectas')
+
+      if (result.error) {
+        console.error(result.error)
+      } else {
+        // Redirigir manualmente si no se hace automáticamente
+        router.push('/')
+      }
     } catch (error) {
       setError(error)
       console.error(error)

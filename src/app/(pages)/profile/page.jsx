@@ -50,7 +50,7 @@ export default async function ProfilePage() {
           unmount: { y: 250 },
         }}>
           <TabPanel value={'information'}>
-            <ProfileInformationForm name={session.user.name} lastName={session.user.lastName} email={session.user.email} />
+            <ProfileInformationForm name={session?.user?.name} lastName={session?.user?.lastName} email={session?.user?.email} />
           </TabPanel>
           <TabPanel value={'password'}>
             {`password`}
