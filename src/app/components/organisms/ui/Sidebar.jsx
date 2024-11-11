@@ -51,11 +51,10 @@ export function SidebarWithBurgerMenu() {
       <Drawer open={isDrawerOpen} onClose={closeDrawer} overlay={false}>
         <Card
           color="transparent"
-          shadow={false}
-          className="h-[calc(100vh-2rem)] w-full p-4"
+          className="h-full w-full p-4 rounded-none"
         >
           <div className="mb-2 flex items-center gap-4 p-4">
-            <Image src="/logo.webp" alt="brand" width={220} height={60} />
+            <Image src="/logo.webp" alt="brand" width={220} height={60} priority={false} className="w-full" loading='lazy' />
           </div>
           <List>
             <Link href="/">
@@ -87,9 +86,8 @@ export function SidebarWithBurgerMenu() {
               icon={
                 <ChevronDownIcon
                   strokeWidth={2.5}
-                  className={`mx-auto h-4 w-4 transition-transform ${
-                    open === 2 ? 'rotate-180' : ''
-                  }`}
+                  className={`mx-auto h-4 w-4 transition-transform ${open === 2 ? 'rotate-180' : ''
+                    }`}
                 />
               }
             >

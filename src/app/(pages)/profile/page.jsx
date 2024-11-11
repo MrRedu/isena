@@ -27,7 +27,7 @@ export default async function ProfilePage() {
     <Section className='flex flex-col gap-4'>
       <h2 className="font-bold text-xl antialiased text-center">{`Configuración de perfil`}</h2>
       <Tabs value="information" className="max-w-[700px] w-full mx-auto">
-        <TabsHeader className="rounded-none border-b border-blue-gray-50 bg-transparent p-0"
+        <TabsHeader className="rounded-none border-b border-blue-gray-50 bg-transparent p-0 z-0"
           indicatorProps={{
             className:
               "bg-transparent border-b border-blush-500 shadow-none rounded-none",

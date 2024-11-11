@@ -1,3 +1,4 @@
+'use client'
 import { Button, Input, Typography } from "@/app/MTailwind";
 
 export const EditPasswordForm = () => {

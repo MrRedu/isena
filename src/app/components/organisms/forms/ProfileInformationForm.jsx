@@ -1,3 +1,4 @@
+'use client'
 import propTypes from 'prop-types'
 import { Button, Input, Option, Select } from '@/app/MTailwind';
 export const ProfileInformationForm = () => {
@@ -44,7 +45,7 @@ export const ProfileInformationForm = () => {
             placeholder="ejemplo@gmail.com"
           />
           <div className="flex gap-8 flex-col lg:flex-row">
-            <Select variant="static" label="Rol" value={rol || 'Médico'}>
+            <Select variant="static" label="Rol" value={rol || 'Médico'} >
               <Option disabled>{rol || 'Médico'}</Option>
             </Select>
             <Select variant="static" label="Status" value={status || 'Habilitado'}>
