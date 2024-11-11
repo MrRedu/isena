@@ -1,11 +1,24 @@
+'use client'
 import { RegisterForm } from '@/components/organisms/forms/RegisterForm'
+import { useSession } from 'next-auth/react';
 import Image from 'next/image'
-
-export const metadata = {
-  title: 'Crear cuenta',
-}
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function RegisterPage() {
+  const {
+    // data: session,
+    status } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    // Si hay una sesión activa, redirige a la página principal
+    if (status === "authenticated") {
+      router.push('/');
+    }
+  }, [status, router]);
+
+
   return (
     <div
       className={`
@@ -20,7 +33,7 @@ export default function RegisterPage() {
         w-full h-full
         inset-0
         z-[-1]
-        bg-[url('https://diariocorreo.pe/resizer/aRnGnlZ1PZ-P7JMsiJdP6zjozFU=/1200x682/smart/filters:format(jpeg):quality(75)/arc-anglerfish-arc2-prod-elcomercio.s3.amazonaws.com/public/TA5L7OUZGVHTFP7SFCUPLHCXP4.jpg')]
+        bg-[url('/bg-login.webp')]
         bg-cover bg-right bg-no-repeat opacity-80
         `}
       />
