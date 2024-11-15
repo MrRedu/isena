@@ -1,5 +1,10 @@
 import { Section } from '@/components/atoms/Section'
 
+export const metadata = {
+  title: 'Manual de usuario',
+  description: 'Página del manual de usuario',
+}
+
 export default function HelpPage() {
   return (
     <Section>
