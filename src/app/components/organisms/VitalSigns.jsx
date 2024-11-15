@@ -27,6 +27,7 @@ import {
   BloodPressureIcon,
   HeartRateIcon,
 } from '@/components/atoms/icons'
+import { PlusIcon } from '@heroicons/react/24/solid'
 
 // Función para transformar los datos
 const transformData = (data, type) => {
@@ -107,7 +108,6 @@ export const VitalSigns = ({ cedulaPaciente }) => {
   const [openAccordion, setOpenAccordion] = useState(0)
   const handleOpen = value => setOpenAccordion(openAccordion === value ? 0 : value)
 
-
   return (
     <>
       <Card className="rounded shadow overflow-hidden">
@@ -115,19 +115,13 @@ export const VitalSigns = ({ cedulaPaciente }) => {
           <Typography variant="h3" className="font-bold uppercase text-sm">
             {'Últimos signos vitales'}
           </Typography>
-          <IconButton variant="text" onClick={() => handleOpenModal()}>
+          {vitalSigns.pesos !== null && <IconButton variant="text" onClick={handleOpenModal}>
             <PlusCircleIcon className="h-6 w-6 stroke-3 text-blush-500" />
-          </IconButton>
+          </IconButton>}
         </div>
-        {isLoading && (
-          <div className="flex items-center justify-center h-full">
-            <Typography variant="h4" className="font-bold uppercase text-sm">
-              {'Cargando...'}
-            </Typography>
-          </div>
-        )}
-        {vitalSigns &&
-          !isLoading &&
+
+
+        {vitalSigns.pesos !== null ? (
           signosVitales.map(({ key, label, unitMeasurement, icon }, index) => (
             <Accordion key={index} open={openAccordion === index + 1} className="h-full">
               <AccordionHeader className="w-full border-none border-gray-200" onClick={() => handleOpen(index + 1)}>
@@ -155,7 +149,21 @@ export const VitalSigns = ({ cedulaPaciente }) => {
                 />
               </AccordionBody>
             </Accordion>
-          ))}
+          )
+          )) : (
+          <Button
+            color="green"
+            variant="text"
+            fullWidth
+            className="flex items-center gap-2 rounded-none"
+            onClick={handleOpenModal}
+          >
+            <PlusIcon className="text-green-500 h-10 w-10 stroke-2 border border-dashed border-green-500 rounded-lg" />
+            <span>Agregar signos vitales</span>
+          </Button>
+        )
+        }
+
       </Card>
       <Dialog open={openModal} handler={handleOpenModal}>
         <DialogHeader>{`Registrar signos vitales`}</DialogHeader>

@@ -9,13 +9,10 @@ export const MedicalHistory = ({ cedulaPaciente }) => {
 
   const groupedAntecedentes = medicalHistory?.reduce((acc, antecedente) => {
     const tipo = antecedente.tipo_antecedente;
-
     if (!acc[tipo]) {
       acc[tipo] = [];
     }
-
     acc[tipo].push(antecedente);
-
     return acc;
   }, {});
 
@@ -25,18 +22,27 @@ export const MedicalHistory = ({ cedulaPaciente }) => {
         <Typography
           variant="h3"
           className="font-bold uppercase text-sm"
-        >{`Antecedentes`}</Typography>
-        <IconButton variant="text" onClick={() => console.log('click')}>
-          <PlusCircleIcon className="h-6 w-6 stroke-3 text-blush-500" />
-        </IconButton>
+        >
+          {`Antecedentes`}
+        </Typography>
+        {groupedAntecedentes && Object.keys(groupedAntecedentes).length > 0 && !isLoading && (
+          <IconButton variant="text" onClick={() => console.log('click')}>
+            <PlusCircleIcon className="h-6 w-6 stroke-3 text-blush-500" />
+          </IconButton>
+        )}
       </div>
 
-      <div>
-        {groupedAntecedentes && Object.keys(groupedAntecedentes).length > 0 ? (
+      <div >
+        {groupedAntecedentes && Object.keys(groupedAntecedentes).length > 0 && !isLoading ? (
           Object.keys(groupedAntecedentes).map(tipo => (
-            <div key={tipo}>
-              <h2>{tipo}</h2>
-              <ul>
+            <div key={tipo} className="px-6 pt-4 last:pb-4">
+              <Typography
+                variant="h4"
+                className="font-bold uppercase text-sm"
+              >
+                {tipo}
+              </Typography>
+              <ul className='text-sm'>
                 {groupedAntecedentes[tipo].map(item => (
                   <li key={item.id_antecedente}>
                     <strong>{item.título}:</strong> {item.descripción}
@@ -59,7 +65,7 @@ export const MedicalHistory = ({ cedulaPaciente }) => {
         )}
 
       </div>
-    </Card>
+    </Card >
   )
 }
 
