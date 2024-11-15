@@ -28,3 +28,14 @@ export function formatNumber(number = 0) {
 
   return resultado
 }
+
+export function formatNumberToPhone(number = 0) {
+  // Convertir el número a cadena
+  let numberStr = number.toString()
+  // Usar una expresión regular para insertar puntos
+  let resultado = numberStr.replace(
+    /(\d{4})(\d{3})(\d{2})(\d{2})/,
+    '($1) $2 $3 $4'
+  )
+  return resultado
+}
