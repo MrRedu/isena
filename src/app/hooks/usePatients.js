@@ -4,7 +4,7 @@ import { validateEmail } from '@/utils/utils'
 import { patientInitialState } from '@/utils/consts'
 import { getPatientByCedula } from '../services/patients'
 
-export function usePatients({ initialStatePatients }) {
+export function usePatients({ initialStatePatients, handleOpenModal }) {
   const [patients, setPatients] = useState(initialStatePatients || [])
   const [patient, setPatient] = useState(patientInitialState)
   const [isLoading, setIsLoading] = useState(false)
@@ -72,7 +72,7 @@ export function usePatients({ initialStatePatients }) {
           direccion: patient.direccionPaciente,
         },
       ])
-
+      handleOpenModal()
       // setError(null)
     } catch (error) {
       console.error('Error:', error)
@@ -108,13 +108,13 @@ export function usePatient({ cedulaPaciente }) {
       )
 
       const dataMapped = {
-        nombres: data.nombres_paciente,
-        apellidos: data.apellidos_paciente,
-        cedula: data.cedula_paciente,
-        fechaNacimiento: data.fecha_nacimiento_paciente,
-        telefono: data.telefono_paciente,
-        correo: data.correo_paciente,
-        direccion: data.direccion_paciente,
+        name: data.nombres_paciente,
+        lastName: data.apellidos_paciente,
+        dni: data.cedula_paciente,
+        birthDate: data.fecha_nacimiento_paciente,
+        phone: data.telefono_paciente,
+        email: data.correo_paciente,
+        address: data.direccion_paciente,
       }
 
       setPatient(dataMapped)

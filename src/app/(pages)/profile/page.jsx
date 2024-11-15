@@ -1,6 +1,6 @@
 import { Section } from '@/components/atoms/Section'
-// import { getServerSession } from 'next-auth'
-// import { authOptions } from '../../api/auth/[...nextauth]/route'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '../../api/auth/[...nextauth]/route'
 import {
   Tabs,
   TabsHeader,
@@ -21,12 +21,12 @@ export const metadata = {
 }
 
 export default async function ProfilePage() {
-  // const session = await getServerSession(authOptions)
+  const { user } = await getServerSession(authOptions)
 
   return (
     <Section className='flex flex-col gap-4'>
       <h2 className="font-bold text-xl antialiased text-center">{`Configuración de perfil`}</h2>
-      <Tabs value="information" className="max-w-[700px] w-full mx-auto">
+      <Tabs value="information" className="max-w-[700px] w-full mx-auto z-0">
         <TabsHeader className="rounded-none border-b border-blue-gray-50 bg-transparent p-0 z-0"
           indicatorProps={{
             className:
@@ -51,9 +51,7 @@ export default async function ProfilePage() {
           unmount: { y: 250 },
         }}>
           <TabPanel value={'information'}>
-            <ProfileInformationForm
-            //  name={session?.user?.name} lastName={session?.user?.lastName} email={session?.user?.email}
-            />
+            <ProfileInformationForm emailUser={user?.email} />
           </TabPanel>
           <TabPanel value={'password'}>
             <EditPasswordForm />

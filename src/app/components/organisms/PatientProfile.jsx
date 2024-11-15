@@ -3,30 +3,30 @@ import propTypes from 'prop-types'
 import { Card } from '@/app/MTailwind'
 import { usePatient } from '@/hooks/usePatients'
 import { format } from '@formkit/tempo'
-import { formatNumber } from '@/utils/utils'
+import { formatNumber, formatNumberToPhone } from '@/utils/utils'
 import { DefaultSkeleton } from '@/components/atoms/DefaultSkeleton'
 export const PatientProfile = ({ cedulaPaciente }) => {
   const { patient, isLoading } = usePatient({ cedulaPaciente })
+
   return (
     <Card className="rounded-none border shadow-none overflow-hidden p-4">
-      {isLoading && <DefaultSkeleton />}
-      {!isLoading && (
-        <>
+      {isLoading || !patient ? (<DefaultSkeleton />) :
+        (<>
           <h2 className="font-bold uppercase text-lg flex flex-col">
-            <span>{patient?.nombres || 'Nombres'}</span>
-            <span>{patient?.apellidos || 'Apellidos'}</span>
+            <span>{patient?.name}</span>
+            <span>{patient?.lastName}</span>
           </h2>
           <p className="">
-            {formatNumber(patient?.cedula) || 'Cédula'} /{' '}
-            {format(patient?.fechaNacimiento, 'MMM D, YYYY', 'es') ||
-              'Fecha de nacimiento'}
+            {patient?.dni && formatNumber(patient.dni)}
+            {patient.dni && patient.birthDate && (' / ')} {/* Separator if both are present */}
+            {patient?.birthDate && format(patient.birthDate, 'MMM D, YYYY', 'es')}
           </p>
           <p>
-            {patient?.telefono || 'Teléfono'} /{' '}
-            {patient?.email || 'Correo eléctronico'}
+            {patient?.phone && formatNumberToPhone(patient?.phone)} {/* Phone number if available */}
+            {patient.phone && patient.email && (' / ')}{/* Separator if both are present */}
+            {patient?.email} {/* Email if available */}
           </p>
-        </>
-      )}
+        </>)}
     </Card>
   )
 }

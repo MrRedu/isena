@@ -25,6 +25,8 @@ import { useMedications } from '@/hooks/useMedications'
 import { format } from '@formkit/tempo'
 
 export const ActiveMedications = ({ cedulaPaciente }) => {
+  const [open, setOpen] = useState(false)
+  const handleOpen = () => setOpen(!open)
   const {
     medications,
     handleDelete,
@@ -32,10 +34,7 @@ export const ActiveMedications = ({ cedulaPaciente }) => {
     handleChange,
     handleSubmit,
     isLoading,
-  } = useMedications({ cedulaPaciente })
-
-  const [open, setOpen] = useState(false)
-  const handleOpen = () => setOpen(!open)
+  } = useMedications({ cedulaPaciente, handleOpenModal: handleOpen })
 
   return (
     <>

@@ -30,11 +30,11 @@ export const PatientsTable = ({
   tableHeader,
   tableRows = [],
 }) => {
-  const { patients, patient, handleChange, handleSubmit, isLoading } =
-    usePatients({ initialStatePatients: tableRows })
-
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(!open)
+
+  const { patients, patient, handleChange, handleSubmit, isLoading } =
+    usePatients({ initialStatePatients: tableRows, handleOpenModal: handleOpen })
 
   const [currentPage, setCurrentPage] = useState(1)
   const patientsPerPage = 10

@@ -12,6 +12,8 @@ SELECT
     p.cedula_paciente,
     p.telefono_paciente,
     p.fecha_nacimiento_paciente,
+    p.correo_paciente,
+    p.direccion_paciente,
 
     -- Agrupando pesos en un array
     (SELECT JSON_ARRAYAGG(JSON_OBJECT('fecha_peso', pw.fecha_registro, 'valor', pw.peso))

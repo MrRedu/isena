@@ -4,7 +4,15 @@ import { vitalSignInitialState } from '@/utils/consts'
 import { toast } from 'sonner'
 
 export function useVitalSigns({ cedulaPaciente, handleOpenModal }) {
-  const [vitalSigns, setVitalSigns] = useState([])
+  const [vitalSigns, setVitalSigns] = useState({
+    pesos: [],
+    alturas: [],
+    temperaturas: [],
+    frecuencias_cardiacas: [],
+    frecuencias_respiratorias: [],
+    presiones_arteriales: [],
+  })
+
   const [vitalSign, setVitalSign] = useState(vitalSignInitialState)
   const [isLoading, setIsLoading] = useState(false)
 
@@ -39,7 +47,7 @@ export function useVitalSigns({ cedulaPaciente, handleOpenModal }) {
 
     /*
      * TODO:
-     *  Que solo se pueda agregar un registro cada 8h
+     * Que solo se pueda agregar un registro cada 8h
      * Get del último registro --> Tomar la fecha y compararla con la actual
      * Si la diferencia es menor a 8h, no se puede agregar
      */
@@ -70,19 +78,22 @@ export function useVitalSigns({ cedulaPaciente, handleOpenModal }) {
       toast.success('Signos vitales registrados con éxito')
       setVitalSigns(prev => ({
         ...prev,
-        pesos: [...prev.pesos, { valor: vitalSign.peso }],
-        alturas: [...prev.alturas, { valor: vitalSign.altura }],
-        temperaturas: [...prev.temperaturas, { valor: vitalSign.temperatura }],
+        pesos: [...(prev.pesos || []), { valor: vitalSign.peso }],
+        alturas: [...(prev.alturas || []), { valor: vitalSign.altura }],
+        temperaturas: [
+          ...(prev.temperaturas || []),
+          { valor: vitalSign.temperatura },
+        ],
         frecuencias_cardiacas: [
-          ...prev.frecuencias_cardiacas,
+          ...(prev.frecuencias_cardiacas || []),
           { valor: vitalSign.frecuenciaCardiaca },
         ],
         frecuencias_respiratorias: [
-          ...prev.frecuencias_respiratorias,
+          ...(prev.frecuencias_respiratorias || []),
           { valor: vitalSign.frecuenciaRespiratoria },
         ],
         presiones_arteriales: [
-          ...prev.presiones_arteriales,
+          ...(prev.presiones_arteriales || []),
           {
             sistolica: vitalSign.presionArterial.split('/')[0],
             diastolica: vitalSign.presionArterial.split('/')[1],

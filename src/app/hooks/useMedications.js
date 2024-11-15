@@ -6,7 +6,7 @@ import {
 } from '@/services/medications'
 import { medicationInitialState } from '@/utils/consts'
 
-export function useMedications({ cedulaPaciente }) {
+export function useMedications({ cedulaPaciente, handleOpenModal }) {
   const [medications, setMedications] = useState([])
   const [medication, setMedication] = useState(medicationInitialState)
   const [isLoading, setIsLoading] = useState(false)
@@ -72,6 +72,7 @@ export function useMedications({ cedulaPaciente }) {
       ])
 
       toast.success('Medicamento registrado exitosamente')
+      handleOpenModal()
     } catch (error) {
       // setError(null)
       console.error('Error:', error)
