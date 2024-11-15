@@ -1,17 +1,13 @@
 'use client'
 import propTypes from 'prop-types'
-import { Button, Input, Option, Select } from '@/app/MTailwind';
-export const ProfileInformationForm = () => {
-
-  const name = "Hacer el fetch"
-  const lastName = "Hacer el fetch"
-  const rol = "Hacer el fetch"
-  const email = "Hacer el fetch"
-  const status = "Hacer el fetch"
+import { Button, Input } from '@/app/MTailwind';
+import { useProfile } from '@/hooks/useProfile';
+export const ProfileInformationForm = ({ emailUser }) => {
+  const { user, isChanged, handleChange, handleSubmit, isLoading } = useProfile({ emailUser })
 
   return (
     <>
-      <form action="" className='mt-16'>
+      <form action="" className='mt-12'>
         <div className="flex flex-col gap-8">
           <div className="flex gap-8 flex-col lg:flex-row">
             <Input
@@ -19,8 +15,8 @@ export const ProfileInformationForm = () => {
               name="name"
               type="text"
               variant="static"
-              // onChange={handleChange}
-              value={name}
+              onChange={handleChange}
+              value={user?.name}
               label="Nombres"
               className="w-full "
             />
@@ -29,7 +25,8 @@ export const ProfileInformationForm = () => {
               name="lastName"
               type="text"
               variant="static"
-              value={lastName}
+              onChange={handleChange}
+              value={user?.lastName}
               label="Apellidos"
               className="w-full"
             />
@@ -39,27 +36,38 @@ export const ProfileInformationForm = () => {
             name="email"
             type="email"
             variant="static"
-            // onChange={handleChange}
-            value={email}
+            value={user?.email}
+            readOnly
             label="Correo electrónico"
             placeholder="ejemplo@gmail.com"
           />
           <div className="flex gap-8 flex-col lg:flex-row">
-            <Select variant="static" label="Rol" value={rol || 'Médico'} >
-              <Option disabled>{rol || 'Médico'}</Option>
-            </Select>
-            <Select variant="static" label="Status" value={status || 'Habilitado'}>
-              <Option disabled>Habilitado</Option>
-              <Option disabled>Deshabilitado</Option>
-            </Select>
+            <Input
+              variant="static"
+              label="Rol"
+              id='rol'
+              name='rol'
+              value={user?.rol}
+              readOnly
+            />
+            <Input
+              variant="static"
+              label="Status"
+              value={user?.status}
+              name='status'
+              id='status'
+              readOnly
+            />
           </div>
           <Button
             color="blush"
             fullWidth
-            className='mt-4'
-          // enabled cuando hayan cambios, si no, no.
+            className={`w-full mt-4`}
+            disabled={!isChanged}
+            loading={isLoading}
+            onClick={handleSubmit}
           >
-            Guardar cambios
+            {`Actualizar datos`}
           </Button>
         </div>
       </form>
@@ -68,9 +76,5 @@ export const ProfileInformationForm = () => {
 };
 
 ProfileInformationForm.propTypes = {
-  name: propTypes.string,
-  lastName: propTypes.string,
-  rol: propTypes.string,
-  email: propTypes.string,
-  status: propTypes.string,
+  emailUser: propTypes.string,
 }

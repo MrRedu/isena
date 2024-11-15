@@ -3,7 +3,7 @@ import { Button, Input, Typography } from "@/app/MTailwind";
 
 export const EditPasswordForm = () => {
   return (
-    <form action="" className='mt-16'>
+    <form action="" className='mt-12'>
       <div className="flex flex-col gap-8">
         <Input type="password" placeholder="********" variant="static" label="Contraseña actual" required />
         <Input type="password" placeholder="********" variant="static" label="Nueva contraseña" required />
