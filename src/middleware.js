@@ -39,5 +39,24 @@ export async function middleware(request) {
     return NextResponse.redirect(new URL('/login', request.url))
   }
 
+  // Lógica de acceso según el rol del usuario
+  if (token) {
+    const userRole = token.rol // Asumiendo que 'rol' es un string como 'Administrador', 'Desarrollador', etc.
+
+    // Permitir acceso a todos los paths para Administrador y Desarrollador
+    if (userRole === 'Administrador' || userRole === 'Desarrollador') {
+      return NextResponse.next()
+    }
+
+    // Restringir acceso a /management y /users para Médico
+    if (
+      (userRole === 'Médico' || userRole === 'Visualizador') &&
+      (request.nextUrl.pathname.startsWith('/management') ||
+        request.nextUrl.pathname.startsWith('/users'))
+    ) {
+      return NextResponse.redirect(new URL('/', request.url)) // Redirigir a la página de inicio
+    }
+  }
+
   return NextResponse.next()
 }

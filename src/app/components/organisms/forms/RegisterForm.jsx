@@ -5,7 +5,6 @@ import { useForm } from 'react-hook-form'
 import { Button, Checkbox, Input, Typography } from '@/app/MTailwind'
 import { signIn } from 'next-auth/react'
 import { hashPassword } from '@/services/authServices'
-import { toast } from 'sonner'
 
 async function loadEmail(email) {
   const response = await fetch(
