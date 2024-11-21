@@ -1,17 +1,3 @@
-export const initialValueFormLogin = {
-  email: '',
-  password: '',
-}
-
-export const initialValueFormRegister = {
-  name: '',
-  lastName: '',
-  email: '',
-  password: '',
-  confirmPassword: '',
-  acceptTerms: false,
-}
-
 export const medicationInitialState = {
   nombreMedicamento: '',
   dosisMedicamento: '',

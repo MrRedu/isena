@@ -5,7 +5,7 @@ import { Toaster } from 'sonner'
 export function Providers({ children, session }) {
   return (
     <>
-      <Toaster />
+      <Toaster richColors />
       <SessionProvider session={session}>
         {children}
       </SessionProvider>
