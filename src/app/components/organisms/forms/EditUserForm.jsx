@@ -1,28 +1,35 @@
 'use client'
+import propTypes from 'prop-types'
 import { Input, Option, Select, Switch, Typography } from "@/app/MTailwind";
-import { useState } from "react";
 
-export const EditUserForm = () => {
-  const [status, setStatus] = useState(true)
-  const handleChange = () => setStatus(!status)
-
+export const EditUserForm = ({ user, handleStatus, handleRol }) => {
   return (
     <form className="flex flex-col gap-8 p-4">
       <div className="flex gap-8 flex-col lg:flex-row">
-        <Input type="text" variant="static" label="Nombres" readOnly />
-        <Input type="text" variant="static" label="Apellidos" readOnly />
+        <Input type="text" variant="static" label="Nombres" value={user?.nombres} readOnly />
+        <Input type="text" variant="static" label="Apellidos" value={user?.apellidos} readOnly />
       </div>
-      <Input type="text" variant="static" label="Correo electrónico" readOnly />
-      <Select variant="static" label="Seleccionar rol" >
-        <Option>Administrador</Option>
-        <Option>Desarrollador</Option>
-        <Option>Médico</Option>
-        <Option>Visualizador</Option>
+      <Input type="text" variant="static" label="Correo electrónico" value={user?.correo} readOnly />
+      <Select variant="static" label="Seleccionar rol" value={user?.rol} onChange={(value) => handleRol(value)} >
+        <Option value='Administrador'>Administrador</Option>
+        <Option value='Desarrollador'>Desarrollador</Option>
+        <Option value='Médico'>Médico</Option>
+        <Option value='Visualizador'>Visualizador</Option>
       </Select>
       <div className="flex flex-col gap-4">
         <Typography className="text-sm">Status</Typography>
-        <Switch checked={status} onChange={handleChange} label={status ? "Deshabilitar" : "Habilitar"} />
+        <Switch
+          label={user?.status === 'Habilitado' ? "Deshabilitar" : "Habilitar"}
+          checked={user?.status === 'Habilitado' ? true : false}
+          onChange={handleStatus}
+        />
       </div>
     </form>
   )
 };
+
+EditUserForm.propTypes = {
+  user: propTypes.object,
+  handleStatus: propTypes.func,
+  handleRol: propTypes.func
+}

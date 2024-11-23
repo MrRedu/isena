@@ -22,16 +22,27 @@ import {
 import { useUsers } from '@/hooks/useUsers'
 import { EditUserForm } from '../forms/EditUserForm'
 
+
 export const UsersTable = ({
   title,
   subtitle,
   tableHeader,
   tableRows = [],
 }) => {
-  const { users } = useUsers({ initialStateUsers: tableRows })
-
   const [open, setOpen] = useState(false)
-  const handleOpen = () => setOpen(!open)
+  const handleClose = () => setOpen(false)
+  const {
+    users,
+    currentUser,
+    setCurrentUser,
+    handleChangeStatusCurrentUser,
+    handleChangeRolCurrentUser,
+    handleUpdateUser
+  } = useUsers({ initialStateUsers: tableRows, handleCloseModal: handleClose })
+  const handleOpen = (user) => {
+    setCurrentUser(user);
+    setOpen(!open);
+  };
 
   const [currentPage, setCurrentPage] = useState(1)
   const usersPerPage = 10
@@ -161,7 +172,7 @@ export const UsersTable = ({
                       </td>
                       <td className={classes}>
                         <Tooltip content="Editar">
-                          <IconButton onClick={handleOpen} variant="text">
+                          <IconButton onClick={() => handleOpen({ correo, apellidos, nombres, status, rol })} variant="text">
                             <PencilIcon className="h-4 w-4" />
                           </IconButton>
                         </Tooltip>
@@ -210,7 +221,11 @@ export const UsersTable = ({
       <Dialog open={open} handler={handleOpen}>
         <DialogHeader>{`Editar usuario`}</DialogHeader>
         <DialogBody className="max-h-[75vh] w-full overflow-y-auto">
-          <EditUserForm />
+          {currentUser && <EditUserForm
+            user={currentUser}
+            handleStatus={handleChangeStatusCurrentUser}
+            handleRol={handleChangeRolCurrentUser}
+          />}
         </DialogBody>
         <DialogFooter>
           <Button
@@ -224,10 +239,10 @@ export const UsersTable = ({
           <Button
             variant="gradient"
             color="green"
-          // onClick={handleSubmit}
+            onClick={handleUpdateUser}
           // loading={isLoading}
           >
-            {/* <span>{isLoading ? 'Registrando...' : 'Registrar'}</span> */}
+            {/* <span>{isLoading ? 'Cargando...' : 'Editar'}</span> */}
             Editar
           </Button>
         </DialogFooter>

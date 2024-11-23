@@ -39,3 +39,18 @@ export function formatNumberToPhone(number = 0) {
   )
   return resultado
 }
+
+const roles = {
+  Administrador: 1,
+  Desarrollador: 2,
+  Médico: 3,
+  Visualizador: 4,
+}
+
+export function getIdByRol(rol) {
+  return roles[rol] || null
+}
+
+export function getIdByStatus(status) {
+  return status === 'Habilitado' ? 1 : 2
+}
