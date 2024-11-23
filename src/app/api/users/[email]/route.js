@@ -43,14 +43,53 @@ export async function GET(req, { params }) {
   }
 }
 
+// Actualizar un usuario
 export async function PUT(req, { params }) {
   try {
-    const { name, lastName } = await req.json()
+    const { name, lastName, idStatus, idRol } = await req.json()
 
-    const result = await connection.query(
-      'UPDATE tbl_usuarios SET nombres_usuario = ?, apellidos_usuario = ? WHERE correo_usuario = ?',
-      [name, lastName, params.email]
-    )
+    // Construir la consulta y los parámetros
+    let query = 'UPDATE tbl_usuarios SET '
+    const updates = []
+    const paramsArray = []
+
+    // Solo añadir actualizaciones si se proporcionan
+    if (name) {
+      updates.push('nombres_usuario = ?')
+      paramsArray.push(name)
+    }
+
+    if (lastName) {
+      updates.push('apellidos_usuario = ?')
+      paramsArray.push(lastName)
+    }
+
+    if (idStatus) {
+      updates.push('id_status_usuario = ?')
+      paramsArray.push(Number(idStatus))
+    }
+
+    if (idRol) {
+      updates.push('id_rol_usuario = ?')
+      paramsArray.push(Number(idRol))
+    }
+
+    // Comprobar si hay actualizaciones para evitar consultas vacías
+    if (updates.length === 0) {
+      return NextResponse.json(
+        {
+          message: 'No data provided to update',
+        },
+        { status: 400 }
+      )
+    }
+
+    // Añadir la condición WHERE
+    query += updates.join(', ') + ' WHERE correo_usuario = ?'
+    paramsArray.push(params.email)
+
+    // Ejecutar la consulta
+    const result = await connection.query(query, paramsArray)
 
     return NextResponse.json(
       {
