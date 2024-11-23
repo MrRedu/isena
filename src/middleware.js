@@ -10,6 +10,7 @@ export const config = {
     '/patients/:path*',
     '/profile/:path*',
     '/users/:path*',
+    '/unauthorized',
   ],
 }
 
@@ -27,6 +28,7 @@ export async function middleware(request) {
     '/patients',
     '/profile',
     '/users',
+    '/unauthorized',
   ]
 
   // Verificar si la ruta solicitada es una ruta protegida
@@ -42,6 +44,15 @@ export async function middleware(request) {
   // Lógica de acceso según el rol del usuario
   if (token) {
     const userRole = token.rol // Asumiendo que 'rol' es un string como 'Administrador', 'Desarrollador', etc.
+    const userStatus = token.status
+
+    // Restringir acceso a /unauthorized para Deshabilitados
+    if (
+      userStatus === 'Deshabilitado' &&
+      request.nextUrl.pathname !== '/unauthorized'
+    ) {
+      return NextResponse.redirect(new URL('/unauthorized', request.url))
+    }
 
     // Permitir acceso a todos los paths para Administrador y Desarrollador
     if (userRole === 'Administrador' || userRole === 'Desarrollador') {
