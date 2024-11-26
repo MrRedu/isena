@@ -1,8 +1,5 @@
 'use client'
 import propTypes from 'prop-types'
-import { useState } from 'react'
-import { PencilIcon } from '@heroicons/react/24/solid'
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import {
   Card,
   IconButton,
@@ -11,46 +8,31 @@ import {
   Button,
   CardBody,
   CardFooter,
-  Tooltip,
   Input,
-  Chip,
-  Dialog,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
 } from '@/app/MTailwind'
-import { useUsers } from '@/hooks/useUsers'
-import { EditUserForm } from '../forms/EditUserForm'
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
+import { useState } from 'react'
+import { useLogs } from '@/hooks/useLogs'
 
-export const UsersTable = ({
+export const LogsTable = ({
   title,
   subtitle,
   tableHeader,
   tableRows = [],
 }) => {
-  const [open, setOpen] = useState(false)
-  const handleClose = () => setOpen(false)
-  const {
-    users,
-    currentUser,
-    setCurrentUser,
-    handleChangeStatusCurrentUser,
-    handleChangeRolCurrentUser,
-    handleUpdateUser
-  } = useUsers({ initialStateUsers: tableRows, handleCloseModal: handleClose })
-  const handleOpen = (user) => {
-    setCurrentUser(user);
-    setOpen(!open);
-  };
+  const { logs } = useLogs({
+    initialStateLogs: tableRows,
+    // handleCloseModal: handleClose
+  })
 
   const [currentPage, setCurrentPage] = useState(1)
-  const usersPerPage = 10
-  const totalPages = Math.ceil(users.length / usersPerPage)
+  const logsPerPage = 10
+  const totalPages = Math.ceil(logs.length / logsPerPage)
 
-  // Get current users for the current page
-  const indexOfLastUser = currentPage * usersPerPage
-  const indexOfFirstUser = indexOfLastUser - usersPerPage
-  const currentPatients = users.slice(indexOfFirstUser, indexOfLastUser)
+  // Get current logs for the current page
+  const indexOfLastUser = currentPage * logsPerPage
+  const indexOfFirstUser = indexOfLastUser - logsPerPage
+  const currentPatients = logs.slice(indexOfFirstUser, indexOfLastUser)
 
   // Pagination handlers
   const handleNextPage = () => {
@@ -64,6 +46,7 @@ export const UsersTable = ({
       setCurrentPage(currentPage - 1)
     }
   }
+
 
   return (
     <>
@@ -81,7 +64,7 @@ export const UsersTable = ({
             <div className="flex flex-col lg:flex-row w-full shrink-0 gap-2 md:w-max">
               <div className="w-full md:w-72">
                 <Input
-                  label="Nombre"
+                  label="Usuario"
                   icon={<MagnifyingGlassIcon className="h-5 w-5" />}
                 />
               </div>
@@ -112,16 +95,16 @@ export const UsersTable = ({
 
             <tbody>
               {currentPatients.map(
-                ({ correo, apellidos, nombres, status, rol }, index) => {
+                ({ id, usuario, fecha, acciones }, index) => {
                   const isLast = index === tableRows.length - 1
                   const classes = isLast ? 'p-4' : 'p-4 border-b border-blush-50'
 
                   return (
-                    <tr key={`${correo}${index}`}>
+                    <tr key={`${id}`} className='even:bg-blush-300/10'>
                       <td className={classes}>
                         <div className="flex items-center gap-3">
                           <Typography variant="small" color="blue-gray">
-                            {correo}
+                            {usuario}
                           </Typography>
                         </div>
                       </td>
@@ -131,7 +114,7 @@ export const UsersTable = ({
                           color="blue-gray"
                           className="font-normal"
                         >
-                          {apellidos}
+                          {fecha}
                         </Typography>
                       </td>
                       <td className={classes}>
@@ -140,41 +123,8 @@ export const UsersTable = ({
                           color="blue-gray"
                           className="font-normal"
                         >
-                          {nombres}
+                          {acciones}
                         </Typography>
-                      </td>
-                      <td className={classes}>
-                        <div className="w-max">
-                          <Chip
-                            variant="ghost"
-                            value={rol}
-                            color={
-                              rol === 'Administrador'
-                                ? 'blue'
-                                : rol === 'Desarrollador'
-                                  ? 'purple'
-                                  : rol === 'Médico'
-                                    ? 'indigo'
-                                    : 'amber'
-                            }
-                          />
-                        </div>
-                      </td>
-                      <td className={classes}>
-                        <div className="w-max">
-                          <Chip
-                            variant="ghost"
-                            value={status}
-                            color={status === 'Habilitado' ? 'green' : 'red'}
-                          />
-                        </div>
-                      </td>
-                      <td className={classes}>
-                        <Tooltip content="Editar">
-                          <IconButton onClick={() => handleOpen({ correo, apellidos, nombres, status, rol })} variant="text">
-                            <PencilIcon className="h-4 w-4" />
-                          </IconButton>
-                        </Tooltip>
                       </td>
                     </tr>
                   )
@@ -215,42 +165,11 @@ export const UsersTable = ({
           </Button>
         </CardFooter>
       </Card>
-
-      {/* Modal to edit an user */}
-      <Dialog open={open} handler={handleOpen}>
-        <DialogHeader>{`Editar usuario`}</DialogHeader>
-        <DialogBody className="max-h-[75vh] w-full overflow-y-auto">
-          {currentUser && <EditUserForm
-            user={currentUser}
-            handleStatus={handleChangeStatusCurrentUser}
-            handleRol={handleChangeRolCurrentUser}
-          />}
-        </DialogBody>
-        <DialogFooter>
-          <Button
-            variant="text"
-            color="red"
-            onClick={handleOpen}
-            className="mr-1"
-          >
-            <span>Cancelar</span>
-          </Button>
-          <Button
-            variant="gradient"
-            color="green"
-            onClick={handleUpdateUser}
-          // loading={isLoading}
-          >
-            {/* <span>{isLoading ? 'Cargando...' : 'Editar'}</span> */}
-            Editar
-          </Button>
-        </DialogFooter>
-      </Dialog>
     </>
   )
-}
+};
 
-UsersTable.propTypes = {
+LogsTable.propTypes = {
   title: propTypes.string,
   subtitle: propTypes.string,
   tableHeader: propTypes.array,
