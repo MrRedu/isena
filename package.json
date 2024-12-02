@@ -2,6 +2,12 @@
   "name": "isena",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
+  "author": "Mr Redu",
+  "description": "Sistema de gestión de historias médicas para el Instituto de senología de Aragua",
+  "repository": "https://github.com/MrRedu/isena",
+  "bugs": "https://github.com/MrRedu/isena/issues",
+  "homepage": "https://github.com/MrRedu/isena",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
