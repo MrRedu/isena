@@ -5,7 +5,7 @@ import {
   VitalSigns,
   MedicalHistory,
   PatientProfile,
-  MedicalConsultation,
+  // MedicalConsultation,
 } from '@/components/organisms/'
 
 export const metadata = {
@@ -15,7 +15,7 @@ export const metadata = {
 
 export default function PatientPage({ params: { cedula } }) {
   return (
-    <Section className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <Section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       <div className="flex flex-col gap-4">
         <PatientProfile cedulaPaciente={cedula} />
         <VitalSigns cedulaPaciente={cedula} />
@@ -24,9 +24,9 @@ export default function PatientPage({ params: { cedula } }) {
         <ActiveMedications cedulaPaciente={cedula} />
         <MedicalHistory cedulaPaciente={cedula} />
       </div>
-      <div className="flex flex-col gap-4">
+      {/* <div className="flex flex-col gap-4">
         <MedicalConsultation />
-      </div>
+      </div> */}
     </Section>
   )
 }
