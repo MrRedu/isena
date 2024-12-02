@@ -1,6 +1,6 @@
+import Link from 'next/link'
 import { Section } from '@/components/atoms/Section'
 import { Button, Card, CardBody, CardFooter, Typography } from '@/app/MTailwind'
-import Link from 'next/link'
 import { ArrowRightIcon } from '@heroicons/react/24/solid'
 import { UserIcon } from '@heroicons/react/24/outline'
 
@@ -47,46 +47,6 @@ export default function HomePage() {
           icon={<UserIcon strokeWidth={2} className="h-16 w-16 mb-4 text-blush-900" />}
           amount={588}
           toLink="/users"
-        />
-        <DashboardCard
-          title="Pacientes"
-          subtitle="Gestionar los pacientes del sistema"
-          buttonText="Ver"
-          icon={<UserIcon strokeWidth={2} className="h-16 w-16 mb-4 text-blush-900" />}
-          amount={588}
-          toLink="/patients"
-        />
-        <DashboardCard
-          title="Pacientes"
-          subtitle="Gestionar los pacientes del sistema"
-          buttonText="Ver"
-          icon={<UserIcon strokeWidth={2} className="h-16 w-16 mb-4 text-blush-900" />}
-          amount={588}
-          toLink="/patients"
-        />
-        <DashboardCard
-          title="Pacientes"
-          subtitle="Gestionar los pacientes del sistema"
-          buttonText="Ver"
-          icon={<UserIcon strokeWidth={2} className="h-16 w-16 mb-4 text-blush-900" />}
-          amount={588}
-          toLink="/patients"
-        />
-        <DashboardCard
-          title="Pacientes"
-          subtitle="Gestionar los pacientes del sistema"
-          buttonText="Ver"
-          icon={<UserIcon strokeWidth={2} className="h-16 w-16 mb-4 text-blush-900" />}
-          amount={588}
-          toLink="/patients"
-        />
-        <DashboardCard
-          title="Pacientes"
-          subtitle="Gestionar los pacientes del sistema"
-          buttonText="Ver"
-          icon={<UserIcon strokeWidth={2} className="h-16 w-16 mb-4 text-blush-900" />}
-          amount={588}
-          toLink="/patients"
         />
         <DashboardCard
           title="Pacientes"

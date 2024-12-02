@@ -2,6 +2,7 @@
 import propTypes from 'prop-types'
 import { useState } from 'react'
 
+import Link from 'next/link'
 import { DocumentIcon, EyeIcon } from '@heroicons/react/24/solid'
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import {
@@ -20,7 +21,6 @@ import {
   DialogFooter,
 } from '@/app/MTailwind'
 import { formatNumber, calculateAge } from '@/utils/utils'
-import Link from 'next/link'
 import { AddPatientForm } from '../forms/AddPatientForm'
 import { usePatients } from '@/hooks/usePatients'
 
@@ -243,7 +243,7 @@ export const PatientsTable = ({
       </Card>
 
       {/* Modal to add a new patient */}
-      <Dialog open={open} handler={handleOpen}>
+      <Dialog open={open} handler={handleOpen} >
         <DialogHeader>{`Registrar paciente`}</DialogHeader>
         <DialogBody className="max-h-[75vh] w-full overflow-y-auto">
           <AddPatientForm patient={patient} handleChange={handleChange} />
