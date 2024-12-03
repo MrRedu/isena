@@ -165,10 +165,10 @@ CREATE TABLE `tbl_antecedentes` (
   `id_antecedente` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID del antecedente',
   `cedula_paciente` int(11) NOT NULL COMMENT 'ID del paciente al cual pertenece el antecedente',
   `id_tipo_antecedente` int(11) NOT NULL COMMENT 'ID del tipo de antecedente',
-  `título` varchar(32) NOT NULL COMMENT 'Título del antecedente',
-  `descripción` text NOT NULL COMMENT 'Descripción del antecedente',
+  `titulo` varchar(32) NOT NULL COMMENT 'Título del antecedente',
+  `descripcion` text NOT NULL COMMENT 'Descripción del antecedente',
 
   FOREIGN KEY (`cedula_paciente`) REFERENCES `tbl_pacientes`(`cedula_paciente`),
   FOREIGN KEY (`id_tipo_antecedente`) REFERENCES `tbl_tipos_antecedentes`(`id_tipo_antecedente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla de antecedentes';
-INSERT INTO `tbl_antecedentes` (`id_antecedente`, `cedula_paciente`, `id_tipo_antecedente`, `título`, `descripción`) VALUES (1, 12345678, 1, 'Cirugías previas', 'Apendicectomia en 06/2018'), (2, 12345678, 1, 'Diabetes', 'Tipo II'), (3, 12345678, 2, 'Psiquiátricos', 'Ninguno'), (4, 12345678, 2, 'Hipertensión arterial', 'Abuela materna, abuelo paterno y materno'), (5, 12345678, 3, 'Alcoholismo', 'En reuniones'), (6, 12345678, 3, 'Actividad física', 'Nunca'), (7, 12345678, 4, 'Medicamentos', 'AINEs'), (8, 12345678, 4, 'Alimentos', 'Camarones, Atún, Chigüire');
+INSERT INTO `tbl_antecedentes` (`id_antecedente`, `cedula_paciente`, `id_tipo_antecedente`, `titulo`, `descripcion`) VALUES (1, 12345678, 1, 'Cirugías previas', 'Apendicectomia en 06/2018'), (2, 12345678, 1, 'Diabetes', 'Tipo II'), (3, 12345678, 2, 'Psiquiátricos', 'Ninguno'), (4, 12345678, 2, 'Hipertensión arterial', 'Abuela materna, abuelo paterno y materno'), (5, 12345678, 3, 'Alcoholismo', 'En reuniones'), (6, 12345678, 3, 'Actividad física', 'Nunca'), (7, 12345678, 4, 'Medicamentos', 'AINEs'), (8, 12345678, 4, 'Alimentos', 'Camarones, Atún, Chigüire');
