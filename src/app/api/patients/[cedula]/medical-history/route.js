@@ -10,8 +10,8 @@ export async function GET(req, { params }) {
     a.cedula_paciente,
     t.id_tipo_antecedente,
     t.nombre_tipo_antecedente AS tipo_antecedente,
-    a.título,
-    a.descripción
+    a.titulo,
+    a.descripcion
 FROM 
     tbl_antecedentes a
 JOIN 
@@ -36,6 +36,37 @@ WHERE
       {
         message: error.message,
         manualMessage: 'Error loading medical history',
+      },
+      { status: 500 }
+    )
+  }
+}
+
+export async function POST(req, { params }) {
+  try {
+    const {
+      type,
+      title,
+      description,
+    } = await req.json()
+
+    await connection.query('INSERT INTO tbl_antecedentes SET ?', {
+      cedula_paciente: params.cedula,
+      id_tipo_antecedente: type,
+      titulo: title,
+      descripcion: description,
+    })
+
+    return NextResponse.json(
+      { message: 'Medical history created successfully' },
+      { status: 201 }
+    )
+  } catch (error) {
+    console.error(error)
+    return NextResponse.json(
+      {
+        message: error.message,
+        manualMessage: 'Error creating medical history',
       },
       { status: 500 }
     )

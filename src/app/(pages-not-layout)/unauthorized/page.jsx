@@ -15,7 +15,7 @@ export default function UnauthorizedPage() {
         <h1 className="font-bold text-5xl uppercase">#403</h1>
         <h2 className="font-bold text-3xl">{`Acceso denegado`}</h2>
         <h4 className="text-xl">{`Comuníquese con un administrador para habilitar el acceso`}</h4>
-        <Image src="/una.webp" alt="una" width={300} height={300} />
+        <Image src="/unauthorized.svg" alt="No autorizado" width={300} height={300} />
         <Button
           variant="outlined"
           size="lg"

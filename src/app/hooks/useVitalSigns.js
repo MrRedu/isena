@@ -108,8 +108,6 @@ export function useVitalSigns({ cedulaPaciente, handleOpenModal }) {
       setVitalSign(vitalSignInitialState)
       setIsLoading(false)
     }
-
-    console.table(vitalSign)
   }
 
   const getVitalSigns = async ({ cedulaPaciente }, { signal }) => {
