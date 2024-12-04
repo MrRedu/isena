@@ -33,7 +33,7 @@ export const PatientsTable = ({
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(!open)
 
-  const { patients, patient, handleChange, handleSubmit, isLoading } =
+  const { patients, patient, handleChange, handleSubmit, isLoading, filterString, handleFilterChange } =
     usePatients({ initialStatePatients: tableRows, handleOpenModal: handleOpen })
 
   const [currentPage, setCurrentPage] = useState(1)
@@ -86,6 +86,9 @@ export const PatientsTable = ({
                 <Input
                   label="V-9.696.363"
                   icon={<MagnifyingGlassIcon className="h-5 w-5" />}
+                  type="text"
+                  value={filterString}
+                  onChange={handleFilterChange}
                 />
               </div>
             </div>
@@ -122,7 +125,7 @@ export const PatientsTable = ({
                     apellidos,
                     telefono,
                     fechaNacimiento,
-                    ultimaConsulta,
+                    // ultimaConsulta,
                   },
                   index
                 ) => {
@@ -174,7 +177,7 @@ export const PatientsTable = ({
                           {telefono}
                         </Typography>
                       </td>
-                      <td className={classes}>
+                      {/* <td className={classes}>
                         <div className="flex items-center gap-3">
                           <div className="flex flex-col">
                             <Typography
@@ -186,7 +189,7 @@ export const PatientsTable = ({
                             </Typography>
                           </div>
                         </div>
-                      </td>
+                      </td> */}
                       <td className={classes}>
                         <Tooltip content="Ver detalles">
                           <Link href={`/patients/${cedula}`}>

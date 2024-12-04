@@ -13,7 +13,7 @@ const TABLE_HEADER_PATIENTS = [
   'Nombres',
   'Edad',
   'Teléfono',
-  'Última consulta',
+  // 'Última consulta',
   'Acciones',
 ]
 const TITLE_PATIENTS = 'Pacientes'

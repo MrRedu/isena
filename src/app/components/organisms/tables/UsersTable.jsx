@@ -220,11 +220,12 @@ export const UsersTable = ({
       <Dialog open={open} handler={handleOpen}>
         <DialogHeader>{`Editar usuario`}</DialogHeader>
         <DialogBody className="max-h-[75vh] w-full overflow-y-auto">
-          {currentUser && <EditUserForm
-            user={currentUser}
-            handleStatus={handleChangeStatusCurrentUser}
-            handleRol={handleChangeRolCurrentUser}
-          />}
+          {currentUser &&
+            <EditUserForm
+              user={currentUser}
+              handleStatus={handleChangeStatusCurrentUser}
+              handleRol={handleChangeRolCurrentUser}
+            />}
         </DialogBody>
         <DialogFooter>
           <Button

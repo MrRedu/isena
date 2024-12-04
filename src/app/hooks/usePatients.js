@@ -2,12 +2,22 @@ import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 import { validateEmail } from '@/utils/utils'
 import { patientInitialState } from '@/utils/consts'
-import { getPatientByCedula } from '../services/patients'
+import { getPatientByCedula } from '@/services/patients'
 
 export function usePatients({ initialStatePatients, handleOpenModal }) {
   const [patients, setPatients] = useState(initialStatePatients || [])
   const [patient, setPatient] = useState(patientInitialState)
   const [isLoading, setIsLoading] = useState(false)
+
+  const [filter, setFilter] = useState('')
+  const handleFilterChange = e => {
+    setFilter(e.target.value)
+  }
+
+  // TODO: Mejorar esto con memo, etc
+  const filteredPatients = patients.filter(patient =>
+    patient.cedula?.toString().toLowerCase().includes(filter.toLowerCase())
+  )
 
   const handleChange = e => {
     const { name, value } = e.target
@@ -86,12 +96,14 @@ export function usePatients({ initialStatePatients, handleOpenModal }) {
   const handleReset = () => setPatient(patientInitialState)
 
   return {
-    patients,
+    patients: filteredPatients,
     patient,
     isLoading,
     handleChange,
     handleSubmit,
     handleReset,
+    filterString: filter,
+    handleFilterChange,
   }
 }
 
