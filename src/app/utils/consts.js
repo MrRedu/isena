@@ -25,3 +25,5 @@ export const patientInitialState = {
   correoPaciente: '',
   direccionPaciente: '',
 }
+
+export const ONE_HOUR_IN_MILLISECONDS = 60 * 60 * 1000

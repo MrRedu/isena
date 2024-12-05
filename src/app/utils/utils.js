@@ -54,3 +54,12 @@ export function getIdByRol(rol) {
 export function getIdByStatus(status) {
   return status === 'Habilitado' ? 1 : 2
 }
+
+export const today = new Date()
+export const eighteenYearsBefore = new Date(
+  today.getFullYear() - 18,
+  today.getMonth(),
+  today.getDate()
+)
+  .toISOString()
+  .split('T')[0]

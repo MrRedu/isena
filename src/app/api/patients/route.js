@@ -34,7 +34,7 @@ export async function POST(req) {
     const result = await connection.query('INSERT INTO tbl_pacientes SET ?', {
       nombres_paciente: nombresPaciente,
       apellidos_paciente: apellidosPaciente,
-      cedula_paciente: cedulaPaciente,
+      cedula_paciente: Number(cedulaPaciente),
       telefono_paciente: telefonoPaciente,
       fecha_nacimiento_paciente: fechaNacimientoPaciente,
       correo_paciente: correoPaciente,

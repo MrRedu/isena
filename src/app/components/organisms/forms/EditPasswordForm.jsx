@@ -1,13 +1,31 @@
 'use client'
-import { Button, Input, Typography } from "@/app/MTailwind";
+import { Button, Input, Typography } from '@/app/MTailwind'
 
 export const EditPasswordForm = () => {
   return (
-    <form action="" className='mt-12'>
+    <form action="" className="mt-12">
       <div className="flex flex-col gap-8">
-        <Input type="password" placeholder="********" variant="static" label="Contraseña actual" required />
-        <Input type="password" placeholder="********" variant="static" label="Nueva contraseña" required />
-        <Input type="password" placeholder="********" variant="static" label="Confirmar nueva contraseña" required />
+        <Input
+          type="password"
+          placeholder="********"
+          variant="static"
+          label="Contraseña actual"
+          required
+        />
+        <Input
+          type="password"
+          placeholder="********"
+          variant="static"
+          label="Nueva contraseña"
+          required
+        />
+        <Input
+          type="password"
+          placeholder="********"
+          variant="static"
+          label="Confirmar nueva contraseña"
+          required
+        />
         <div className="text-slate-500">
           <Typography className="font-bold">{`Requisitos de contraseña`}</Typography>
           <Typography className="py-2">{`La contraseña debe contener`}</Typography>
@@ -22,12 +40,12 @@ export const EditPasswordForm = () => {
         <Button
           color="blush"
           fullWidth
-          className='mt-4'
-        // enabled cuando hayan cambios, si no, no.
+          className="mt-4"
+          // enabled cuando hayan cambios, si no, no.
         >
           Guardar cambios
         </Button>
       </div>
     </form>
   )
-};
+}

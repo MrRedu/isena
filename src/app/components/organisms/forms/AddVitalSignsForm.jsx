@@ -11,7 +11,10 @@ export const AddVitalSignsForm = ({ vitalSign, handleChange }) => {
             .replace(/[^0-9.]/g, '') // Permitir solo dígitos y un punto decimal
             .replace(/^0+/, '') // Eliminar ceros iniciales
             .replace(/(\..*)\..*/g, '$1') // Permitir solo un punto decimal
-            .replace(/^(\d)(\d{0,2})?$/, (_, g1, g2) => g1 + (g2 ? '.' + g2 : '')) // Agregar punto después del primer dígito
+            .replace(
+              /^(\d)(\d{0,2})?$/,
+              (_, g1, g2) => g1 + (g2 ? '.' + g2 : '')
+            ) // Agregar punto después del primer dígito
             .substring(0, 4)} // Limitar a 4 caracteres (ej: 1.70)
           name="altura"
           onChange={handleChange}
@@ -27,7 +30,10 @@ export const AddVitalSignsForm = ({ vitalSign, handleChange }) => {
             .replace(/[^0-9.]/g, '') // Permitir solo dígitos y un punto decimal
             .replace(/^0+/, '') // Eliminar ceros iniciales
             .replace(/(\..*)\..*/g, '$1') // Permitir solo un punto decimal
-            .replace(/^(\d{1,3})(\d{0,2})?$/, (_, g1, g2) => g1 + (g2 ? '.' + g2 : '')) // Agregar punto después de 3 dígitos
+            .replace(
+              /^(\d{1,3})(\d{0,2})?$/,
+              (_, g1, g2) => g1 + (g2 ? '.' + g2 : '')
+            ) // Agregar punto después de 3 dígitos
             .substring(0, 6)} // Limitar a 6 caracteres en total (ej: 123.45)
           name="peso"
           onChange={handleChange}
@@ -45,7 +51,10 @@ export const AddVitalSignsForm = ({ vitalSign, handleChange }) => {
             .replace(/[^0-9.]/g, '') // Permitir solo dígitos y un punto decimal
             .replace(/^0+/, '') // Eliminar ceros iniciales
             .replace(/(\..*)\..*/g, '$1') // Permitir solo un punto decimal
-            .replace(/^(\d{2})(\d{0,2})?$/, (_, g1, g2) => g1 + (g2 ? '.' + g2 : '')) // Agregar punto después de dos dígitos
+            .replace(
+              /^(\d{2})(\d{0,2})?$/,
+              (_, g1, g2) => g1 + (g2 ? '.' + g2 : '')
+            ) // Agregar punto después de dos dígitos
             .substring(0, 5)} // Limitar a 6 caracteres en total (ej: 37.5)
           name="temperatura"
           onChange={handleChange}

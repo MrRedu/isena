@@ -62,7 +62,21 @@ CREATE TABLE `tbl_pacientes` (
   -- frecuencias cardíacas
   -- medicamentos
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla de pacientes';
-INSERT INTO `tbl_pacientes` (`cedula_paciente`, `nombres_paciente`, `apellidos_paciente`, `telefono_paciente`, `fecha_nacimiento_paciente`, `correo_paciente`, `direccion_paciente`) VALUES (12345678, 'Luis Andrés', 'Cheng Romero', '04141234567', '2000-01-01', '7Dj5V@example.com', 'Calle 1 # 2-3'), (87654321, 'José Ramón', 'Fernandez Gutierrez', '04147654321', '1980-06-06', '7Dj5V@example.com', 'Calle 2 # 3-4');
+INSERT INTO `tbl_pacientes` 
+(`cedula_paciente`, `nombres_paciente`, `apellidos_paciente`, `telefono_paciente`, `fecha_nacimiento_paciente`, `correo_paciente`, `direccion_paciente`) 
+VALUES 
+(12345678, 'Luis Andrés', 'Cheng Romero', '04141234567', '2000-01-01', '7Dj5V@example.com', 'Calle 1 # 2-3'),
+(87654321, 'José Ramón', 'Fernandez Gutierrez', '04147654321', '1980-06-06', '7Dj5V@example.com', 'Calle 2 # 3-4'),
+(11111111, 'Fernando', 'Lopez Hernandez', '04141234567', '1990-01-01', '7Dj5V@example.com', 'Calle 3 # 4-5'),
+(22222222, 'Ramón', 'Perez', '04141234567', '2000-01-01', '7Dj5V@example.com', 'Calle 1 # 2-3'),
+(34333333, 'José Ramón', 'Fernandez Gutierrez', '04147654321', '1980-06-06', '7Dj5V@example.com', 'Calle 2 # 3-4'),
+(44448444, 'Fernando', 'Lopez Hernandez', '04141234567', '1990-01-01', '7Dj5V@example.com', 'Calle 3 # 4-5'),
+(55755555, 'Ramón', 'Perez', '04141234567', '2000-01-01', '7Dj5V@example.com', 'Calle 1 # 2-3'),
+(66669666, 'José Ramón', 'Fernandez Gutierrez', '04147654321', '1980-06-06', '7Dj5V@example.com', 'Calle 2 # 3-4'),
+(77277777, 'Fernando', 'Lopez Hernandez', '04141234567', '1990-01-01', '7Dj5V@example.com', 'Calle 3 # 4-5'),
+(88888838, 'Ramón', 'Perez', '04141234567', '2000-01-01', '7Dj5V@example.com', 'Calle 1 # 2-3'),
+(99994999, 'José Ramón', 'Fernandez Gutierrez', '04147654321', '1980-06-06', '7Dj5V@example.com', 'Calle 2 # 3-4'),
+(10121010, 'Fernando', 'Lopez Hernandez', '04141234567', '1990-01-01', '7Dj5V@example.com', 'Calle 3 # 4-5');
 
 DROP TABLE IF EXISTS `tbl_alturas`;
 CREATE TABLE `tbl_alturas` (

@@ -6,9 +6,7 @@ export function Providers({ children, session }) {
   return (
     <>
       <Toaster richColors />
-      <SessionProvider session={session}>
-        {children}
-      </SessionProvider>
+      <SessionProvider session={session}>{children}</SessionProvider>
     </>
   )
 }

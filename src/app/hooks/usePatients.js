@@ -2,12 +2,23 @@ import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 import { validateEmail } from '@/utils/utils'
 import { patientInitialState } from '@/utils/consts'
-import { getPatientByCedula } from '../services/patients'
+import { getPatientByCedula } from '@/services/patients'
+import { useForm } from 'react-hook-form'
 
 export function usePatients({ initialStatePatients, handleOpenModal }) {
   const [patients, setPatients] = useState(initialStatePatients || [])
   const [patient, setPatient] = useState(patientInitialState)
   const [isLoading, setIsLoading] = useState(false)
+
+  const [filter, setFilter] = useState('')
+  const handleFilterChange = e => {
+    setFilter(e.target.value)
+  }
+
+  // TODO: Mejorar esto con memo, etc
+  const filteredPatients = patients.filter(patient =>
+    patient.cedula?.toString().toLowerCase().includes(filter.toLowerCase())
+  )
 
   const handleChange = e => {
     const { name, value } = e.target
@@ -86,18 +97,89 @@ export function usePatients({ initialStatePatients, handleOpenModal }) {
   const handleReset = () => setPatient(patientInitialState)
 
   return {
-    patients,
+    patients: filteredPatients,
     patient,
     isLoading,
     handleChange,
     handleSubmit,
     handleReset,
+    filterString: filter,
+    handleFilterChange,
   }
 }
 
-export function usePatient({ cedulaPaciente }) {
-  const [patient, setPatient] = useState({})
+export function usePatient({ cedulaPaciente, handleCloseModal }) {
+  const [patient, setPatient] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    defaultValues: {
+      nombresPaciente: '',
+      apellidosPaciente: '',
+      cedulaPaciente: '',
+      telefonoPaciente: '',
+      fechaNacimientoPaciente: '',
+      correoPaciente: '',
+      direccionPaciente: '',
+    },
+  })
+
+  useEffect(() => {
+    if (patient) {
+      reset({
+        nombresPaciente: patient.name,
+        apellidosPaciente: patient.lastName,
+        cedulaPaciente: patient.dni,
+        telefonoPaciente: patient.phone,
+        fechaNacimientoPaciente: patient.birthDate.slice(0, 10),
+        correoPaciente: patient.email,
+        direccionPaciente: patient.address,
+      })
+    }
+  }, [patient, reset])
+
+  const onSubmit = handleSubmit(async data => {
+    try {
+      const result = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/patients/${cedulaPaciente}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        }
+      )
+
+      if (!result.ok) {
+        throw new Error('Error al actualizar el paciente')
+      }
+
+      toast.success('Paciente actualizado exitosamente')
+
+      const updatedPatient = {
+        ...patient,
+        name: data.nombresPaciente,
+        lastName: data.apellidosPaciente,
+        dni: data.cedulaPaciente,
+        phone: data.telefonoPaciente,
+        birthDate: data.fechaNacimientoPaciente,
+        email: data.correoPaciente,
+        address: data.direccionPaciente,
+      }
+      handleCloseModal()
+      setPatient(updatedPatient)
+    } catch (error) {
+      console.error('Error:', error)
+      throw new Error('Error al actualizar el paciente')
+    } finally {
+      // setIsLoading(false)
+    }
+  })
 
   const getPatient = async ({ cedulaPaciente }, { signal }) => {
     try {
@@ -136,5 +218,8 @@ export function usePatient({ cedulaPaciente }) {
   return {
     patient,
     isLoading,
+    register,
+    onSubmit,
+    errors,
   }
 }

@@ -23,6 +23,7 @@ import {
 import { AddMedicationForm } from '@/components/organisms/forms/AddMedicationForm'
 import { useMedications } from '@/hooks/useMedications'
 import { format } from '@formkit/tempo'
+import { DefaultSkeleton } from '../atoms/DefaultSkeleton'
 
 export const ActiveMedications = ({ cedulaPaciente }) => {
   const [open, setOpen] = useState(false)
@@ -43,33 +44,16 @@ export const ActiveMedications = ({ cedulaPaciente }) => {
           <Typography variant="h3" className="font-bold uppercase text-sm">
             {`Medicamentos activos`}
           </Typography>
-          {medications.length > 0 && (
+          {medications?.length > 0 && (
             <IconButton variant="text" onClick={handleOpen}>
               <PlusCircleIcon className="h-6 w-6 stroke-3 text-blush-500" />
             </IconButton>
           )}
         </div>
 
-        {isLoading && (
-          <div className="flex justify-center items-center h-32 py-12">
-            <div className="animate-spin rounded-full h-24 w-24 border-t-2 border-b-2 border-blush-500"></div>
-          </div>
-        )}
-
-        {!isLoading && medications.length === 0 && (
-          <Button
-            color="green"
-            variant="text"
-            fullWidth
-            className="flex items-center gap-2 rounded-none"
-            onClick={handleOpen}
-          >
-            <PlusIcon className="text-green-500 h-10 w-10 stroke-2 border border-dashed border-green-500 rounded-lg" />
-            <span>Agregar medicamentos</span>
-          </Button>
-        )}
-
-        {medications.length > 0 && (
+        {isLoading || medications === null ? (
+          <DefaultSkeleton className="p-4" times={4} />
+        ) : medications?.length > 0 ? (
           <List className="w-full p-2 rounded-none">
             {medications?.map(
               (
@@ -139,8 +123,21 @@ export const ActiveMedications = ({ cedulaPaciente }) => {
               }
             )}
           </List>
+        ) : (
+          <Button
+            color="green"
+            variant="text"
+            fullWidth
+            className="flex items-center gap-2 rounded-none"
+            onClick={handleOpen}
+          >
+            <PlusIcon className="text-green-500 h-10 w-10 stroke-2 border border-dashed border-green-500 rounded-lg" />
+            <span>Agregar medicamentos</span>
+          </Button>
         )}
       </Card>
+
+      {/* Modal to add medication */}
       <Dialog open={open} handler={handleOpen}>
         <DialogHeader>{`Agregar medicamento`}</DialogHeader>
         <DialogBody>

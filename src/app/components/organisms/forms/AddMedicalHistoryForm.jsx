@@ -1,19 +1,19 @@
 import propTypes from 'prop-types'
-import { Input, Option, Select, Typography } from "@/app/MTailwind";
-import { Controller } from 'react-hook-form';
+import { Input, Option, Select, Typography } from '@/app/MTailwind'
+import { Controller } from 'react-hook-form'
 
 const tiposAntecedentes = [
   { value: 1, name: 'Patológicos' },
   { value: 2, name: 'Heredofamiliares' },
   { value: 3, name: 'No patológicos' },
-  { value: 4, name: 'Alergias' }
+  { value: 4, name: 'Alergias' },
 ]
 
 export const AddMedicalHistoryForm = ({
   register,
   errors,
   onSubmit,
-  control
+  control,
 }) => {
   return (
     <form className="flex flex-col gap-8 p-4" onSubmit={onSubmit}>
@@ -55,9 +55,12 @@ export const AddMedicalHistoryForm = ({
           variant="static"
           label="Título"
           placeholder="ej: Diabetes"
-          {...register("title", {
+          {...register('title', {
             required: 'El titulo es requerido',
-            minLength: { value: 3, message: 'El titulo debe tener al menos 3 caracteres' }
+            minLength: {
+              value: 3,
+              message: 'El titulo debe tener al menos 3 caracteres',
+            },
           })}
           required
           error={!!errors.title}
@@ -77,9 +80,12 @@ export const AddMedicalHistoryForm = ({
           variant="static"
           label="Descripción"
           placeholder="ej: Tipo II"
-          {...register("description", {
+          {...register('description', {
             required: 'La descripcion es requerida',
-            minLength: { value: 3, message: 'La descripción debe tener al menos 3 caracteres' }
+            minLength: {
+              value: 3,
+              message: 'La descripción debe tener al menos 3 caracteres',
+            },
           })}
           required
           error={!!errors.description}
@@ -95,11 +101,11 @@ export const AddMedicalHistoryForm = ({
       </div>
     </form>
   )
-};
+}
 
 AddMedicalHistoryForm.propTypes = {
   register: propTypes.func,
   errors: propTypes.object,
   onSubmit: propTypes.func,
-  control: propTypes.object
+  control: propTypes.object,
 }

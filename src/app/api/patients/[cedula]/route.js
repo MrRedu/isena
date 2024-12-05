@@ -89,3 +89,47 @@ WHERE
     )
   }
 }
+
+export async function PUT(req, { params }) {
+  try {
+    const {
+      nombresPaciente,
+      apellidosPaciente,
+      cedulaPaciente,
+      telefonoPaciente,
+      fechaNacimientoPaciente,
+      correoPaciente,
+      direccionPaciente,
+    } = await req.json()
+
+    await connection.query(
+      'UPDATE tbl_pacientes SET ? WHERE cedula_paciente = ?',
+      [
+        {
+          nombres_paciente: nombresPaciente,
+          apellidos_paciente: apellidosPaciente,
+          cedula_paciente: Number(cedulaPaciente),
+          telefono_paciente: telefonoPaciente,
+          fecha_nacimiento_paciente: fechaNacimientoPaciente,
+          correo_paciente: correoPaciente,
+          direccion_paciente: direccionPaciente,
+        },
+        params.cedula,
+      ]
+    )
+
+    return NextResponse.json(
+      { message: 'User updated successfully' },
+      { status: 200 }
+    )
+  } catch (error) {
+    console.error(error)
+    return NextResponse.json(
+      {
+        message: error.message,
+        manualMessage: 'Error updating user',
+      },
+      { status: 500 }
+    )
+  }
+}

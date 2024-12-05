@@ -36,12 +36,12 @@ export const UsersTable = ({
     setCurrentUser,
     handleChangeStatusCurrentUser,
     handleChangeRolCurrentUser,
-    handleUpdateUser
+    handleUpdateUser,
   } = useUsers({ initialStateUsers: tableRows, handleCloseModal: handleClose })
-  const handleOpen = (user) => {
-    setCurrentUser(user);
-    setOpen(!open);
-  };
+  const handleOpen = user => {
+    setCurrentUser(user)
+    setOpen(!open)
+  }
 
   const [currentPage, setCurrentPage] = useState(1)
   const usersPerPage = 10
@@ -114,7 +114,9 @@ export const UsersTable = ({
               {currentPatients.map(
                 ({ correo, apellidos, nombres, status, rol }, index) => {
                   const isLast = index === tableRows.length - 1
-                  const classes = isLast ? 'p-4' : 'p-4 border-b border-blush-50'
+                  const classes = isLast
+                    ? 'p-4'
+                    : 'p-4 border-b border-blush-50'
 
                   return (
                     <tr key={`${correo}${index}`}>
@@ -171,7 +173,18 @@ export const UsersTable = ({
                       </td>
                       <td className={classes}>
                         <Tooltip content="Editar">
-                          <IconButton onClick={() => handleOpen({ correo, apellidos, nombres, status, rol })} variant="text">
+                          <IconButton
+                            onClick={() =>
+                              handleOpen({
+                                correo,
+                                apellidos,
+                                nombres,
+                                status,
+                                rol,
+                              })
+                            }
+                            variant="text"
+                          >
                             <PencilIcon className="h-4 w-4" />
                           </IconButton>
                         </Tooltip>
@@ -220,11 +233,13 @@ export const UsersTable = ({
       <Dialog open={open} handler={handleOpen}>
         <DialogHeader>{`Editar usuario`}</DialogHeader>
         <DialogBody className="max-h-[75vh] w-full overflow-y-auto">
-          {currentUser && <EditUserForm
-            user={currentUser}
-            handleStatus={handleChangeStatusCurrentUser}
-            handleRol={handleChangeRolCurrentUser}
-          />}
+          {currentUser && (
+            <EditUserForm
+              user={currentUser}
+              handleStatus={handleChangeStatusCurrentUser}
+              handleRol={handleChangeRolCurrentUser}
+            />
+          )}
         </DialogBody>
         <DialogFooter>
           <Button
@@ -239,7 +254,7 @@ export const UsersTable = ({
             variant="gradient"
             color="green"
             onClick={handleUpdateUser}
-          // loading={isLoading}
+            // loading={isLoading}
           >
             {/* <span>{isLoading ? 'Cargando...' : 'Editar'}</span> */}
             Editar
