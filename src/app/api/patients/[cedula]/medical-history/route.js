@@ -44,11 +44,7 @@ WHERE
 
 export async function POST(req, { params }) {
   try {
-    const {
-      type,
-      title,
-      description,
-    } = await req.json()
+    const { type, title, description } = await req.json()
 
     await connection.query('INSERT INTO tbl_antecedentes SET ?', {
       cedula_paciente: params.cedula,

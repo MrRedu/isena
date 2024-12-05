@@ -20,7 +20,12 @@ export default async function HomePage() {
           title="Usuarios"
           subtitle="Gestionar los usuarios del sistema"
           buttonText="Ver"
-          icon={<UserIcon strokeWidth={2} className="h-16 w-16 mb-4 text-blush-900" />}
+          icon={
+            <UserIcon
+              strokeWidth={2}
+              className="h-16 w-16 mb-4 text-blush-900"
+            />
+          }
           amount={usersNumber}
           toLink="/users"
         />
@@ -28,7 +33,12 @@ export default async function HomePage() {
           title="Pacientes"
           subtitle="Gestionar los pacientes del sistema"
           buttonText="Ver"
-          icon={<UserIcon strokeWidth={2} className="h-16 w-16 mb-4 text-blush-900" />}
+          icon={
+            <UserIcon
+              strokeWidth={2}
+              className="h-16 w-16 mb-4 text-blush-900"
+            />
+          }
           amount={patientsNumber}
           toLink="/patients"
         />

@@ -6,11 +6,7 @@ export const metadata = {
   description: 'Página de la bitácora',
 }
 
-const TABLE_HEADER_LOGS = [
-  'Usuario',
-  'Fecha',
-  'Acciones',
-]
+const TABLE_HEADER_LOGS = ['Usuario', 'Fecha', 'Acciones']
 const TITLE_LOGS = 'Bitácora'
 const SUBTITLE_LOGS = 'Tabla con los registros del sistema'
 
@@ -104,33 +100,33 @@ export default function LogsPage() {
       id: 16,
       usuario: 'admin@admin.com',
       fecha: '06/12/2024, 11 :40 :00 a.m.',
-      acciones: 'Cerró sesión en el sistema.'
+      acciones: 'Cerró sesión en el sistema.',
     },
     {
       id: 17,
       usuario: 'dev@dev.com',
       fecha: '06 /12 /2024 ,11 :45 :00 a.m.',
-      acciones: 'Registró un nuevo paciente [María López] .'
+      acciones: 'Registró un nuevo paciente [María López] .',
     },
     {
       id: 18,
       usuario: 'medico@medico.com',
       fecha: '06 /12 /2024 ,11 :50 :00 a.m.',
-      acciones: 'Inició sesión en el sistema.'
+      acciones: 'Inició sesión en el sistema.',
     },
     {
       id: 19,
       usuario: 'dr.jones@hospital.com',
       fecha: '06 /12 /2024 ,11 :55 :00 a.m.',
-      acciones: 'Cerró sesión en el sistema.'
+      acciones: 'Cerró sesión en el sistema.',
     },
     {
       id: 20,
       usuario: 'visualizador@visualizador.com',
       fecha: '06 /12 /2024 ,12 :00 :00 p.m.',
-      acciones: 'Deshabilitó al paciente [María López] .'
-    }
-  ];
+      acciones: 'Deshabilitó al paciente [María López] .',
+    },
+  ]
 
   return (
     <Section>

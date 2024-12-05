@@ -1,7 +1,11 @@
 'use client'
 import { Section } from '@/components/atoms/Section'
 import { CardReport } from '@/components/molecules/CardReport'
-import { CalendarDaysIcon, UserGroupIcon, UserPlusIcon } from '@heroicons/react/24/outline'
+import {
+  CalendarDaysIcon,
+  UserGroupIcon,
+  UserPlusIcon,
+} from '@heroicons/react/24/outline'
 
 const handleDownloadExcel = ({ endpoint, fileName }) => {
   const url = `/api/xlsx/${endpoint}`
@@ -15,8 +19,7 @@ const handleDownloadExcel = ({ endpoint, fileName }) => {
   document.body.removeChild(a)
 }
 
-
-const classNameIcon = "text-blush-600 w-9 h-9"
+const classNameIcon = 'text-blush-600 w-9 h-9'
 const administrativeReports = [
   {
     id: 'users',
@@ -33,7 +36,7 @@ const administrativeReports = [
     id: 'log',
     title: 'Bitácora',
     subtitle: 'Movimiento de usuarios',
-    icon: <CalendarDaysIcon size={36} className={`${classNameIcon}`} />
+    icon: <CalendarDaysIcon size={36} className={`${classNameIcon}`} />,
   },
 ]
 
@@ -48,7 +51,7 @@ const technicalReports = [
         endpoint: 'patients',
         fileName: 'pacientes',
       }),
-  }
+  },
 ]
 
 export default function ReportsPage() {
@@ -80,22 +83,21 @@ export default function ReportsPage() {
           Reportes administrativos
         </h3>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
-          {administrativeReports.map(({ id, title, subtitle, icon, onClick }) => {
-            return (
-              <CardReport
-                key={id}
-                title={title}
-                subtitle={subtitle}
-                icon={icon}
-                onClick={onClick}
-              />
-            )
-          })}
+          {administrativeReports.map(
+            ({ id, title, subtitle, icon, onClick }) => {
+              return (
+                <CardReport
+                  key={id}
+                  title={title}
+                  subtitle={subtitle}
+                  icon={icon}
+                  onClick={onClick}
+                />
+              )
+            }
+          )}
         </div>
       </div>
-
-
-
     </Section>
   )
 }
