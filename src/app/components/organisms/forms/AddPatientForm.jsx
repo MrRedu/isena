@@ -1,15 +1,7 @@
 'use client'
 import propTypes from 'prop-types'
 import { Input, Textarea } from '@/app/MTailwind'
-
-const today = new Date()
-const sixteenYearsBefore = new Date(
-  today.getFullYear() - 16,
-  today.getMonth(),
-  today.getDate()
-)
-  .toISOString()
-  .split('T')[0]
+import { eighteenYearsBefore } from '@/utils/utils'
 
 export const AddPatientForm = ({ patient, handleChange }) => {
   return (
@@ -64,7 +56,7 @@ export const AddPatientForm = ({ patient, handleChange }) => {
           onChange={handleChange}
           label="Fecha de nacimiento"
           variant="static"
-          max={sixteenYearsBefore}
+          max={eighteenYearsBefore}
           required
         />
       </div>

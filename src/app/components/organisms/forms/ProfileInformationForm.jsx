@@ -1,13 +1,15 @@
 'use client'
 import propTypes from 'prop-types'
-import { Button, Input } from '@/app/MTailwind';
-import { useProfile } from '@/hooks/useProfile';
+import { Button, Input } from '@/app/MTailwind'
+import { useProfile } from '@/hooks/useProfile'
 export const ProfileInformationForm = ({ emailUser }) => {
-  const { user, isChanged, handleChange, handleSubmit, isLoading } = useProfile({ emailUser })
+  const { user, isChanged, handleChange, handleSubmit, isLoading } = useProfile(
+    { emailUser }
+  )
 
   return (
     <>
-      <form action="" className='mt-12'>
+      <form action="" className="mt-12">
         <div className="flex flex-col gap-8">
           <div className="flex gap-8 flex-col lg:flex-row">
             <Input
@@ -45,8 +47,8 @@ export const ProfileInformationForm = ({ emailUser }) => {
             <Input
               variant="static"
               label="Rol"
-              id='rol'
-              name='rol'
+              id="rol"
+              name="rol"
               value={user?.rol}
               readOnly
             />
@@ -54,8 +56,8 @@ export const ProfileInformationForm = ({ emailUser }) => {
               variant="static"
               label="Status"
               value={user?.status}
-              name='status'
-              id='status'
+              name="status"
+              id="status"
               readOnly
             />
           </div>
@@ -73,7 +75,7 @@ export const ProfileInformationForm = ({ emailUser }) => {
       </form>
     </>
   )
-};
+}
 
 ProfileInformationForm.propTypes = {
   emailUser: propTypes.string,

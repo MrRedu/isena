@@ -7,7 +7,7 @@ import {
 import { medicationInitialState } from '@/utils/consts'
 
 export function useMedications({ cedulaPaciente, handleOpenModal }) {
-  const [medications, setMedications] = useState([])
+  const [medications, setMedications] = useState(null)
   const [medication, setMedication] = useState(medicationInitialState)
   const [isLoading, setIsLoading] = useState(false)
 

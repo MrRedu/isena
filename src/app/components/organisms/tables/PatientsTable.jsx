@@ -33,8 +33,18 @@ export const PatientsTable = ({
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(!open)
 
-  const { patients, patient, handleChange, handleSubmit, isLoading, filterString, handleFilterChange } =
-    usePatients({ initialStatePatients: tableRows, handleOpenModal: handleOpen })
+  const {
+    patients,
+    patient,
+    handleChange,
+    handleSubmit,
+    isLoading,
+    filterString,
+    handleFilterChange,
+  } = usePatients({
+    initialStatePatients: tableRows,
+    handleOpenModal: handleOpen,
+  })
 
   const [currentPage, setCurrentPage] = useState(1)
   const patientsPerPage = 10
@@ -130,7 +140,9 @@ export const PatientsTable = ({
                   index
                 ) => {
                   const isLast = index === tableRows.length - 1
-                  const classes = isLast ? 'p-4' : 'p-4 border-b border-blush-50'
+                  const classes = isLast
+                    ? 'p-4'
+                    : 'p-4 border-b border-blush-50'
 
                   return (
                     <tr key={`${cedula}${index}`}>
@@ -246,7 +258,7 @@ export const PatientsTable = ({
       </Card>
 
       {/* Modal to add a new patient */}
-      <Dialog open={open} handler={handleOpen} >
+      <Dialog open={open} handler={handleOpen}>
         <DialogHeader>{`Registrar paciente`}</DialogHeader>
         <DialogBody className="max-h-[75vh] w-full overflow-y-auto">
           <AddPatientForm patient={patient} handleChange={handleChange} />

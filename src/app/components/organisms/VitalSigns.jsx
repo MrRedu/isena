@@ -28,6 +28,7 @@ import {
   HeartRateIcon,
 } from '@/components/atoms/icons'
 import { PlusIcon } from '@heroicons/react/24/solid'
+import { DefaultSkeleton } from '@/components/atoms/DefaultSkeleton'
 
 // Función para transformar los datos
 const transformData = (data, type) => {
@@ -106,7 +107,8 @@ export const VitalSigns = ({ cedulaPaciente }) => {
     useVitalSigns({ cedulaPaciente, handleOpenModal })
 
   const [openAccordion, setOpenAccordion] = useState(0)
-  const handleOpen = value => setOpenAccordion(openAccordion === value ? 0 : value)
+  const handleOpen = value =>
+    setOpenAccordion(openAccordion === value ? 0 : value)
 
   return (
     <>
@@ -115,16 +117,26 @@ export const VitalSigns = ({ cedulaPaciente }) => {
           <Typography variant="h3" className="font-bold uppercase text-sm">
             {'Últimos signos vitales'}
           </Typography>
-          {vitalSigns.pesos !== null && <IconButton variant="text" onClick={handleOpenModal}>
-            <PlusCircleIcon className="h-6 w-6 stroke-3 text-blush-500" />
-          </IconButton>}
+          {vitalSigns.pesos !== null && (
+            <IconButton variant="text" onClick={handleOpenModal}>
+              <PlusCircleIcon className="h-6 w-6 stroke-3 text-blush-500" />
+            </IconButton>
+          )}
         </div>
 
-
-        {vitalSigns.pesos !== null ? (
+        {isLoading || vitalSigns.pesos?.length === 0 ? (
+          <DefaultSkeleton className="p-4" times={4} />
+        ) : vitalSigns.pesos !== null ? (
           signosVitales.map(({ key, label, unitMeasurement, icon }, index) => (
-            <Accordion key={index} open={openAccordion === index + 1} className="h-full">
-              <AccordionHeader className="w-full border-none border-gray-200" onClick={() => handleOpen(index + 1)}>
+            <Accordion
+              key={index}
+              open={openAccordion === index + 1}
+              className="h-full"
+            >
+              <AccordionHeader
+                className="w-full border-none border-gray-200"
+                onClick={() => handleOpen(index + 1)}
+              >
                 <div className="flex justify-between w-full px-4 text-base font-normal">
                   <span className="flex items-center gap-4">
                     {icon}
@@ -138,6 +150,7 @@ export const VitalSigns = ({ cedulaPaciente }) => {
                     <span className="text-sm">{unitMeasurement}</span>
                   </span>
                 </div>
+
                 <ChevronDownIcon
                   className={`w-4 h-4 transition-transform ${openAccordion === index + 1 ? 'rotate-180' : ''}`}
                 />
@@ -149,8 +162,8 @@ export const VitalSigns = ({ cedulaPaciente }) => {
                 />
               </AccordionBody>
             </Accordion>
-          )
-          )) : (
+          ))
+        ) : (
           <Button
             color="green"
             variant="text"
@@ -161,10 +174,9 @@ export const VitalSigns = ({ cedulaPaciente }) => {
             <PlusIcon className="text-green-500 h-10 w-10 stroke-2 border border-dashed border-green-500 rounded-lg" />
             <span>Agregar signos vitales</span>
           </Button>
-        )
-        }
-
+        )}
       </Card>
+
       <Dialog open={openModal} handler={handleOpenModal}>
         <DialogHeader>{`Registrar signos vitales`}</DialogHeader>
         <DialogBody>

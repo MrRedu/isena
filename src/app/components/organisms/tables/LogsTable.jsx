@@ -14,12 +14,7 @@ import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import { useState } from 'react'
 import { useLogs } from '@/hooks/useLogs'
 
-export const LogsTable = ({
-  title,
-  subtitle,
-  tableHeader,
-  tableRows = [],
-}) => {
+export const LogsTable = ({ title, subtitle, tableHeader, tableRows = [] }) => {
   const { logs } = useLogs({
     initialStateLogs: tableRows,
     // handleCloseModal: handleClose
@@ -46,7 +41,6 @@ export const LogsTable = ({
       setCurrentPage(currentPage - 1)
     }
   }
-
 
   return (
     <>
@@ -97,10 +91,12 @@ export const LogsTable = ({
               {currentPatients.map(
                 ({ id, usuario, fecha, acciones }, index) => {
                   const isLast = index === tableRows.length - 1
-                  const classes = isLast ? 'p-4' : 'p-4 border-b border-blush-50'
+                  const classes = isLast
+                    ? 'p-4'
+                    : 'p-4 border-b border-blush-50'
 
                   return (
-                    <tr key={`${id}`} className='even:bg-blush-300/10'>
+                    <tr key={`${id}`} className="even:bg-blush-300/10">
                       <td className={classes}>
                         <div className="flex items-center gap-3">
                           <Typography variant="small" color="blue-gray">
@@ -167,7 +163,7 @@ export const LogsTable = ({
       </Card>
     </>
   )
-};
+}
 
 LogsTable.propTypes = {
   title: propTypes.string,

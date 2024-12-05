@@ -14,16 +14,16 @@ export const LoginForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-    reset
+    reset,
   } = useForm()
 
-  const onSubmit = handleSubmit(async (data) => {
+  const onSubmit = handleSubmit(async data => {
     try {
       setIsLoading(true)
       const result = await signIn('credentials', {
         redirect: false,
         email: data.email,
-        password: data.password
+        password: data.password,
       })
 
       if (result.status === 401) return toast.error('Credenciales incorrectas')
@@ -41,7 +41,6 @@ export const LoginForm = () => {
     } finally {
       setIsLoading(false)
     }
-
   })
 
   return (
@@ -54,10 +53,7 @@ export const LoginForm = () => {
         >
           {`Iniciar sesión`}
         </Typography>
-        <form
-          onSubmit={onSubmit}
-          className="flex flex-col gap-4"
-        >
+        <form onSubmit={onSubmit} className="flex flex-col gap-4">
           <div className="flex flex-col gap-8">
             <div>
               <Input
@@ -69,11 +65,11 @@ export const LoginForm = () => {
                 placeholder="ejemplo@gmail.com"
                 required
                 {...register('email', {
-                  required: "El correo es requerido",
+                  required: 'El correo es requerido',
                   pattern: {
                     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                    message: "El correo no es válido",
-                  }
+                    message: 'El correo no es válido',
+                  },
                 })}
                 error={errors.email}
               />
@@ -96,8 +92,11 @@ export const LoginForm = () => {
                 placeholder="********"
                 required
                 {...register('password', {
-                  required: "La contraseña es requerida",
-                  minLength: { value: 8, message: "La contraseña debe tener al menos 8 caracteres" }
+                  required: 'La contraseña es requerida',
+                  minLength: {
+                    value: 8,
+                    message: 'La contraseña debe tener al menos 8 caracteres',
+                  },
                 })}
                 error={errors.password}
               />

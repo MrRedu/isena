@@ -27,13 +27,16 @@ export const RegisterForm = () => {
     formState: { errors },
     setError,
     watch,
-    reset
+    reset,
   } = useForm()
 
-  const onSubmit = handleSubmit(async (data) => {
+  const onSubmit = handleSubmit(async data => {
     const isEmailRegistered = await loadEmail(data.email)
     if (isEmailRegistered) {
-      setError('email', { type: 'manual', message: 'El correo electrónico ya se encuentra registrado' })
+      setError('email', {
+        type: 'manual',
+        message: 'El correo electrónico ya se encuentra registrado',
+      })
       return
     }
 
@@ -83,9 +86,7 @@ export const RegisterForm = () => {
         >
           {`Crear cuenta`}
         </Typography>
-        <form
-          onSubmit={onSubmit}
-          className="flex flex-col gap-4">
+        <form onSubmit={onSubmit} className="flex flex-col gap-4">
           <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-8 lg:grid lg:grid-cols-2">
               <div>
@@ -127,7 +128,7 @@ export const RegisterForm = () => {
                     minLength: {
                       value: 3,
                       message: 'El apellido debe tener al menos 3 caracteres',
-                    }
+                    },
                   })}
                   error={errors.lastName?.message}
                 />
@@ -155,7 +156,7 @@ export const RegisterForm = () => {
                   pattern: {
                     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                     message: 'El correo no es válido',
-                  }
+                  },
                 })}
                 error={errors.email?.message}
               />
@@ -206,7 +207,9 @@ export const RegisterForm = () => {
                 required
                 {...register('confirmPassword', {
                   required: 'La contraseña es obligatoria',
-                  validate: (value) => value === watch('password') || 'Las contraseñas no coinciden',
+                  validate: value =>
+                    value === watch('password') ||
+                    'Las contraseñas no coinciden',
                 })}
                 error={errors.confirmPassword?.message}
               />

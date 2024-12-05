@@ -50,12 +50,17 @@ export function SidebarWithBurgerMenu() {
         )}
       </IconButton>
       <Drawer open={isDrawerOpen} onClose={closeDrawer} overlay={false}>
-        <Card
-          color="transparent"
-          className="h-full w-full p-4 rounded-none"
-        >
+        <Card color="transparent" className="h-full w-full p-4 rounded-none">
           <div className="mb-2 flex items-center gap-4 p-4">
-            <Image src="/logo.webp" alt="brand" width={220} height={60} priority={false} className="w-full" loading='lazy' />
+            <Image
+              src="/logo.webp"
+              alt="brand"
+              width={220}
+              height={60}
+              priority={false}
+              className="w-full"
+              loading="lazy"
+            />
           </div>
           <List>
             <Link href="/">
@@ -67,16 +72,16 @@ export function SidebarWithBurgerMenu() {
               </ListItem>
             </Link>
             {session?.user?.rol &&
-              (['Administrador', 'Desarrollador'].includes(session.user.rol)) &&
-              (<Link href="/users">
-                <ListItem>
-                  <ListItemPrefix>
-                    <UsersIcon className="h-5 w-5" />
-                  </ListItemPrefix>
-                  {`Usuarios`}
-                </ListItem>
-              </Link>)
-            }
+              ['Administrador', 'Desarrollador'].includes(session.user.rol) && (
+                <Link href="/users">
+                  <ListItem>
+                    <ListItemPrefix>
+                      <UsersIcon className="h-5 w-5" />
+                    </ListItemPrefix>
+                    {`Usuarios`}
+                  </ListItem>
+                </Link>
+              )}
             <Link href="/patients">
               <ListItem>
                 <ListItemPrefix>
@@ -86,52 +91,56 @@ export function SidebarWithBurgerMenu() {
               </ListItem>
             </Link>
             {session?.user?.rol &&
-              (['Administrador', 'Desarrollador'].includes(session.user.rol)) &&
-              <Accordion
-                open={open === 2}
-                icon={
-                  <ChevronDownIcon
-                    strokeWidth={2.5}
-                    className={`mx-auto h-4 w-4 transition-transform ${open === 2 ? 'rotate-180' : ''
+              ['Administrador', 'Desarrollador'].includes(session.user.rol) && (
+                <Accordion
+                  open={open === 2}
+                  icon={
+                    <ChevronDownIcon
+                      strokeWidth={2.5}
+                      className={`mx-auto h-4 w-4 transition-transform ${
+                        open === 2 ? 'rotate-180' : ''
                       }`}
-                  />
-                }
-              >
-                <ListItem className="p-0" selected={open === 2}>
-                  <AccordionHeader
-                    onClick={() => handleOpen(2)}
-                    className="border-b-0 p-3"
-                  >
-                    <ListItemPrefix>
-                      <ShieldCheckIcon className="h-5 w-5" />
-                    </ListItemPrefix>
-                    <Typography color="blue-gray" className="mr-auto font-normal">
-                      {`Gestión`}
-                    </Typography>
-                  </AccordionHeader>
-                </ListItem>
-                <AccordionBody className="py-1">
-                  <List className="p-0">
-                    <Link href="/management/reports">
-                      <ListItem>
-                        <ListItemPrefix>
-                          <DocumentTextIcon className="h-5 w-5" />
-                        </ListItemPrefix>
-                        {`Reportes`}
-                      </ListItem>
-                    </Link>
-                    <Link href="/management/logs">
-                      <ListItem>
-                        <ListItemPrefix>
-                          <ServerStackIcon className="h-5 w-5" />
-                        </ListItemPrefix>
-                        {`Bitácora`}
-                      </ListItem>
-                    </Link>
-                  </List>
-                </AccordionBody>
-              </Accordion>
-            }
+                    />
+                  }
+                >
+                  <ListItem className="p-0" selected={open === 2}>
+                    <AccordionHeader
+                      onClick={() => handleOpen(2)}
+                      className="border-b-0 p-3"
+                    >
+                      <ListItemPrefix>
+                        <ShieldCheckIcon className="h-5 w-5" />
+                      </ListItemPrefix>
+                      <Typography
+                        color="blue-gray"
+                        className="mr-auto font-normal"
+                      >
+                        {`Gestión`}
+                      </Typography>
+                    </AccordionHeader>
+                  </ListItem>
+                  <AccordionBody className="py-1">
+                    <List className="p-0">
+                      <Link href="/management/reports">
+                        <ListItem>
+                          <ListItemPrefix>
+                            <DocumentTextIcon className="h-5 w-5" />
+                          </ListItemPrefix>
+                          {`Reportes`}
+                        </ListItem>
+                      </Link>
+                      <Link href="/management/logs">
+                        <ListItem>
+                          <ListItemPrefix>
+                            <ServerStackIcon className="h-5 w-5" />
+                          </ListItemPrefix>
+                          {`Bitácora`}
+                        </ListItem>
+                      </Link>
+                    </List>
+                  </AccordionBody>
+                </Accordion>
+              )}
             <hr className="my-2 border-blue-gray-50" />
 
             <Link href="/profile">

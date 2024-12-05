@@ -1,6 +1,15 @@
 'use client'
 import propTypes from 'prop-types'
-import { IconButton, Typography, Card, Button, Dialog, DialogHeader, DialogBody, DialogFooter } from '@/app/MTailwind'
+import {
+  IconButton,
+  Typography,
+  Card,
+  Button,
+  Dialog,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
+} from '@/app/MTailwind'
 import { PlusCircleIcon, PlusIcon } from '@heroicons/react/24/outline'
 import { useMedicalHistory } from '@/hooks/useMedicalHistory'
 import { useState } from 'react'
@@ -13,27 +22,35 @@ export const MedicalHistory = ({ cedulaPaciente }) => {
   const handleOpenModal = () => setOpenModal(!openModal)
 
   // Meter esto en el customHook y que se cambie el estado para reflejar el recién creado
-  const { register, handleSubmit, formState: { errors }, control } = useForm()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    control,
+  } = useForm()
 
   const { medicalHistory, isLoading } = useMedicalHistory({ cedulaPaciente })
   const groupedAntecedentes = medicalHistory?.reduce((acc, antecedente) => {
-    const tipo = antecedente.tipo_antecedente;
+    const tipo = antecedente.tipo_antecedente
     if (!acc[tipo]) {
-      acc[tipo] = [];
+      acc[tipo] = []
     }
-    acc[tipo].push(antecedente);
-    return acc;
-  }, {});
+    acc[tipo].push(antecedente)
+    return acc
+  }, {})
 
-  const onSubmit = handleSubmit(async (data) => {
+  const onSubmit = handleSubmit(async data => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/patients/${cedulaPaciente}/medical-history`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      })
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/patients/${cedulaPaciente}/medical-history`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        }
+      )
 
       if (!response.ok) throw new Error('Error al registrar los signos vitales')
 
@@ -52,21 +69,22 @@ export const MedicalHistory = ({ cedulaPaciente }) => {
     <>
       <Card className="rounded shadow overflow-hidden">
         <div className="flex justify-between items-center bg-blush-50 px-4 py-2 h-[52px] ">
-          <Typography
-            variant="h3"
-            className="font-bold uppercase text-sm"
-          >
+          <Typography variant="h3" className="font-bold uppercase text-sm">
             {`Antecedentes`}
           </Typography>
-          {groupedAntecedentes && Object.keys(groupedAntecedentes).length > 0 && !isLoading && (
-            <IconButton variant="text" onClick={handleOpenModal}>
-              <PlusCircleIcon className="h-6 w-6 stroke-3 text-blush-500" />
-            </IconButton>
-          )}
+          {groupedAntecedentes &&
+            Object.keys(groupedAntecedentes).length > 0 &&
+            !isLoading && (
+              <IconButton variant="text" onClick={handleOpenModal}>
+                <PlusCircleIcon className="h-6 w-6 stroke-3 text-blush-500" />
+              </IconButton>
+            )}
         </div>
 
-        <div >
-          {groupedAntecedentes && Object.keys(groupedAntecedentes).length > 0 && !isLoading ? (
+        <div>
+          {groupedAntecedentes &&
+          Object.keys(groupedAntecedentes).length > 0 &&
+          !isLoading ? (
             Object.keys(groupedAntecedentes).map(tipo => (
               <div key={tipo} className="px-6 pt-4 last:pb-4">
                 <Typography
@@ -75,7 +93,7 @@ export const MedicalHistory = ({ cedulaPaciente }) => {
                 >
                   {tipo}
                 </Typography>
-                <ul className='text-sm'>
+                <ul className="text-sm">
                   {groupedAntecedentes[tipo].map(item => (
                     <li key={item.id_antecedente}>
                       <strong>{item.titulo}:</strong> {item.descripcion}
@@ -90,15 +108,14 @@ export const MedicalHistory = ({ cedulaPaciente }) => {
               variant="text"
               fullWidth
               className="flex items-center gap-2 rounded-none"
-            // onClick={handleOpen}
+              onClick={handleOpenModal}
             >
               <PlusIcon className="text-green-500 h-10 w-10 stroke-2 border border-dashed border-green-500 rounded-lg" />
               <span>Agregar antecedentes</span>
             </Button>
           )}
-
         </div>
-      </Card >
+      </Card>
       <Dialog open={openModal} handler={handleOpenModal}>
         <DialogHeader>{`Registrar signos vitales`}</DialogHeader>
         <DialogBody>
@@ -107,8 +124,8 @@ export const MedicalHistory = ({ cedulaPaciente }) => {
             errors={errors}
             handleSubmit={onSubmit}
             control={control}
-          // vitalSign={vitalSign}
-          // handleChange={handleChange}
+            // vitalSign={vitalSign}
+            // handleChange={handleChange}
           />
         </DialogBody>
         <DialogFooter>
@@ -120,9 +137,7 @@ export const MedicalHistory = ({ cedulaPaciente }) => {
           >
             <span>Cancelar</span>
           </Button>
-          <Button variant="gradient" color="green"
-            onClick={onSubmit}
-          >
+          <Button variant="gradient" color="green" onClick={onSubmit}>
             <span>Agregar</span>
           </Button>
         </DialogFooter>
