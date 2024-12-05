@@ -1,4 +1,4 @@
-import { ONE_HOUR_IN_MILLISECONDS } from '@/utils/consts'
+// import { ONE_HOUR_IN_MILLISECONDS } from '@/utils/consts'
 
 export const getAllUsers = async () => {
   const URL = `${process.env.NEXT_PUBLIC_API_URL}/users`
@@ -40,9 +40,12 @@ export const getUserByEmail = async ({ emailUser }, { signal }) => {
 export const numberOfUsers = async () => {
   const URL = `${process.env.NEXT_PUBLIC_API_URL}/users/count`
   try {
-    const result = await fetch(URL, {
-      next: { revalidate: ONE_HOUR_IN_MILLISECONDS * 2 },
-    })
+    const result = await fetch(
+      URL
+      //,{
+      //    next: { revalidate: ONE_HOUR_IN_MILLISECONDS * 2 },
+      // }
+    )
     const { count } = await result.json()
     return count
   } catch (error) {
