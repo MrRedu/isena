@@ -114,7 +114,10 @@ export const VitalSigns = ({ cedulaPaciente }) => {
     <>
       <Card className="rounded shadow overflow-hidden">
         <div className="flex justify-between items-center bg-blush-50 px-4 py-2 h-[52px]">
-          <Typography variant="h3" className="font-bold uppercase text-sm">
+          <Typography
+            variant="h3"
+            className="font-bold uppercase text-sm  text-pink-900"
+          >
             {'Últimos signos vitales'}
           </Typography>
           {vitalSigns.pesos !== null && (

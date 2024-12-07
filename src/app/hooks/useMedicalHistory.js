@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react'
-import { getMedicalHistoryByCedula } from '@/services/medicalHistory'
+import {
+  deleteMedicalHistory,
+  getMedicalHistoryByCedula,
+} from '@/services/medicalHistory'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
@@ -11,7 +14,7 @@ const tiposAntecedentes = [
 ]
 
 export function useMedicalHistory({ cedulaPaciente, handleOpenModal }) {
-  const { register, handleSubmit, formState, control } = useForm()
+  const { register, handleSubmit, formState, control, reset } = useForm()
   const [medicalHistory, setMedicalHistory] = useState([])
   const [isLoading, setIsLoading] = useState(false)
 
@@ -46,12 +49,12 @@ export function useMedicalHistory({ cedulaPaciente, handleOpenModal }) {
       )
 
       if (!response.ok) throw new Error('Error al registrar los signos vitales')
-
+      const result = await response.json()
       toast.success('Antecedente registrado exitosamente')
       setMedicalHistory(prev => [
         ...prev,
         {
-          id_antecedente: data.id,
+          id_antecedente: result.id,
           titulo: data.title,
           descripcion: data.description,
           id_tipo_antecedente: data.type,
@@ -60,6 +63,7 @@ export function useMedicalHistory({ cedulaPaciente, handleOpenModal }) {
           ).name,
         },
       ])
+      reset()
       handleOpenModal()
     } catch (error) {
       console.error('Error:', error)
@@ -68,6 +72,15 @@ export function useMedicalHistory({ cedulaPaciente, handleOpenModal }) {
       setIsLoading(false)
     }
   })
+
+  const handleDelete = async id => {
+    deleteMedicalHistory(id)
+    setMedicalHistory(
+      medicalHistory.filter(
+        medicalHistory => medicalHistory.id_antecedente !== id
+      )
+    )
+  }
 
   useEffect(() => {
     const abortController = new AbortController()
@@ -79,11 +92,11 @@ export function useMedicalHistory({ cedulaPaciente, handleOpenModal }) {
   return {
     medicalHistory,
     isLoading,
-
     register,
     handleSubmit,
     errors: formState.errors,
     control,
     onSubmit,
+    handleDelete,
   }
 }
