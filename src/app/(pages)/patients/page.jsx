@@ -9,8 +9,8 @@ export const metadata = {
 
 const TABLE_HEADER_PATIENTS = [
   'Cédula',
-  'Apellidos',
   'Nombres',
+  'Apellidos',
   'Edad',
   'Teléfono',
   // 'Última consulta',

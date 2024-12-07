@@ -90,6 +90,7 @@ export const MedicalHistory = ({ cedulaPaciente }) => {
           )}
         </div>
       </Card>
+      
       <Dialog open={openModal} handler={handleOpenModal}>
         <DialogHeader>{`Registrar signos vitales`}</DialogHeader>
         <DialogBody>

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 import { validateEmail } from '@/utils/utils'
 import { patientInitialState } from '@/utils/consts'
-import { getPatientByCedula } from '@/services/patients'
+import { deletePatient, getPatientByCedula } from '@/services/patients'
 import { useForm } from 'react-hook-form'
 
 export function usePatients({ initialStatePatients, handleOpenModal }) {
@@ -94,6 +94,11 @@ export function usePatients({ initialStatePatients, handleOpenModal }) {
     }
   }
 
+  const handleDelete = async cedula => {
+    deletePatient(cedula)
+    setPatients(prev => prev.filter(patient => patient.cedula !== cedula))
+  }
+
   const handleReset = () => setPatient(patientInitialState)
 
   return {
@@ -105,6 +110,7 @@ export function usePatients({ initialStatePatients, handleOpenModal }) {
     handleReset,
     filterString: filter,
     handleFilterChange,
+    handleDelete,
   }
 }
 
