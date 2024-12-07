@@ -3,6 +3,19 @@ import propTypes from 'prop-types'
 import { Input, Option, Select, Switch, Typography } from '@/app/MTailwind'
 
 export const EditUserForm = ({ user, handleStatus, handleRol }) => {
+  if (
+    user.correo === 'administrador@adm.com' ||
+    user.correo === 'desarrollador@dev.com' ||
+    user.correo === 'visualizador@vis.com' ||
+    user.correo === 'medico@med.com'
+  ) {
+    return (
+      <Typography variant="h3" className="text-center">
+        Este usuario pertenece al sistema, no puede ser modificado.
+      </Typography>
+    )
+  }
+
   return (
     <form className="flex flex-col gap-8 p-4">
       <div className="flex gap-8 flex-col lg:flex-row">

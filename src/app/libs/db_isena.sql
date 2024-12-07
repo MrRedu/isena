@@ -31,10 +31,10 @@ CREATE TABLE `tbl_usuarios` (
   FOREIGN KEY (`id_rol_usuario`) REFERENCES `tbl_roles`(`id_rol`),
   FOREIGN KEY (`id_status_usuario`) REFERENCES `tbl_status_usuarios`(`id_status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla de usuarios';
-INSERT INTO `tbl_usuarios` (`id_usuario`, `nombres_usuario`, `apellidos_usuario`, `correo_usuario`, `contrasena_usuario`, `id_rol_usuario`, `id_status_usuario`) VALUES (1, 'Administrador', 'Admin', 'admin@admin.com', '$2a$10$0FfP3KWKDIw508ZMm06SVewQX1qA6GqRHJ8VPr5MnNjbWPjPbvBwa', 1, 1),
-(2, 'Desarrollador', 'Dev', 'dev@dev.com', '$2a$10$0FfP3KWKDIw508ZMm06SVewQX1qA6GqRHJ8VPr5MnNjbWPjPbvBwa', 2, 1),
-(3, 'Médico', 'Doc', 'medico@medico.com', '$2a$10$0FfP3KWKDIw508ZMm06SVewQX1qA6GqRHJ8VPr5MnNjbWPjPbvBwa', 3, 1),
-(4, 'Visualizador', 'Visual', 'visualizador@visualizador.com', '$2a$10$0FfP3KWKDIw508ZMm06SVewQX1qA6GqRHJ8VPr5MnNjbWPjPbvBwa', 4, 1);
+INSERT INTO `tbl_usuarios` (`id_usuario`, `nombres_usuario`, `apellidos_usuario`, `correo_usuario`, `contrasena_usuario`, `id_rol_usuario`, `id_status_usuario`) VALUES (1, 'Administrador', 'Admin', 'administrador@adm.com', '$2a$10$0FfP3KWKDIw508ZMm06SVewQX1qA6GqRHJ8VPr5MnNjbWPjPbvBwa', 1, 1),
+(2, 'Desarrollador', 'Dev', 'desarrollador@dev.com', '$2a$10$0FfP3KWKDIw508ZMm06SVewQX1qA6GqRHJ8VPr5MnNjbWPjPbvBwa', 2, 1),
+(3, 'Médico', 'Doc', 'medico@med.com', '$2a$10$0FfP3KWKDIw508ZMm06SVewQX1qA6GqRHJ8VPr5MnNjbWPjPbvBwa', 3, 1),
+(4, 'Visualizador', 'Visual', 'visualizador@vis.com', '$2a$10$0FfP3KWKDIw508ZMm06SVewQX1qA6GqRHJ8VPr5MnNjbWPjPbvBwa', 4, 1);
 -- Password: 12345678
 
 DROP TABLE IF EXISTS `tbl_bitacora`;
