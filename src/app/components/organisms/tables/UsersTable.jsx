@@ -37,6 +37,8 @@ export const UsersTable = ({
     handleChangeStatusCurrentUser,
     handleChangeRolCurrentUser,
     handleUpdateUser,
+    handleFilterChange,
+    filterString,
   } = useUsers({ initialStateUsers: tableRows, handleCloseModal: handleClose })
   const handleOpen = user => {
     setCurrentUser(user)
@@ -81,8 +83,11 @@ export const UsersTable = ({
             <div className="flex flex-col lg:flex-row w-full shrink-0 gap-2 md:w-max">
               <div className="w-full md:w-72">
                 <Input
-                  label="Nombre"
+                  type="text"
+                  label="Correo electrónico"
                   icon={<MagnifyingGlassIcon className="h-5 w-5" />}
+                  value={filterString}
+                  onChange={handleFilterChange}
                 />
               </div>
             </div>
@@ -133,7 +138,7 @@ export const UsersTable = ({
                           color="blue-gray"
                           className="font-normal"
                         >
-                          {apellidos}
+                          {nombres}
                         </Typography>
                       </td>
                       <td className={classes}>
@@ -142,7 +147,7 @@ export const UsersTable = ({
                           color="blue-gray"
                           className="font-normal"
                         >
-                          {nombres}
+                          {apellidos}
                         </Typography>
                       </td>
                       <td className={classes}>
