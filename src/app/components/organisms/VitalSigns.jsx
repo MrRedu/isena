@@ -117,7 +117,7 @@ export const VitalSigns = ({ cedulaPaciente }) => {
           <Typography variant="h3" className="font-bold uppercase text-sm">
             {'Últimos signos vitales'}
           </Typography>
-          {vitalSigns.pesos.length > 0 && (
+          {vitalSigns.pesos !== null && (
             <IconButton variant="text" onClick={handleOpenModal}>
               <PlusCircleIcon className="h-6 w-6 stroke-3 text-blush-500" />
             </IconButton>
