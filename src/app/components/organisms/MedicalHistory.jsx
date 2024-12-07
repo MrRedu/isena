@@ -14,56 +14,23 @@ import { PlusCircleIcon, PlusIcon } from '@heroicons/react/24/outline'
 import { useMedicalHistory } from '@/hooks/useMedicalHistory'
 import { useState } from 'react'
 import { AddMedicalHistoryForm } from './forms/AddMedicalHistoryForm'
-import { useForm } from 'react-hook-form'
-import { toast } from 'sonner'
 
 export const MedicalHistory = ({ cedulaPaciente }) => {
   const [openModal, setOpenModal] = useState(false)
   const handleOpenModal = () => setOpenModal(!openModal)
 
   // Meter esto en el customHook y que se cambie el estado para reflejar el recién creado
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    control,
-  } = useForm()
 
-  const { medicalHistory, isLoading } = useMedicalHistory({ cedulaPaciente })
+  const { medicalHistory, isLoading, register, onSubmit, errors, control } =
+    useMedicalHistory({ cedulaPaciente, handleOpenModal })
   const groupedAntecedentes = medicalHistory?.reduce((acc, antecedente) => {
-    const tipo = antecedente.tipo_antecedente
+    const tipo = antecedente?.tipo_antecedente
     if (!acc[tipo]) {
       acc[tipo] = []
     }
     acc[tipo].push(antecedente)
     return acc
   }, {})
-
-  const onSubmit = handleSubmit(async data => {
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/patients/${cedulaPaciente}/medical-history`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data),
-        }
-      )
-
-      if (!response.ok) throw new Error('Error al registrar los signos vitales')
-
-      toast.success('Antecedente registrado exitosamente')
-      handleOpenModal()
-    } catch (error) {
-      console.error('Error:', error)
-      throw new Error('Error creating medical history')
-    } finally {
-      // setVitalSign(vitalSignInitialState)
-      // setIsLoading(false)
-    }
-  })
 
   return (
     <>
@@ -94,9 +61,9 @@ export const MedicalHistory = ({ cedulaPaciente }) => {
                   {tipo}
                 </Typography>
                 <ul className="text-sm">
-                  {groupedAntecedentes[tipo].map(item => (
-                    <li key={item.id_antecedente}>
-                      <strong>{item.titulo}:</strong> {item.descripcion}
+                  {groupedAntecedentes[tipo].map((item, index) => (
+                    <li key={`${item?.titulo}-${item?.descripcion}-${index}`}>
+                      <strong>{item?.titulo}:</strong> {item?.descripcion}
                     </li>
                   ))}
                 </ul>
