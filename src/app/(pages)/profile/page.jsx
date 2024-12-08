@@ -49,7 +49,7 @@ export default async function ProfilePage() {
             <ProfileInformationForm emailUser={user?.email} />
           </TabPanel>
           <TabPanel value={'password'}>
-            <EditPasswordForm />
+            <EditPasswordForm emailUser={user?.email} />
           </TabPanel>
         </TabsBody>
       </Tabs>
