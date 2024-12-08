@@ -3,7 +3,11 @@ import propTypes from 'prop-types'
 import { useState } from 'react'
 
 import Link from 'next/link'
-import { DocumentIcon, EyeIcon } from '@heroicons/react/24/solid'
+import {
+  DocumentIcon,
+  EyeIcon,
+  // TrashIcon
+} from '@heroicons/react/24/solid'
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import {
   Card,
@@ -32,6 +36,13 @@ export const PatientsTable = ({
 }) => {
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(!open)
+  const [isOpenModalToDeletePatient, setIsOpenModalToDeletePatient] =
+    useState(false)
+  const [currentCedula, setCurrentCedula] = useState(null)
+  const handleModalToDeletePatient = cedula => {
+    setIsOpenModalToDeletePatient(!isOpenModalToDeletePatient)
+    setCurrentCedula(cedula)
+  }
 
   const {
     patients,
@@ -41,13 +52,14 @@ export const PatientsTable = ({
     isLoading,
     filterString,
     handleFilterChange,
+    handleDelete,
   } = usePatients({
     initialStatePatients: tableRows,
     handleOpenModal: handleOpen,
   })
 
   const [currentPage, setCurrentPage] = useState(1)
-  const patientsPerPage = 10
+  const patientsPerPage = 5
   const totalPages = Math.ceil(patients.length / patientsPerPage)
 
   // Get current patients for the current page
@@ -159,7 +171,7 @@ export const PatientsTable = ({
                           color="blue-gray"
                           className="font-normal"
                         >
-                          {apellidos}
+                          {nombres}
                         </Typography>
                       </td>
                       <td className={classes}>
@@ -168,7 +180,7 @@ export const PatientsTable = ({
                           color="blue-gray"
                           className="font-normal"
                         >
-                          {nombres}
+                          {apellidos}
                         </Typography>
                       </td>
                       <td className={classes}>
@@ -216,6 +228,18 @@ export const PatientsTable = ({
                             <DocumentIcon className="h-4 w-4 text-gray-900" />
                           </IconButton>
                         </Tooltip>
+
+                        {/* <Tooltip content="Eliminar paciente">
+                          <IconButton
+                            variant="text"
+                            size="sm"
+                            className="text-gray-900 hover:text-red-500"
+                            color="red"
+                            onClick={() => handleModalToDeletePatient(cedula)}
+                          >
+                            <TrashIcon className="h-4 w-4" />
+                          </IconButton>
+                        </Tooltip> */}
                       </td>
                     </tr>
                   )
@@ -279,6 +303,39 @@ export const PatientsTable = ({
             loading={isLoading}
           >
             <span>{isLoading ? 'Registrando...' : 'Registrar'}</span>
+          </Button>
+        </DialogFooter>
+      </Dialog>
+
+      {/* Modal to delete patient */}
+      <Dialog
+        open={isOpenModalToDeletePatient}
+        handler={handleModalToDeletePatient}
+      >
+        <DialogHeader>{`Eliminar paciente`}</DialogHeader>
+        <DialogBody>
+          <Typography color="red" className="text-center my-4">
+            ¿Está seguro de eliminar el paciente?
+          </Typography>
+        </DialogBody>
+        <DialogFooter>
+          <Button
+            variant="text"
+            color="red"
+            onClick={handleModalToDeletePatient}
+            className="mr-1"
+          >
+            <span>Cancelar</span>
+          </Button>
+          <Button
+            variant="gradient"
+            color="red"
+            onClick={() => {
+              handleDelete(currentCedula)
+              setIsOpenModalToDeletePatient(false)
+            }}
+          >
+            <span>Eliminar</span>
           </Button>
         </DialogFooter>
       </Dialog>

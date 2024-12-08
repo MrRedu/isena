@@ -41,7 +41,10 @@ export const ActiveMedications = ({ cedulaPaciente }) => {
     <>
       <Card className="rounded shadow overflow-hidden">
         <div className="flex justify-between items-center bg-blush-50 px-4 py-2 h-[52px]">
-          <Typography variant="h3" className="font-bold uppercase text-sm">
+          <Typography
+            variant="h3"
+            className="font-bold uppercase text-sm  text-pink-900"
+          >
             {`Medicamentos activos`}
           </Typography>
           {medications?.length > 0 && (
@@ -54,7 +57,7 @@ export const ActiveMedications = ({ cedulaPaciente }) => {
         {isLoading || medications === null ? (
           <DefaultSkeleton className="p-4" times={4} />
         ) : medications?.length > 0 ? (
-          <List className="w-full p-2 rounded-none">
+          <List className="w-full p-0 gap-0 rounded-none">
             {medications?.map(
               (
                 {

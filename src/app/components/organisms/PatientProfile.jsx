@@ -17,12 +17,12 @@ import { PencilIcon } from '@heroicons/react/24/outline'
 import { useState } from 'react'
 import { EditPatientForm } from './forms/EditPatientForm'
 export const PatientProfile = ({ cedulaPaciente }) => {
-  const { patient, isLoading, register, onSubmit, errors } = usePatient({
-    cedulaPaciente,
-  })
-
   const [openModal, setOpenModal] = useState(false)
   const handleOpenModal = () => setOpenModal(!openModal)
+  const { patient, isLoading, register, onSubmit, errors } = usePatient({
+    cedulaPaciente,
+    handleCloseModal: handleOpenModal,
+  })
 
   return (
     <>

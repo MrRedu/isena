@@ -8,7 +8,7 @@ export const AddVitalSignsForm = ({ vitalSign, handleChange }) => {
       <div className="grid md:grid-cols-2 gap-8 w-full">
         <Input
           value={vitalSign?.altura
-            .replace(/[^0-9.]/g, '') // Permitir solo dígitos y un punto decimal
+            .replace(/[^0-9]/g, '') // Permitir solo dígitos y un punto decimal
             .replace(/^0+/, '') // Eliminar ceros iniciales
             .replace(/(\..*)\..*/g, '$1') // Permitir solo un punto decimal
             .replace(
@@ -27,7 +27,7 @@ export const AddVitalSignsForm = ({ vitalSign, handleChange }) => {
         />
         <Input
           value={vitalSign?.peso
-            .replace(/[^0-9.]/g, '') // Permitir solo dígitos y un punto decimal
+            .replace(/[^0-9]/g, '') // Permitir solo dígitos y un punto decimal
             .replace(/^0+/, '') // Eliminar ceros iniciales
             .replace(/(\..*)\..*/g, '$1') // Permitir solo un punto decimal
             .replace(
@@ -48,7 +48,7 @@ export const AddVitalSignsForm = ({ vitalSign, handleChange }) => {
       <div className="grid md:grid-cols-2 gap-8 w-full">
         <Input
           value={vitalSign?.temperatura
-            .replace(/[^0-9.]/g, '') // Permitir solo dígitos y un punto decimal
+            .replace(/[^0-9]/g, '') // Permitir solo dígitos y un punto decimal
             .replace(/^0+/, '') // Eliminar ceros iniciales
             .replace(/(\..*)\..*/g, '$1') // Permitir solo un punto decimal
             .replace(

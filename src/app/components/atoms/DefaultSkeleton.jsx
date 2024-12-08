@@ -1,11 +1,12 @@
 import propTypes from 'prop-types'
 import { Typography } from '@/app/MTailwind'
+import { Fragment } from 'react'
 export function DefaultSkeleton({ className = '', times = 2 }) {
   return (
     <div className={`max-w-full animate-pulse w-full ${className}`}>
       <>
         {Array.from({ length: times }, (_, index) => (
-          <>
+          <Fragment key={index}>
             <Typography
               key={index}
               as="div"
@@ -21,7 +22,7 @@ export function DefaultSkeleton({ className = '', times = 2 }) {
             >
               &nbsp;
             </Typography>
-          </>
+          </Fragment>
         ))}
       </>
     </div>

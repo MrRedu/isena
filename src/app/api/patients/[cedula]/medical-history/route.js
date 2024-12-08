@@ -46,15 +46,21 @@ export async function POST(req, { params }) {
   try {
     const { type, title, description } = await req.json()
 
-    await connection.query('INSERT INTO tbl_antecedentes SET ?', {
-      cedula_paciente: params.cedula,
-      id_tipo_antecedente: type,
-      titulo: title,
-      descripcion: description,
-    })
+    const result = await connection.query(
+      'INSERT INTO tbl_antecedentes SET ?',
+      {
+        cedula_paciente: params.cedula,
+        id_tipo_antecedente: type,
+        titulo: title,
+        descripcion: description,
+      }
+    )
 
     return NextResponse.json(
-      { message: 'Medical history created successfully' },
+      {
+        id: result[0].insertId,
+        message: 'Medical history created successfully',
+      },
       { status: 201 }
     )
   } catch (error) {

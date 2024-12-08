@@ -5,6 +5,15 @@ import { toast } from 'sonner'
 export function useUsers({ initialStateUsers, handleCloseModal }) {
   const [users, setUsers] = useState(initialStateUsers)
   const [currentUser, setCurrentUser] = useState(null)
+  const [filter, setFilter] = useState('')
+  const handleFilterChange = e => {
+    setFilter(e.target.value)
+  }
+
+  // TODO: Mejorar esto con memo, etc
+  const filteredUsers = users.filter(user =>
+    user.correo?.toString().toLowerCase().includes(filter.toLowerCase())
+  )
 
   const handleChangeStatusCurrentUser = () =>
     setCurrentUser(prev => ({
@@ -55,11 +64,13 @@ export function useUsers({ initialStateUsers, handleCloseModal }) {
   }
 
   return {
-    users,
+    users: filteredUsers,
     currentUser,
     setCurrentUser,
     handleChangeStatusCurrentUser,
     handleChangeRolCurrentUser,
     handleUpdateUser,
+    handleFilterChange,
+    filterString: filter,
   }
 }

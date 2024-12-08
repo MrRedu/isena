@@ -8,9 +8,9 @@ export const metadata = {
 }
 
 const TABLE_HEADER_USERS = [
-  'Correo',
-  'Apellidos',
+  'Correo electrónico',
   'Nombres',
+  'Apellidos',
   'Rol',
   'Status',
   'Acciones',
