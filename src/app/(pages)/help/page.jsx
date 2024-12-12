@@ -26,7 +26,7 @@ const sections = [
   {
     title: 'Navegación',
     paragraph:
-      'El menú de navegación ubicado de manera vertical en la parte izquierda de la interfaz gráfica consta de cinco (9) botones; siete (7) de ellos se dirigen a la página que corresponde a su nombre, una (1) de ellas es un submenú solo visto por los usuarios con rol de administrador y la restante (1) es un submenú. Se encuentra dividido de la siguiente manera:',
+      'El menú de navegación ubicado de manera vertical en la parte izquierda de la interfaz gráfica consta de cinco (5) botones; siete (7) de ellos se dirigen a la página que corresponde a su nombre, una (1) de ellas es un submenú solo visto por los usuarios con rol de administrador y la restante (1) es un submenú. Se encuentra dividido de la siguiente manera:',
     srcImg: '/manual/navegacion.webp',
     altImg: 'Navegación',
   },
