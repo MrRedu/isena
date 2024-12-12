@@ -52,7 +52,7 @@ export function useMedicalHistory({ cedulaPaciente, handleOpenModal }) {
       const result = await response.json()
       toast.success('Antecedente registrado exitosamente')
       setMedicalHistory(prev => [
-        ...prev,
+        ...(prev || []),
         {
           id_antecedente: result.id,
           titulo: data.title,
