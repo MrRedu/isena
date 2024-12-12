@@ -1,6 +1,6 @@
 import propTypes from 'prop-types'
 import { TrashIcon } from '@heroicons/react/24/outline'
-import { IconButton } from '@material-tailwind/react'
+import { IconButton } from '@/app/MTailwind'
 import { useState } from 'react'
 
 export const MedicalHistoryItem = ({ item, index, handleDelete }) => {

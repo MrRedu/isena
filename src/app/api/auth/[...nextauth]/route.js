@@ -1,6 +1,7 @@
 import CredentialsProvider from 'next-auth/providers/credentials'
 import NextAuth from 'next-auth/next'
 import { validatePassword } from '@/services/authServices'
+import { connection } from '@/libs/mysql'
 
 async function login(credentials) {
   try {
@@ -17,6 +18,13 @@ async function login(credentials) {
     )
 
     if (!isPasswordValid) throw new Error('Incorrect credentials')
+
+    await connection.query('INSERT INTO tbl_bitacora SET ?', {
+      id_usuario: user.id_usuario,
+      descripcion_bitacora: `El usuario ${user.correo_usuario} ha iniciado sesión`,
+      fecha_registro: new Date(),
+    })
+
     return user
   } catch (error) {
     console.error('Error while logging in: ', error)

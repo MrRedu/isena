@@ -71,7 +71,12 @@ export const MedicalHistory = ({ cedulaPaciente }) => {
                 </Typography>
                 <ul className="text-sm">
                   {groupedAntecedentes[tipo].map((item, index) => (
-                    <MedicalHistoryItem item={item} key={index} index={index} handleDelete={handleDelete} />
+                    <MedicalHistoryItem
+                      item={item}
+                      key={index}
+                      index={index}
+                      handleDelete={handleDelete}
+                    />
                   ))}
                 </ul>
               </div>
@@ -90,7 +95,7 @@ export const MedicalHistory = ({ cedulaPaciente }) => {
           )}
         </div>
       </Card>
-      
+
       <Dialog open={openModal} handler={handleOpenModal}>
         <DialogHeader>{`Registrar signos vitales`}</DialogHeader>
         <DialogBody>

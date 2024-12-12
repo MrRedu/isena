@@ -45,6 +45,12 @@ export async function POST(req) {
       contrasena_usuario: password,
     })
 
+    await connection.query('INSERT INTO tbl_bitacora SET ?', {
+      id_usuario: result[0].insertId,
+      descripcion_bitacora: `El usuario ${email} se ha registrado`,
+      fecha_registro: new Date(),
+    })
+
     return NextResponse.json(
       {
         message: 'User created successfully',

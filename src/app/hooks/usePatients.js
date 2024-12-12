@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { toast } from 'sonner'
 import { validateEmail } from '@/utils/utils'
 import { patientInitialState } from '@/utils/consts'
@@ -15,10 +15,11 @@ export function usePatients({ initialStatePatients, handleOpenModal }) {
     setFilter(e.target.value)
   }
 
-  // TODO: Mejorar esto con memo, etc
-  const filteredPatients = patients.filter(patient =>
-    patient.cedula?.toString().toLowerCase().includes(filter.toLowerCase())
-  )
+  const filteredPatients = useMemo(() => {
+    return patients.filter(patient =>
+      patient.cedula?.toString().toLowerCase().includes(filter.toLowerCase())
+    )
+  }, [patients, filter])
 
   const handleChange = e => {
     const { name, value } = e.target

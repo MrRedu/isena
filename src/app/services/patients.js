@@ -43,7 +43,14 @@ export const numberOfPatients = async () => {
   const URL = `${process.env.NEXT_PUBLIC_API_URL}/patients/count`
   try {
     const result = await fetch(
-      URL
+      URL,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        cache: 'no-cache',
+      }
       //,{
       //    next: { revalidate: ONE_HOUR_IN_MILLISECONDS * 2 },
       // }

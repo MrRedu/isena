@@ -6,6 +6,7 @@ import {
   UserGroupIcon,
   UserPlusIcon,
 } from '@heroicons/react/24/outline'
+import { Typography } from '@/app/MTailwind'
 
 const handleDownloadExcel = ({ endpoint, fileName }) => {
   const url = `/api/xlsx/${endpoint}`
@@ -37,6 +38,11 @@ const administrativeReports = [
     title: 'Bitácora',
     subtitle: 'Movimiento de usuarios',
     icon: <CalendarDaysIcon size={36} className={`${classNameIcon}`} />,
+    onClick: () =>
+      handleDownloadExcel({
+        endpoint: 'logs',
+        fileName: 'bitacora',
+      }),
   },
 ]
 
@@ -57,7 +63,9 @@ const technicalReports = [
 export default function ReportsPage() {
   return (
     <Section>
-      <h2 className="font-bold mb-8">{`Página de reportes`}</h2>
+      <Typography variant="h2" className="font-bold text-2xl mb-8">
+        {`Página de reportes`}
+      </Typography>
 
       <div className="flex flex-col gap-4 mb-6">
         <h3 className="font-bold text-sm uppercase text-blush-900">

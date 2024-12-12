@@ -40,9 +40,12 @@ INSERT INTO `tbl_usuarios` (`id_usuario`, `nombres_usuario`, `apellidos_usuario`
 DROP TABLE IF EXISTS `tbl_bitacora`;
 CREATE TABLE `tbl_bitacora` (
   `id_registro` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID del registro de la bitácora',
+  `id_usuario` int(11) NOT NULL COMMENT 'ID del usuario que realizó la acción',
   `descripcion_bitacora` varchar(255) NOT NULL COMMENT 'Descripción del registro en la tabla',
-  `fecha_registro` DATETIME NOT NULL COMMENT 'Fecha y hora en que se realizó la acción' 
-)  ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla de bitácora/leyenda/logs';
+  `fecha_registro` DATETIME NOT NULL COMMENT 'Fecha y hora en que se realizó la acción',
+
+  FOREIGN KEY (`id_usuario`) REFERENCES `tbl_usuarios`(`id_usuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tabla de bitácora/leyenda/logs';
 
 DROP TABLE IF EXISTS `tbl_pacientes`;
 CREATE TABLE `tbl_pacientes` (

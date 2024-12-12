@@ -13,11 +13,11 @@ import {
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import { useState } from 'react'
 import { useLogs } from '@/hooks/useLogs'
+import { format } from '@formkit/tempo'
 
 export const LogsTable = ({ title, subtitle, tableHeader, tableRows = [] }) => {
-  const { logs } = useLogs({
+  const { logs, filter, handleFilterChange } = useLogs({
     initialStateLogs: tableRows,
-    // handleCloseModal: handleClose
   })
 
   const [currentPage, setCurrentPage] = useState(1)
@@ -27,7 +27,7 @@ export const LogsTable = ({ title, subtitle, tableHeader, tableRows = [] }) => {
   // Get current logs for the current page
   const indexOfLastUser = currentPage * logsPerPage
   const indexOfFirstUser = indexOfLastUser - logsPerPage
-  const currentPatients = logs.slice(indexOfFirstUser, indexOfLastUser)
+  const currentLogs = logs.slice(indexOfFirstUser, indexOfLastUser)
 
   // Pagination handlers
   const handleNextPage = () => {
@@ -58,7 +58,9 @@ export const LogsTable = ({ title, subtitle, tableHeader, tableRows = [] }) => {
             <div className="flex flex-col lg:flex-row w-full shrink-0 gap-2 md:w-max">
               <div className="w-full md:w-72">
                 <Input
-                  label="Usuario"
+                  value={filter}
+                  onChange={handleFilterChange}
+                  label="Correo del usuario"
                   icon={<MagnifyingGlassIcon className="h-5 w-5" />}
                 />
               </div>
@@ -86,46 +88,42 @@ export const LogsTable = ({ title, subtitle, tableHeader, tableRows = [] }) => {
                 ))}
               </tr>
             </thead>
-
             <tbody>
-              {currentPatients.map(
-                ({ id, usuario, fecha, acciones }, index) => {
-                  const isLast = index === tableRows.length - 1
-                  const classes = isLast
-                    ? 'p-4'
-                    : 'p-4 border-b border-blush-50'
-
-                  return (
-                    <tr key={`${id}`} className="even:bg-blush-300/10">
-                      <td className={classes}>
-                        <div className="flex items-center gap-3">
-                          <Typography variant="small" color="blue-gray">
-                            {usuario}
-                          </Typography>
-                        </div>
-                      </td>
-                      <td className={classes}>
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
-                          {fecha}
+              {currentLogs.map(({ id, correo, descripcion, fecha }, index) => {
+                const isLast = index === tableRows.length - 1
+                const classes = isLast ? 'p-4' : 'p-4 border-b border-blush-50'
+                return (
+                  <tr key={`${id}`} className="even:bg-blush-300/10">
+                    <td className={classes}>
+                      <div className="flex items-center gap-3">
+                        <Typography variant="small" color="blue-gray">
+                          {correo}
                         </Typography>
-                      </td>
-                      <td className={classes}>
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
-                          {acciones}
+                      </div>
+                    </td>
+                    <td className={classes}>
+                      <div className="flex items-center gap-3">
+                        <Typography variant="small" color="blue-gray">
+                          {descripcion}
                         </Typography>
-                      </td>
-                    </tr>
-                  )
-                }
-              )}
+                      </div>
+                    </td>
+                    <td className={classes}>
+                      <Typography
+                        variant="small"
+                        color="blue-gray"
+                        className="font-normal"
+                      >
+                        {format(
+                          fecha,
+                          { date: 'medium', time: 'medium' },
+                          'es'
+                        )}
+                      </Typography>
+                    </td>
+                  </tr>
+                )
+              })}
             </tbody>
           </table>
         </CardBody>
