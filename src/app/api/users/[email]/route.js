@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server'
 import { connection } from '@/libs/mysql'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '../../auth/[...nextauth]/route'
 
 export async function GET(req, { params }) {
   try {
@@ -90,6 +92,14 @@ export async function PUT(req, { params }) {
 
     // Ejecutar la consulta
     const result = await connection.query(query, paramsArray)
+
+    const { user } = await getServerSession(authOptions)
+
+    await connection.query('INSERT INTO tbl_bitacora SET ?', {
+      id_usuario: user.idUser,
+      descripcion_bitacora: `El usuario ${user.email} actualizó al usuario ${params.email}`,
+      fecha_registro: new Date(),
+    })
 
     return NextResponse.json(
       {
