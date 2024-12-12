@@ -1,5 +1,8 @@
 import { NextResponse } from 'next/server'
 import { connection } from '@/libs/mysql'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '../../auth/[...nextauth]/route'
+import { formatNumber } from '@/utils/utils'
 
 export async function GET(req, { params }) {
   try {
@@ -102,7 +105,9 @@ export async function PUT(req, { params }) {
       direccionPaciente,
     } = await req.json()
 
-    await connection.query(
+    const { user } = await getServerSession(authOptions)
+
+    const result = await connection.query(
       'UPDATE tbl_pacientes SET ? WHERE cedula_paciente = ?',
       [
         {
@@ -117,6 +122,19 @@ export async function PUT(req, { params }) {
         params.cedula,
       ]
     )
+
+    if (result[0].affectedRows === 0) {
+      return NextResponse.json(
+        { message: 'Patient not found' },
+        { status: 404 }
+      )
+    }
+
+    await connection.query('INSERT INTO tbl_bitacora SET ?', {
+      id_usuario: user.idUser,
+      descripcion_bitacora: `El usuario ${user.email} actualizó al paciente ${formatNumber(cedulaPaciente)}`,
+      fecha_registro: new Date(),
+    })
 
     return NextResponse.json(
       { message: 'User updated successfully' },
