@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 import Link from 'next/link'
 import {
-  DocumentIcon,
+  // DocumentIcon,
   EyeIcon,
   // TrashIcon
 } from '@heroicons/react/24/solid'
@@ -223,11 +223,11 @@ export const PatientsTable = ({
                           </Link>
                         </Tooltip>
 
-                        <Tooltip content="Imprimir historia">
+                        {/* <Tooltip content="Imprimir historia">
                           <IconButton variant="text" size="sm">
                             <DocumentIcon className="h-4 w-4 text-gray-900" />
                           </IconButton>
-                        </Tooltip>
+                        </Tooltip> */}
 
                         {/* <Tooltip content="Eliminar paciente">
                           <IconButton

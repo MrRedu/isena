@@ -13,10 +13,10 @@ import { usePatient } from '@/hooks/usePatients'
 import { format } from '@formkit/tempo'
 import { formatNumber, formatNumberToPhone } from '@/utils/utils'
 import { DefaultSkeleton } from '@/components/atoms/DefaultSkeleton'
-import { PencilIcon } from '@heroicons/react/24/outline'
+import { DocumentArrowDownIcon, PencilIcon } from '@heroicons/react/24/outline'
 import { useState } from 'react'
 import { EditPatientForm } from './forms/EditPatientForm'
-export const PatientProfile = ({ cedulaPaciente }) => {
+export const PatientProfile = ({ cedulaPaciente, toPDF }) => {
   const [openModal, setOpenModal] = useState(false)
   const handleOpenModal = () => setOpenModal(!openModal)
   const { patient, isLoading, register, onSubmit, errors } = usePatient({
@@ -37,6 +37,13 @@ export const PatientProfile = ({ cedulaPaciente }) => {
               onClick={handleOpenModal}
             >
               <PencilIcon className="h-6 w-6 stroke-3 text-blush-500" />
+            </IconButton>
+            <IconButton
+              className="!absolute -top-2 right-10"
+              variant="text"
+              onClick={toPDF}
+            >
+              <DocumentArrowDownIcon className="h-6 w-6 stroke-3 text-blush-500" />
             </IconButton>
 
             <h2 className="font-bold uppercase text-lg flex flex-col">
@@ -92,4 +99,5 @@ export const PatientProfile = ({ cedulaPaciente }) => {
 
 PatientProfile.propTypes = {
   cedulaPaciente: propTypes.string,
+  toPDF: propTypes.func,
 }
