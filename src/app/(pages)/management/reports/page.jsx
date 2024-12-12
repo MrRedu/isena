@@ -37,6 +37,11 @@ const administrativeReports = [
     title: 'Bitácora',
     subtitle: 'Movimiento de usuarios',
     icon: <CalendarDaysIcon size={36} className={`${classNameIcon}`} />,
+    onClick: () =>
+      handleDownloadExcel({
+        endpoint: 'logs',
+        fileName: 'bitacora',
+      }),
   },
 ]
 
