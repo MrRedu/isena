@@ -3,6 +3,7 @@ import { UserIcon } from '@heroicons/react/24/outline'
 import { CardDashboard } from '@/components/molecules/CardDashboard'
 import { numberOfUsers } from '@/services/users'
 import { numberOfPatients } from '@/services/patients'
+import { Typography } from '@/app/MTailwind'
 
 export const metadata = {
   title: 'Panel de control',
@@ -15,6 +16,9 @@ export default async function HomePage() {
 
   return (
     <Section>
+      <Typography variant="h2" className="font-bold text-2xl mb-8">
+        {`Panel de control`}
+      </Typography>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <CardDashboard
           title="Usuarios"
