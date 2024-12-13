@@ -61,7 +61,7 @@ export const AddVitalSignsForm = ({ vitalSign, handleChange }) => {
           type="text"
           variant="static"
           label="Temperatura"
-          placeholder="ej: 37.5 °C"
+          placeholder="ej: 37.50 °C"
           maxLength={5}
           required
         />
