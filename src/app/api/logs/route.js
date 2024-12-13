@@ -7,6 +7,7 @@ export async function GET() {
       SELECT b.*, u.correo_usuario 
       FROM tbl_bitacora b
       JOIN tbl_usuarios u ON b.id_usuario = u.id_usuario
+      ORDER BY b.fecha_registro DESC
     `
 
     const [result] = await connection.query(query)
