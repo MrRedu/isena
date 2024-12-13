@@ -51,6 +51,17 @@ export function usePatients({ initialStatePatients, handleOpenModal }) {
       .trim()
       .replace(/[\s()]/g, '')
 
+    const patientExists = await getPatientByCedula(
+      {
+        cedula: patient.cedulaPaciente,
+      },
+      { signal: null }
+    )
+
+    if (patientExists.message === 'OK') {
+      return toast.error('La cédula del paciente ya existe')
+    }
+
     if (!patient.correoPaciente) patient.correoPaciente = null
     if (!patient.direccionPaciente) patient.direccionPaciente = null
 
